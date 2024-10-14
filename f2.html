@@ -48,7 +48,7 @@
             border: 1px solid #444;
             padding: 30px;
             border-radius: 10px;
-            margin: auto;
+            margin:auto; 
             position: relative;
             background-color: #f8f9fa;
             cursor: pointer;
@@ -71,11 +71,14 @@
             font-size: 18px;
             color: #444;
             cursor: pointer;
+            
         }
 
         .upload-box p {
             color: #444;
             font-size: 14px;
+
+
         }
 
         #imgtitle {
@@ -83,18 +86,21 @@
             font-size: 1rem;
             font-weight: 300;
             letter-spacing: 0.2rem;
+            text-align: center;
         }
 
         #imgdesc {
             font-family: 'Arial', sans-serif;
             font-size: 0.875rem;
             color: #666;
+            text-align: center;
         }
 
         #imgddesc {
             font-family: 'Arial', sans-serif;
             font-size: 0.75rem;
             color: #999;
+            text-align: center;
         }
     </style>
 </head>
@@ -159,7 +165,7 @@
                 <label for="fileUpload" id="ff">UPLOAD A FILE OR IMAGE</label>
                 <input type="file" id="fileUpload" name="file">
             </div>
-            <p id="imgtitle" class="mt-4"> UPLOAD YOUR FLOORPLAN: </p>
+            <p id="imgtitle" class="mt-4"> FLOORPLAN UPLOAD: </p>
             <p id="imgdesc" class="mb-4"> some text : </p>
             <p id="imgddesc"> FLOORPLAN | 2024 </p>
         </form>
