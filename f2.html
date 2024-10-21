@@ -31,12 +31,6 @@
             text-decoration: none;
         }
 
-        body {
-            background-color: #f5f1e5;
-            color: #444;
-            font-family: 'Arial', sans-serif;
-        }
-
         div a {
             font-family: 'Helvetica', sans-serif;
             font-size: 20px;
@@ -44,19 +38,32 @@
             letter-spacing: 0.3rem;
         }
 
+        body {
+            background-color: #f5f1e5;
+            color: #444;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container-flex {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-top: 50px;
+            height: 100vh;
+        }
+
         .upload-box {
             border: 1px solid #444;
             padding: 30px;
             border-radius: 10px;
-            margin:auto; 
-            position: relative;
             background-color: #f8f9fa;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            width: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 900px;
             height: 600px;
-            line-height: 500px;
-            text-align: center;
         }
 
         .upload-box:hover {
@@ -71,14 +78,21 @@
             font-size: 18px;
             color: #444;
             cursor: pointer;
-            
         }
 
-        .upload-box p {
-            color: #444;
-            font-size: 14px;
+        #uploadedImage {
+            max-width: 900px;
+            max-height: 600px;
+            display: none;
+            /* Hidden until an image is uploaded */
+        }
 
-
+        /* Center imgtitle, imgdesc, and imgddesc */
+        #imgtitle,
+        #imgdesc,
+        #imgddesc {
+            text-align: center;
+            margin: 0;
         }
 
         #imgtitle {
@@ -86,21 +100,33 @@
             font-size: 1rem;
             font-weight: 300;
             letter-spacing: 0.2rem;
-            text-align: center;
         }
 
         #imgdesc {
             font-family: 'Arial', sans-serif;
             font-size: 0.875rem;
             color: #666;
-            text-align: center;
         }
 
         #imgddesc {
             font-family: 'Arial', sans-serif;
             font-size: 0.75rem;
             color: #999;
-            text-align: center;
+        }
+
+        /* New box for the right side */
+        .new-box {
+            border: 1px solid #444;
+            padding: 30px;
+            border-radius: 10px;
+            background-color: #f8f9fa;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 400px;
+            height: 600px;
         }
     </style>
 </head>
@@ -110,43 +136,27 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid pt-4">
             <div class="row w-100">
-
-                <!-- RENOVENIENCE brand (6 columns) -->
                 <div class="col-3">
                     <a class="navbar-brand ps-5 ms-2" href="#">RENOVENIENCE</a>
                 </div>
-
-                <!-- Navigation Links (4 columns) -->
                 <div class="col-7 d-flex justify-content-end">
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" id="ff"
-                                    style="font: size 10px;">ABOUT</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#" id="ff">PERSONALISE</a>
-                            </li>
+                            <li class="nav-item"><a class="nav-link active" aria-current="page" id="ff">ABOUT</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#" id="ff">PERSONALISE</a></li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false" id="ff">
-                                    FLOORPLAN
-                                </a>
+                                    aria-expanded="false" id="ff">FLOORPLAN</a>
                                 <ul class="dropdown-menu" style="background-color:#f5f1e5; border: 0px;">
                                     <li><a class="dropdown-item" href="#" id="ff">Upload your floorplan</a></li>
                                     <li><a class="dropdown-item" href="#" id="ff">Saved floorplans</a></li>
                                 </ul>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#" id="ff">APPOINTMENT</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#" id="ff">MARKETPLACE</a>
-                            </li>
+                            <li class="nav-item"><a class="nav-link" href="#" id="ff">APPOINTMENT</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#" id="ff">MARKETPLACE</a></li>
                         </ul>
                     </div>
                 </div>
-                <!-- Search bar (2 columns) -->
                 <div class="col-2 d-flex justify-content-end">
                     <form class=" d-flex" role="search">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -156,20 +166,53 @@
             </div>
         </div>
     </nav>
+    
+    <div class="container-flex">
+        <!-- Left Upload Box -->
+        <div class="upload-box" id="leftBox" onclick="document.getElementById('fileUpload').click()">
+            <label for="fileUpload" id="ff" style="display: block;">UPLOAD A FILE OR IMAGE</label>
+            <input type="file" id="fileUpload" name="file" accept="image/*" onchange="previewImage(event)">
+            <img id="uploadedImage" alt="Uploaded Image Preview">
+        </div>
 
-    <div class="container mt-5">
-
-        <form action="/upload" method="post" enctype="multipart/form-data">
-            <!-- File Upload Box -->
-            <div class="upload-box" onclick="document.getElementById('fileUpload').click()">
-                <label for="fileUpload" id="ff">UPLOAD A FILE OR IMAGE</label>
-                <input type="file" id="fileUpload" name="file">
-            </div>
-            <p id="imgtitle" class="mt-4"> FLOORPLAN UPLOAD: </p>
-            <p id="imgdesc" class="mb-4"> some text : </p>
-            <p id="imgddesc"> FLOORPLAN | 2024 </p>
-        </form>
+        <!-- Right New Box (appears after image upload) -->
+        <div class="new-box" id="rightBox">
+            <p></p>
+        </div>
     </div>
+
+    <script>
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const imagePreview = document.getElementById('uploadedImage');
+                    const uploadBox = document.getElementById('leftBox');
+                    const rightBox = document.getElementById('rightBox');
+
+                    // Display the uploaded image
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = 'block';
+
+                    // Hide the label once the image is uploaded
+                    document.querySelector('.upload-box label').style.display = 'none';
+
+                    // Set the width and height of the upload-box based on the image dimensions
+                    const img = new Image();
+                    img.src = e.target.result;
+                    img.onload = function () {
+                        uploadBox.style.width = `${img.width}px`;
+                        uploadBox.style.height = `${img.height}px`;
+
+                        // Show and center the second box on the right side
+                        rightBox.style.display = 'flex';
+                    };
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
 
 </body>
 
