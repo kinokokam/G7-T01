@@ -1,0 +1,65 @@
+#login {
+    width: 300px;
+    text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 150px
+}
+
+#forgetPw {
+    text-align: end;
+    margin-top: 10px;
+}
+
+#username {
+    width: 300px;
+    margin-top: 10px;
+    height: 35px;
+
+}
+
+#password {
+    width: 300px;
+    margin-top: 10px;
+    height: 35px;
+
+}
+
+#btnLogin {
+    text-align: center;
+}
+
+#btnLogin input {
+    width: 300px;
+    margin-top: 10px;
+
+}
+
+#otherLogin {
+    margin-top: 15px;
+}
+
+#otherLogin input {
+    width: 145px
+}
+
+
+#others {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+#others hr {
+    flex-grow: 1;
+}
+#others span {
+    white-space: nowrap;
+    padding: 0 10px;
+}
+
+#loginReturn{
+    text-align: center;
+    margin-top: 10px;
+}
