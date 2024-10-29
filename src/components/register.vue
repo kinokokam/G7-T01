@@ -33,3 +33,58 @@
         </div>
     </div> -->
 </template>
+
+<script>
+
+import { auth, firestore } from "../firebase";
+import { getFirestore, collection, addDoc } from 'firebase/firestore';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+
+
+export default {
+
+    data() {
+        return {
+            email: '',
+            username: '',
+            password: '',
+            gender: '',
+            contactNum: '',
+            otherSignIn: ''
+        };
+    },
+    firestore() {
+        return {
+            users: firestore.collection('users'),
+        }
+    },
+    methods: {
+        async registerAuth() {
+            try {
+                await createUserWithEmailAndPassword(auth, this.email, this.password);
+                // Initialised a firestore instance, connnect application to database
+                const firestore = getFirestore();
+                // Calling the collection "users" and interacting with it
+                const usersCollection = collection(firestore, 'users');
+
+                // Replace this with your actual login logic
+                const user = {
+                    email: this.email,
+                    username: this.username,
+                    gender: this.gender,
+                    contactNum: this.contactNum,
+                    otherSignIn: false
+                };
+
+                // add data in to database
+                const docRef = await addDoc(usersCollection, user);
+                console.log("Registration successful!");
+                console.log(auth);
+            } catch (err) {
+                this.error = err.message; // Display error message
+                console.error("Error during registration:", err);
+            }
+        },
+    }
+}
+</script>

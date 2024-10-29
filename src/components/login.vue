@@ -6,7 +6,7 @@
                     <h2 class="text-center">Login</h2>
                     <form @submit.prevent="handleLogin" class="mt-4">
                         <div class="mb-3">
-                            <input type="text" v-model="username" class="form-control" placeholder="Username" required>
+                            <input type="text" v-model="email" class="form-control" placeholder="Username" required>
                         </div>
                         <div class="mb-3">
                             <input type="password" v-model="password" class="form-control" placeholder="Password"
@@ -40,53 +40,64 @@
 
 <script>
 
-import { firestore } from "../firebase";
-import { getFirestore, collection, addDoc } from 'firebase/firestore';
-
+import { auth, firestore } from "../firebase";
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 export default {
 
     data() {
         return {
             users: [],
-            username: '',
-            password: ''
+            email: '',
+            password: '',
+            error: ''
         };
     },
     firestore() {
         return {
-            users: firestore.collection('users'),
+            users: firestore.collection('users').get(),
         }
     },
     methods: {
         async handleLogin() {
             try {
-                const firestore = getFirestore();
-                const usersCollection = collection(firestore, 'users');
-
-                // Example logic for handling login (usually you'd authenticate users)
-                // Replace this with your actual login logic
-                const user = {
-                    username: this.username,
-                    password: this.password // Do not store plain passwords in production!
-                };
-
-                // Simulating a login; replace with your login logic
-                const docRef = await addDoc(usersCollection, user);
-
-                // Toast.fire({
-                //     icon: 'success',
-                //     title: 'Login successful'
-                // });
-
-                // Redirect or perform other actions after successful login
-            } catch (error) {
-                console.error("Error logging in: ", error);
-                Toast.fire({
-                    icon: 'error',
-                    title: 'Login failed'
-                });
+                await signInWithEmailAndPassword(auth, this.email, this.password);
+                // Handle successful login (e.g., redirect)
+                console.log("Login successful!");
+            } catch (err) {
+                this.error = err.message; // Display error message
+                console.error("Error during login:", err);
+            
             }
+
+            // // Initialised a firestore instance, connnect application to database
+            // const firestore = getFirestore();
+            // // Calling the collection "users" and interacting with it
+            // const usersCollection = collection(firestore, 'users');
+            // const userList = await getDocs(usersCollection);
+            // // Transforms the fetched documents into an array of user objects, including their IDs
+            // const users = userList.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            // console.log(users); // Array of user objects
+
+            // const user = {
+            //     username: this.username,
+            //     password: this.password // Do not store plain passwords in production!
+            // };
+
+            // Toast.fire({
+            //     icon: 'success',
+            //     title: 'Login successful'
+            // });
+
+            // Redirect or perform other actions after successful login
+            // } catch (error) {
+            //     console.error("Error logging in: ", error);
+            //     Toast.fire({
+            //         icon: 'error',
+            //         title: 'Login failed'
+            //     });
+            // }
         },
         navigateToForgotPassword() {
             this.$router.push('/forgetPw');
