@@ -1,0 +1,125 @@
+.calendar-container {
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-container h1 {
+    text-align: center;
+    font-family: 'Helvetica', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 1rem;
+}
+
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7 columns for days of the week */
+    grid-gap: 0.5rem;
+    text-align: center;
+}
+
+.calendar div {
+    padding: 0.25rem;
+    background-color: #f8f9fa;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #444;
+    cursor: pointer;
+    min-width: 40px; /* Prevent distortion */
+    min-height: 40px; /* Prevent distortion */
+    display: flex; /* Center align text vertically */
+    justify-content: center;
+    align-items: center;
+}
+
+.calendar div:hover {
+    background-color: #ddd;
+}
+
+.calendar div.selected {
+    background-color: #343a40; /* Darker grey */
+    color: white;
+    font-weight: bold; /* Bold text for selected date */
+}
+
+.carousel-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+.carousel-controls button {
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.carousel-controls button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Booking form styling */
+.booking-form-container {
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.booking-form-container form {
+    width: 100%;
+}
+
+.booking-form-container h1 {
+    text-align: center;
+    font-family: 'Helvetica', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 1.5rem;
+}
+
+form label {
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    color: #444;
+}
+
+form input, form select {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+form button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #218838;
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+    .calendar {
+        grid-template-columns: repeat(7, 1fr); /* Adjust for smaller screens */
+    }
+}
