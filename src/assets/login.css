@@ -33,7 +33,7 @@
     margin-top: 15px;
 }
 
-#otherLogin input {
+#otherLogin button {
     width: 145px
 }
 
@@ -41,14 +41,15 @@
 #others {
     display: flex;
     align-items: center;
-    text-align: center;
+    /* text-align: center; */
 }
 
 #others hr {
-    flex-grow: 1;
+    flex-grow: 100;
 }
 #others span {
     white-space: nowrap;
+    margin: 0 5px;
 }
 
 #loginReturn{
