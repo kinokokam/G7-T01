@@ -52,7 +52,10 @@
                     <b>Email:</b> {{ item.email }} <br />
                     <b>Contact info:</b> {{ item.contact }}
                 </p>
+<<<<<<< Updated upstream
                 <button @click="saveToFavorites(item)" class="btn btn-primary">Save to Favorites</button>
+=======
+>>>>>>> Stashed changes
             </div>
         </div>
 
@@ -67,6 +70,7 @@
 
 <script>
 import { db } from '../path/to/firebase';
+<<<<<<< Updated upstream
 import { collection, getDocs, doc, setDoc } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 
@@ -159,6 +163,8 @@ export default {
 
 <script>
 import { db } from '../path/to/firebase';
+=======
+>>>>>>> Stashed changes
 import { collection, getDocs } from 'firebase/firestore';
 
 export default {
