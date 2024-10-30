@@ -1005,7 +1005,7 @@ nav#filter a.current {
 }
 .btn {
 	color: #000;
-	background: #EFE204;
+	/* background: #EFE204; */
 	box-shadow: none;
 	border-radius: 0;
 	padding: 12px 34px;

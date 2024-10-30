@@ -119,4 +119,5 @@ export default {
 
 <style scoped>
 /* Include your CSS here */
+@import "/src/assets/login.css";
 </style>
