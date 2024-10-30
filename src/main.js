@@ -1,5 +1,6 @@
-import "./assets/external.css";
-import "./assets/login.css";
+// import "src/assets/external.css";
+// import "src/assets/login.css";
+// import "./assets/appointmentBooking.css"
 
 import { createApp } from 'vue'
 import App from './App.vue'
@@ -10,8 +11,9 @@ import { createRouter, createWebHistory } from 'vue-router';
 // import Home from './components/Home.vue';
 import Login from './components/login.vue';
 import Register from './components/register.vue';
-import AppointmentList from "./components/appointmentList.vue";
-import BookingForm from "./components/bookingForm.vue";
+// import AppointmentList from "./components/appointmentList.vue";
+// import BookingForm from "./components/bookingForm.vue";
+import Booking from "./components/booking.vue";
 
 
 // Define routes
@@ -19,8 +21,9 @@ const routes = [
     // { path: '/', component: Home },
     { path: '/login', component: Login },
     { path: '/register', component: Register },
-    { path: '/appointmentList', component: AppointmentList},
-    { path: '/bookingForm', component: BookingForm}
+    // { path: '/appointmentList', component: AppointmentList},
+    // { path: '/bookingForm', component: BookingForm}
+    { path: '/booking', component: Booking},
 ];
 
 // Create the router instance

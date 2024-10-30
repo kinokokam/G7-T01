@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="col-lg-6 calendar-container">
     <h1>{{ currentMonthName }} {{ currentYear }}</h1>
     <div class="calendar">
       <div v-for="day in daysOfWeek" :key="day">{{ day }}</div>
