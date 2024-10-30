@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Real Estate Builders Free Responsive Website Templates - icon">
+	<meta name="author" content="webThemez.com">
+	<title>Free html5 responsive web template</title>
+	<link rel="favicon" href="assets/images/favicon.png">
+	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="assets/css/font-awesome.min.css">
+	<!-- Custom styles for our template -->
+	<link rel="stylesheet" href="assets/css/bootstrap-theme.css" media="screen">
+	<link rel="stylesheet" href="assets/css/style.css">
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="assets/js/html5shiv.js"></script>
+	<script src="assets/js/respond.min.js"></script>
+	<![endif]-->
+</head>
+
+<style>
+	#ff {
+		font-size: 0.8rem;
+		letter-spacing: 0.2rem;
+		color: #444;
+		font-weight: lighter;
+		text-decoration: none;
+	}
+
+	.container-flex {
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		margin-top: 50px;
+		height: 100vh;
+	}
+
+	.upload-box {
+		position: relative;
+		border: 1px solid #444;
+		border-radius: 10px;
+		background-color: #f8f9fa;
+		width: 900px;
+		height: 600px;
+		overflow: hidden;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.upload-box label {
+		font-size: 18px;
+		color: #444;
+		cursor: pointer;
+		z-index: 1;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+
+	.upload-box input[type="file"] {
+		display: none;
+	}
+
+	#uploadedImage {
+		max-width: 100%;
+		max-height: 100%;
+		display: none;
+		object-fit: contain;
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	.draggable {
+		position: absolute;
+		cursor: move;
+		z-index: 2;
+		width: 60px;
+		height: 60px;
+		transition: transform 0.3s;
+	}
+
+	.new-box {
+		border: 1px solid #444;
+		padding: 30px;
+		border-radius: 10px;
+		background-color: #f8f9fa;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 400px;
+		height: 600px;
+	}
+
+	.panel-container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 10px;
+		padding: 10px;
+		width: 300px;
+		background-color: #607d8b;
+		border-radius: 5px;
+	}
+
+	.panel-container h3 {
+		margin: 0;
+		padding: 10px;
+		background-color: #757575;
+		width: 100%;
+		text-align: center;
+		font-size: 1rem;
+		color: white;
+		border-radius: 5px;
+	}
+
+	.dropzone {
+		min-height: 300px;
+		width: 100%;
+		padding: 10px;
+		background-color: rgba(255, 255, 255, 0.2);
+		border: 2px dashed white;
+		border-radius: 5px;
+		display: none;
+		flex-direction: column;
+		gap: 10px;
+		align-items: center;
+		transition: background-color 0.3s;
+	}
+
+	.image-panel {
+		width: 200px;
+		height: auto;
+		cursor: move;
+		user-select: none;
+	}
+
+	.control-btn {
+		margin-top: 10px;
+		padding: 10px 20px;
+		color: white;
+		border: none;
+		border-radius: 5px;
+		cursor: pointer;
+	}
+
+	.reset-btn {
+		background-color: rgba(80, 55, 24, 0.7);
+	}
+
+	.reset-btn:hover {
+		background-color: #d32f2f;
+	}
+
+	.undo-btn {
+		background-color: #2196f3;
+	}
+
+	.undo-btn:hover {
+		background-color: #1976d2;
+	}
+
+	.right-box {
+		width: 500px;
+		background-color: rgba(245, 241, 229, 0.5);
+		border: 2px solid rgba(80, 55, 24, 0.7);
+		border-radius: 15px;
+
+
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+		font-family: 'Helvetica', sans-serif;
+	}
+
+	.panel-header {
+		font-size: 15px;
+		font-weight: bold;
+		text-align: center;
+		padding: 30px 10px;
+		font-family: 'Aboreto', cursive;
+		background-color: rgba(80, 55, 24, 0.7);
+		border-radius: 15px 15px 0 0;
+		color: white;
+		border-radius: 5px;
+	}
+
+	.panel-section {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+
+	}
+
+	.panel-section h4 {
+		font-size: 1rem;
+		color: #444;
+		font-family: 'Aboreto', cursive;
+		font-weight: bold;
+		margin: 0;
+		padding: 0;
+		text-transform: uppercase;
+		border-bottom: 1px solid #ccc;
+		padding-bottom: 5px;
+	}
+
+	.dropzone {
+		min-height: 60px;
+		background-color: #f8f9fa;
+		border: 1px dashed #ccc;
+		border-radius: 5px;
+		padding: 10px;
+		display: flex;
+		gap: 10px;
+		display: inline;
+		align-items: center;
+		overflow-x: scroll;
+		overflow-y: hidden;
+		white-space: nowrap;
+	}
+
+	.dropzone::-webkit-scrollbar {
+		height: 6px;
+	}
+
+	.dropzone img {
+		width: 200px;
+		height: auto;
+		cursor: move;
+		user-select: none;
+		margin: 0 5px;
+	}
+
+	.control-btn {
+		margin-top: 10px;
+		padding: 10px 20px;
+		color: white;
+		border: none;
+		border-radius: 5px;
+		cursor: pointer;
+	}
+
+	.control-btn:hover {
+		opacity: 0.8;
+	}
+
+	.toggle-btn {
+		background-color: rgba(80, 55, 24, 0.7);
+		color: white;
+		border: none;
+		border-radius: 5px;
+		padding: 5px 10px;
+		font-size: 0.8rem;
+		cursor: pointer;
+		margin-left: 10px;
+		outline: none;
+		transition: background-color 0.3s;
+	}
+
+	.toggle-btn:hover {
+		background-color: rgba(80, 55, 24, 0.9);
+	}
+</style>
+
+<body>
+	<!-- Fixed navbar -->
+	<div class="navbar navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+				<!-- Button for smallest screens -->
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span
+						class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+
+				<a class="navbar-brand" href="floorplan.html">
+					<img src="assets/images/logo.png"
+						style="width: 300px; height: auto; display:block; margin-top: -50px; margin-left: -120px;">
+				</a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav pull-right mainNav">
+					<li class="active"><a href="homepage.html" style="font-size: 13px;">Home</a></li>
+					<li><a href="about.html" style="font-size: 13px;">About</a></li>
+					<li><a href="services.html" style="font-size: 13px;">Services</a></li>
+					<li><a href="floorplan.html" style="font-size: 13px;">Floorplan</a></li>
+					<li><a href="projects.html" style="font-size: 13px;">Projects</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" style="font-size: 13px;">Pages <b
+								class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="sidebar-right.html">Right Sidebar</a></li>
+							<li><a href="#">Dummy Link1</a></li>
+							<li><a href="#">Dummy Link2</a></li>
+							<li><a href="#">Dummy Link3</a></li>
+						</ul>
+					</li>
+					<li><a href="contact.html" style="font-size: 13px;">Contact</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- /.navbar -->
+
+	<section class="secpadding">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="title-box clearfix">
+						<h2 class="title-box_primary" style="text-align: center; padding-top: 60px;">Floorplan</h2>
+					</div>
+					<p>Renovenience is designed to provide users with a flexible, interactive platform for customizing
+						and visualizing their living spaces.</p>
+
+					<p>We want to empower users to reimagine their interiors by giving them control over their design
+						process, ensuring that the final layout reflects their vision and lifestyle preferences.
+						It’s a practical and user-friendly tool for homeowners, designers, or anyone looking to optimize
+						their space before committing to physical changes.
+
+					</p>
+
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<div class="container-flex">
+		<!-- Left Upload Box -->
+		<div class="upload-box" id="leftBox" onclick="document.getElementById('fileUpload').click()">
+			<label for="fileUpload" id="uploadLabel">UPLOAD A FILE OR IMAGE</label>
+			<input type="file" id="fileUpload" name="file" accept="image/*" onchange="previewImage(event)">
+			<img id="uploadedImage" alt="Uploaded Image Preview">
+		</div>
+
+		<!-- Right New Box for Drag-and-Drop -->
+		<div class="right-box">
+			<div class="panel-header">
+				DRAG AND DROP OUR ICONS TO YOUR FLOORPLAN.
+			</div>
+			<div class="panel-section">
+				<h4 id="livingRoomHeader">LIVING ROOM ESSENTIALS
+					<button class="toggle-btn" onclick="toggleDropzone('livingRoomDropzone')">▼</button>
+				</h4>
+				<div class="dropzone">
+					<!-- Add draggable image icons here -->
+					<img src="assets/images/floorplan/doublebed.png" alt="doubleBed" class="image-panel" draggable="true">
+					<img src="assets/images/floorplan/doublebed.png" alt="doubleBed" class="image-panel" draggable="true">
+					<img src="assets/images/floorplan/kitchensink.png" alt="doubleBed" class="image-panel" draggable="true">
+					<img src="assets/images/floorplan/sofa.png" alt="doubleBed" class="image-panel" draggable="true">
+				</div>
+			</div>
+			<div class="panel-section">
+				<h4>BEDROOM ESSENTIALS</h4>
+				<div class="dropzone">
+					<!-- Add draggable image icons here -->
+				</div>
+			</div>
+			<div class="panel-section">
+				<h4>TOILET AMENITIES</h4>
+				<div class="dropzone">
+					<!-- Add draggable image icons here -->
+				</div>
+			</div>
+			<div class="panel-section">
+				<h4>DECORATIONS</h4>
+				<div class="dropzone">
+					<!-- Add draggable image icons here -->
+				</div>
+			</div>
+			<button class="control-btn reset-btn" onclick="resetFloorplan()">Reset</button>
+			<button class="control-btn undo-btn" onclick="undoLastAction()">Undo</button>
+		</div>
+
+	</div>
+
+	<script>
+
+		function toggleDropzone(dropzoneId) {
+			const dropzone = document.getElementById(dropzoneId);
+			if (dropzone.style.display === 'none' || dropzone.style.display === '') {
+				dropzone.style.display = 'flex'; // Show the dropzone
+			} else {
+				dropzone.style.display = 'none'; // Hide the dropzone
+			}
+		}
+		// Image Preview Function
+		function previewImage(event) {
+			const reader = new FileReader();
+			reader.onload = function () {
+				const uploadedImage = document.getElementById('uploadedImage');
+				uploadedImage.src = reader.result;
+				uploadedImage.style.display = 'block';
+
+				// Hide the label after image is uploaded
+				document.getElementById('uploadLabel').style.display = 'none';
+			};
+			reader.readAsDataURL(event.target.files[0]);
+		}
+
+		// Draggable Panel Functionality
+		const images = document.querySelectorAll('.image-panel');
+		const leftBox = document.getElementById('leftBox');
+		const choices = []; // Array to store user choices
+
+		images.forEach(image => {
+			image.addEventListener('dragstart', (e) => {
+				image.classList.add('dragging');
+				e.dataTransfer.setData('src', image.src);
+				e.dataTransfer.setData('width', image.offsetWidth);
+				e.dataTransfer.setData('height', image.offsetHeight);
+			});
+
+			image.addEventListener('dragend', () => {
+				image.classList.remove('dragging');
+			});
+		});
+
+		leftBox.addEventListener('dragover', (e) => {
+			e.preventDefault();
+		});
+
+		leftBox.addEventListener('drop', (e) => {
+			e.preventDefault();
+
+			const src = e.dataTransfer.getData('src');
+			const width = e.dataTransfer.getData('width');
+			const height = e.dataTransfer.getData('height');
+
+			const newImage = document.createElement('img');
+			newImage.src = src;
+			newImage.classList.add('draggable');
+			newImage.style.position = 'absolute';
+			newImage.style.width = `${width}px`;
+			newImage.style.height = `${height}px`;
+
+			// Calculate the correct position
+			newImage.style.left = `${e.offsetX - width / 2}px`;
+			newImage.style.top = `${e.offsetY - height / 2}px`;
+			newImage.style.resize = 'both';
+
+			// Make the new image draggable and rotatable
+			newImage.setAttribute('draggable', 'true');
+			newImage.style.resize = 'both'; // Enable resizing
+			newImage.style.overflow = 'hidden';
+			let rotation = 0;
+
+			newImage.addEventListener('click', () => {
+				rotation += 90;
+				newImage.style.transform = `rotate(${rotation}deg)`;
+			});
+
+			newImage.addEventListener('dragstart', (e) => {
+				e.dataTransfer.setData('text/plain', null);
+				newImage.classList.add('dragging');
+			});
+
+			newImage.addEventListener('dragend', (e) => {
+				newImage.classList.remove('dragging');
+				// Adjust the position on drag end
+				newImage.style.left = `${e.pageX - leftBox.offsetLeft - width / 2}px`;
+				newImage.style.top = `${e.pageY - leftBox.offsetTop - height / 2}px`;
+			});
+
+			leftBox.appendChild(newImage);
+			choices.push(newImage); // Add to choices array
+		});
+
+		// Reset Function
+		function resetFloorplan() {
+			choices.forEach(item => {
+				item.remove();
+			});
+			choices.length = 0; // Clear the array
+		}
+
+		// Undo Function
+		function undoLastAction() {
+			const lastItem = choices.pop();
+			if (lastItem) {
+				lastItem.remove();
+			}
+		}
+
+
+	</script>
+
+
+
+
+
+
+	<footer id="footer">
+
+		<div class="footer2">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 panel">
+						<div class="panel-body">
+							<p class="simplenav">
+								<a href="index.html">Home</a> |
+								<a href="about.html">About</a> |
+								<a href="services.html">Services</a> |
+								<a href="price.html">Price</a> |
+								<a href="projects.html">Projects</a> |
+								<a href="contact.html">Contact</a>
+							</p>
+						</div>
+					</div>
+
+					<div class="col-md-6 panel">
+						<div class="panel-body">
+							<p class="text-right">
+								Copyright &copy; 2024 renovenience
+							</p>
+						</div>
+					</div>
+
+				</div>
+				<!-- /row of panels -->
+			</div>
+		</div>
+	</footer>
+
+
+
+
+	<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<script src="assets/js/custom.js"></script>
+</body>
+
+</html>
