@@ -2,29 +2,20 @@
   <div>
     <h1>Book Your Appointment</h1>
     <form @submit.prevent="submitForm">
-      <label for="name">Full Name</label>
-      <input type="text" id="name" v-model="form.name" required />
+      <label for="name">Username</label>
+      <input type="text" id="name" v-model="form.username" disabled />
 
       <label for="email">Email Address</label>
-      <input type="email" id="email" v-model="form.email" required />
+      <input type="email" id="email" v-model="form.email" disabled />
 
       <label for="phone">Phone Number</label>
-      <input type="tel" id="phone" v-model="form.phone" required />
+      <input type="tel" id="phone" v-model="form.contactNum" disabled />
 
       <label for="agency">Agency</label>
-      <input
-        type="text"
-        id="agency"
-        v-model="form.agency"
-        @input="searchAgencies"
-      />
+      <input type="text" id="agency" v-model="form.agency" @input="searchAgencies" />
 
       <ul v-if="agencySuggestions.length" class="suggestions-list">
-        <li
-          v-for="agency in agencySuggestions"
-          :key="agency.id"
-          @click="selectAgency(agency.name)"
-        >
+        <li v-for="agency in agencySuggestions" :key="agency.id" @click="selectAgency(agency.name)">
           {{ agency.name }}
         </li>
       </ul>
@@ -36,6 +27,9 @@
 
 <script>
 // import axios from "axios";
+import { onAuthStateChanged } from "firebase/auth";
+import { getFirestore, collection, getDocs, query, where } from 'firebase/firestore';
+import { auth } from "../firebase";
 
 export default {
   name: "BookingForm",
@@ -43,13 +37,20 @@ export default {
   data() {
     return {
       form: {
-        name: "",
+        username: "",
         email: "",
-        phone: "",
+        contactNum: "",
         agency: "",
       },
+      user: "",
       agencySuggestions: [],
     };
+  },
+  async created() {
+    onAuthStateChanged(auth, async (user) => {
+      this.user = user.uid;
+      await this.fetchUserData();
+    });
   },
   methods: {
     searchAgencies() {
@@ -110,15 +111,28 @@ export default {
           );
         });
     },
-    resetForm() {
-      this.form = {
-        name: "",
-        email: "",
-        phone: "",
-        agency: "",
-      };
-      this.$emit("date-selected", null);
+    async fetchUserData() {
+      // Get User by ID
+      try {
+        const firestore = getFirestore();
+        const usersCollection = collection(firestore, 'users');
+        const q = query(usersCollection, where("__name__", "==", this.user)); // Use `__name__` to query by document ID
+        const querySnapshot = await getDocs(q);
+
+        if (!querySnapshot.empty) {
+          const data = querySnapshot.docs[0].data(); // Get the data from the first document
+          console.log(data)
+          this.form = data;
+          return data;
+        } else {
+          console.log("No such document!");
+          return null;
+        }
+      } catch (error) {
+        console.error("Error getting document:", error);
+      }
     },
+
   },
 };
 </script>

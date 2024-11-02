@@ -11,8 +11,6 @@ import { createRouter, createWebHistory } from 'vue-router';
 // import Home from './components/Home.vue';
 import Login from './components/login.vue';
 import Register from './components/register.vue';
-// import AppointmentList from "./components/appointmentList.vue";
-// import BookingForm from "./components/bookingForm.vue";
 import Booking from "./components/booking.vue";
 
 
@@ -21,8 +19,6 @@ const routes = [
     // { path: '/', component: Home },
     { path: '/login', component: Login },
     { path: '/register', component: Register },
-    // { path: '/appointmentList', component: AppointmentList},
-    // { path: '/bookingForm', component: BookingForm}
     { path: '/booking', component: Booking},
 ];
 
