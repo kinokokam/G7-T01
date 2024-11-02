@@ -66,7 +66,12 @@ label {
 	border-radius: 0px;
 }
 .navbar-inverse .navbar-brand img {
-	/* width: 171px; */
+	width: 100%;       /* Responsive width */
+    max-width: 150px;  /* Set maximum width for the logo */
+    height: auto;      /* Maintains aspect ratio */
+    display: block;
+	margin-top: -40px;
+	left: 20px
 }
 .section-title {
 	margin-bottom: 20px;
@@ -1038,6 +1043,7 @@ height:480px !important;
 	padding: 0 40px 30px 40px;
 	margin-top: 30px;
 }
+
 }
 
 @media (max-width: 767px) {
