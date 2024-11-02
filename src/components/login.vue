@@ -1,47 +1,63 @@
 <template>
-    <div class="container d-flex align-items-center justify-content-center vh-100">
-        <div class="row">
-            <div class="col-md-6 col-lg-4">
-                <div id="login">
-                    <h2 class="text-center">Login</h2>
-                    <form @submit.prevent="handleLogin" class="mt-4">
-                        <div class="mb-3">
-                            <input type="text" v-model="email" class="form-control" placeholder="Username" required>
-                        </div>
-                        <div class="mb-3">
-                            <input type="password" v-model="password" class="form-control" placeholder="Password"
-                                required>
-                        </div>
-                        <div class="mb-3">
-                            <a href="#" @click.prevent="navigateToForgotPassword">Forget password?</a>
-                        </div>
-                        <div class="mb-3">
-                            <button type="submit" class="btn btn-primary w-100">Login</button>
-                        </div>
-                        <div class="text-center mb-3" id="others">
-                            <hr><span>or</span>
-                            <hr>
-                        </div>
-                        <div class="d-flex justify-content-between" id="otherLogin">
-                            <button type="button" class="btn btn-danger w-48" @click="googleLogin">Google Login</button>
-                            <button type="button" class="btn btn-danger w-48" @click="facebookLogin">Facebook
-                                Login</button>
-                        </div>
-                    </form>
-                    <div class="mb-3">
-                        <router-link to="/register">Sign Up</router-link>
-                        <!-- <a href="#" @click.prevent="navigateSignUp()"></a> -->
-                    </div>
-                </div>
+  <div class="container d-flex align-items-center justify-content-center vh-100">
+    <div class="row w-100">
+      <!-- Login Section -->
+      <div class="col-md-6 col-lg-5 mx-auto">
+        <div id="login" class="p-4 border rounded shadow-sm">
+          <h2 class="text-center">Login</h2>
+          <form @submit.prevent="handleLogin" class="mt-4">
+            <div class="mb-3">
+              <input type="email" v-model="email" class="form-control" placeholder="Email" required />
             </div>
+            <div class="mb-3">
+              <input type="password" v-model="password" class="form-control" placeholder="Password" required />
+            </div>
+            <div class="mb-3 text-center">
+              <a href="#" @click.prevent="navigateToForgotPassword">Forgot password?</a>
+            </div>
+            <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
+            <div class="text-center my-3" id="others">
+              <hr /><span>or</span><hr />
+            </div>
+            <div class="d-flex justify-content-between otherLoginOptions">
+              <button type="button" class="btn btn-danger w-48" @click="googleLogin">Google Login</button>
+              <button type="button" class="btn btn-primary w-48" @click="facebookLogin">Facebook Login</button>
+            </div>
+          </form>
         </div>
+      </div>
+
+      <!-- Sign Up Section -->
+      <div class="col-md-6 col-lg-5 mx-auto">
+        <div id="register" class="p-4 border rounded shadow-sm">
+          <h2 class="text-center">Sign Up</h2>
+          <form @submit.prevent="handleSignUp" class="mt-4">
+            <div class="mb-3">
+              <input type="text" v-model="name" class="form-control" placeholder="Username" required />
+            </div>
+            <div class="mb-3">
+              <input type="email" v-model="email" class="form-control" placeholder="Email" required />
+            </div>
+            <div class="mb-3">
+              <input type="number" v-model="number" class="form-control" placeholder="Contact Number" required />
+            </div>
+            <div class="mb-3">
+              <input type="password" v-model="password" class="form-control" placeholder="Password" required />
+            </div>
+            <div class="mb-3">
+              <input type="password" v-model="confirmPassword" class="form-control" placeholder="Confirm Password" required />
+            </div>
+            <button type="submit" class="btn btn-success w-100">Sign Up</button>
+          </form>
+        </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
 
 import { auth, firestore } from "../firebase";
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
 export default {
@@ -71,33 +87,6 @@ export default {
             
             }
 
-            // // Initialised a firestore instance, connnect application to database
-            // const firestore = getFirestore();
-            // // Calling the collection "users" and interacting with it
-            // const usersCollection = collection(firestore, 'users');
-            // const userList = await getDocs(usersCollection);
-            // // Transforms the fetched documents into an array of user objects, including their IDs
-            // const users = userList.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-            // console.log(users); // Array of user objects
-
-            // const user = {
-            //     username: this.username,
-            //     password: this.password // Do not store plain passwords in production!
-            // };
-
-            // Toast.fire({
-            //     icon: 'success',
-            //     title: 'Login successful'
-            // });
-
-            // Redirect or perform other actions after successful login
-            // } catch (error) {
-            //     console.error("Error logging in: ", error);
-            //     Toast.fire({
-            //         icon: 'error',
-            //         title: 'Login failed'
-            //     });
-            // }
         },
         navigateToForgotPassword() {
             this.$router.push('/forgetPw');

@@ -1,4 +1,4 @@
-#login {
+/* #login {
     margin-top: 100px;
     width: 300px;
     text-align: center;
@@ -42,7 +42,6 @@
 #others {
     display: flex;
     align-items: center;
-    /* text-align: center; */
 }
 
 #others hr {
@@ -56,4 +55,45 @@
 
 #loginReturn{
     text-align: center;
+} */
+
+.w-48 {
+    width: 48%;
+  }
+  
+  /* Styling adjustments */
+  #login,
+  #register {
+    background-color: #ffffff;
+    height: 500px;
+  }
+  
+  .container {
+    max-width: 1200px;
+  }
+  
+  h2 {
+    color: #333;
+  }
+  
+  hr {
+    margin: 0 10px;
+    flex: 1;
+  }
+  #others {
+    display: flex;
+    align-items: center;
+}
+
+#others hr {
+    flex-grow: 100;
+    color: black;
+}
+#others span {
+    white-space: nowrap;
+    margin: 0 5px;
+}
+
+.otherLoginOptions{
+    margin-top: 30px;
 }
