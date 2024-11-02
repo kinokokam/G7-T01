@@ -53,64 +53,64 @@ export default {
     });
   },
   methods: {
-    searchAgencies() {
-      if (this.form.agency.length < 2) {
-        this.agencySuggestions = [];
-        return;
-      }
+    // searchAgencies() {
+    //   if (this.form.agency.length < 2) {
+    //     this.agencySuggestions = [];
+    //     return;
+    //   }
 
-      axios
-        .get(
-          `https://your-server-endpoint.com/api/renovation-agencies?query=${this.form.agency}`
-        )
-        .then((response) => {
-          this.agencySuggestions = response.data;
-        })
-        .catch((error) => {
-          console.error("Error fetching agencies:", error);
-          this.agencySuggestions = [];
-        });
-    },
-    selectAgency(agencyName) {
-      this.form.agency = agencyName;
-      this.agencySuggestions = [];
-    },
-    submitForm() {
-      if (!this.selectedDate) {
-        alert("Please select a date from the calendar.");
-        return;
-      }
+    //   axios
+    //     .get(
+    //       `https://your-server-endpoint.com/api/renovation-agencies?query=${this.form.agency}`
+    //     )
+    //     .then((response) => {
+    //       this.agencySuggestions = response.data;
+    //     })
+    //     .catch((error) => {
+    //       console.error("Error fetching agencies:", error);
+    //       this.agencySuggestions = [];
+    //     });
+    // },
+    // selectAgency(agencyName) {
+    //   this.form.agency = agencyName;
+    //   this.agencySuggestions = [];
+    // },
+    // submitForm() {
+    //   if (!this.selectedDate) {
+    //     alert("Please select a date from the calendar.");
+    //     return;
+    //   }
 
-      const appointmentData = {
-        ...this.form,
-        date: this.selectedDate.toISOString().split("T")[0],
-      };
+    //   const appointmentData = {
+    //     ...this.form,
+    //     date: this.selectedDate.toISOString().split("T")[0],
+    //   };
 
-      axios
-        .post(
-          "https://your-server-endpoint.com/api/appointments",
-          appointmentData
-        )
-        .then((response) => {
-          if (response.status === 200 || response.status === 201) {
-            alert(
-              `Appointment booked for ${this.form.name} on ${appointmentData.date}`
-            );
-            this.resetForm();
-            this.$emit("appointment-booked");
-          } else {
-            alert(
-              "There was an error booking your appointment. Please try again."
-            );
-          }
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-          alert(
-            "There was an error connecting to the server. Please try again."
-          );
-        });
-    },
+    //   axios
+    //     .post(
+    //       "https://your-server-endpoint.com/api/appointments",
+    //       appointmentData
+    //     )
+    //     .then((response) => {
+    //       if (response.status === 200 || response.status === 201) {
+    //         alert(
+    //           `Appointment booked for ${this.form.name} on ${appointmentData.date}`
+    //         );
+    //         this.resetForm();
+    //         this.$emit("appointment-booked");
+    //       } else {
+    //         alert(
+    //           "There was an error booking your appointment. Please try again."
+    //         );
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       console.error("Error:", error);
+    //       alert(
+    //         "There was an error connecting to the server. Please try again."
+    //       );
+    //     });
+    // },
     async fetchUserData() {
       // Get User by ID
       try {

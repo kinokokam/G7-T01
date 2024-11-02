@@ -2,11 +2,10 @@
   <div class="col-lg-6 calendar-container">
     <h1>{{ currentMonthName }} {{ currentYear }}</h1>
     <div class="calendar">
-      <div v-for="day in daysOfWeek" :key="day">{{ day }}</div>
-      <div v-for="n in firstDayOffset" :key="'empty-' + n"></div>
-      <div v-for="day in daysInMonth" :key="day" 
-           :class="{ 'selected': isSelected(day) }" 
-           @click="selectDate(day)">
+      <div class="day" v-for="day in daysOfWeek" :key="day">{{ day }}</div>
+      <div class="empty" v-for="n in firstDayOffset" :key="'empty-' + n"></div>
+      <div v-for="day in daysInMonth" :key="day" :class="{ 'selected': isSelected(day), 'disabled': isPast(day) } "
+        @click="!isPast(day) && selectDate(day)">
         {{ day }}
       </div>
     </div>
@@ -54,14 +53,22 @@ export default {
     }
   },
   methods: {
+
+    isPast(day) {
+      const today = new Date();
+      const date = new Date(this.currentYear, this.currentMonth, day);
+
+      // Return true if the date is before today
+      return date < today.setHours(0, 0, 0, 0);
+    },
     selectDate(day) {
       this.$emit('date-selected', new Date(this.currentYear, this.currentMonth, day));
     },
     isSelected(day) {
-      return this.selectedDate && 
-             this.selectedDate.getDate() === day && 
-             this.selectedDate.getMonth() === this.currentMonth && 
-             this.selectedDate.getFullYear() === this.currentYear;
+      return this.selectedDate &&
+        this.selectedDate.getDate() === day &&
+        this.selectedDate.getMonth() === this.currentMonth &&
+        this.selectedDate.getFullYear() === this.currentYear;
     },
     nextMonth() {
       if (!this.isNextDisabled) {

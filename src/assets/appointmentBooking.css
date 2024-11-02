@@ -116,6 +116,13 @@ form button {
 form button:hover {
     background-color: #218838;
 }
+.disabled, .day, .empty {
+    pointer-events: none; /* Prevent click events */
+  }
+
+.calendar div.disabled{
+    background-color: #ccc;
+}
 
 /* Responsive styling */
 @media (max-width: 768px) {
