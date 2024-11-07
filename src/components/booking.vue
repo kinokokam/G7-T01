@@ -48,29 +48,6 @@ export default {
         updateSelectedDate(date) {
             this.selectedDate = date;
         },
-
-        async getUserInfo() {
-            // // Get User by ID
-            // try {
-            //     const firestore = getFirestore();
-            //     const usersCollection = collection(firestore, 'users');
-            //     const userList = getDocs(usersCollection);
-            //     const q = query(usersCollection, where("__name__", "==", user.uid)); // Use `__name__` to query by document ID
-            //     const querySnapshot = await getDocs(q);
-
-            //     if (!querySnapshot.empty) {
-            //         const data = querySnapshot.docs[0].data(); // Get the data from the first document
-            //         console.log(data.contactNum);
-            //         return data;
-            //     } else {
-            //         console.log("No such document!");
-            //         return null;
-            //     }
-            // } catch (error) {
-            //     console.error("Error getting document:", error);
-            // }
-        },
-
         submitBooking() {
             // const user = auth.currentUser;
             try {
@@ -84,6 +61,7 @@ export default {
                 };
                 // add data in to database
                 const docRef = addDoc(bookingCollection, booking);
+                
                 console.log("Booking successful created!");
             } catch (err) {
                 this.error = err.message; // Display error message
