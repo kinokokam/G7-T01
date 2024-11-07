@@ -1,6 +1,4 @@
 <script setup>
-import login from './components/login.vue'
-import register from './components/register.vue'
 
 </script>
 
@@ -29,6 +27,16 @@ export default {
                 console.log("No user is logged in.");
             }
         });
+    }, methods:{
+        async logout() {
+      try {
+        await signOut(auth); // Clear authentication and log out
+        this.user = null;    // Clear user data in the component
+        this.$router.push("/login"); // Redirect to login page after logout
+      } catch (error) {
+        console.error("Error logging out:", error);
+      }
+    },
     }
 };
 
