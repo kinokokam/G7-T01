@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Book Your Appointment</h1>
-    <form @submit.prevent="submitForm">
+    <form>
       <label for="name">Username</label>
       <input type="text" id="name" v-model="form.username" disabled />
 
@@ -12,15 +12,13 @@
       <input type="tel" id="phone" v-model="form.contactNum" disabled />
 
       <label for="agency">Agency</label>
-      <input type="text" id="agency" v-model="form.agency" @input="searchAgencies" />
-
-      <ul v-if="agencySuggestions.length" class="suggestions-list">
-        <li v-for="agency in agencySuggestions" :key="agency.id" @click="selectAgency(agency.name)">
-          {{ agency.name }}
-        </li>
-      </ul>
-
-      <button type="submit">Book Appointment</button>
+      <!-- <input type="text" id="agency" v-model="form.agency" @input="searchAgencies" /> -->
+      <select v-model="selectedCompany">
+        <option v-for="company in companies" :key="id" :value="company.id">
+          {{ company.id }}
+        </option>
+      </select>
+      <button type="submit" @click="submitForm">Book Appointment</button>
     </form>
   </div>
 </template>
@@ -40,77 +38,21 @@ export default {
         username: "",
         email: "",
         contactNum: "",
-        agency: "",
+        company: "",
       },
       user: "",
-      agencySuggestions: [],
+      companies: [],
+      selectedCompany:'',
     };
   },
   async created() {
     onAuthStateChanged(auth, async (user) => {
       this.user = user.uid;
       await this.fetchUserData();
+      await this.getAllCompanies();
     });
   },
   methods: {
-    // searchAgencies() {
-    //   if (this.form.agency.length < 2) {
-    //     this.agencySuggestions = [];
-    //     return;
-    //   }
-
-    //   axios
-    //     .get(
-    //       `https://your-server-endpoint.com/api/renovation-agencies?query=${this.form.agency}`
-    //     )
-    //     .then((response) => {
-    //       this.agencySuggestions = response.data;
-    //     })
-    //     .catch((error) => {
-    //       console.error("Error fetching agencies:", error);
-    //       this.agencySuggestions = [];
-    //     });
-    // },
-    // selectAgency(agencyName) {
-    //   this.form.agency = agencyName;
-    //   this.agencySuggestions = [];
-    // },
-    // submitForm() {
-    //   if (!this.selectedDate) {
-    //     alert("Please select a date from the calendar.");
-    //     return;
-    //   }
-
-    //   const appointmentData = {
-    //     ...this.form,
-    //     date: this.selectedDate.toISOString().split("T")[0],
-    //   };
-
-    //   axios
-    //     .post(
-    //       "https://your-server-endpoint.com/api/appointments",
-    //       appointmentData
-    //     )
-    //     .then((response) => {
-    //       if (response.status === 200 || response.status === 201) {
-    //         alert(
-    //           `Appointment booked for ${this.form.name} on ${appointmentData.date}`
-    //         );
-    //         this.resetForm();
-    //         this.$emit("appointment-booked");
-    //       } else {
-    //         alert(
-    //           "There was an error booking your appointment. Please try again."
-    //         );
-    //       }
-    //     })
-    //     .catch((error) => {
-    //       console.error("Error:", error);
-    //       alert(
-    //         "There was an error connecting to the server. Please try again."
-    //       );
-    //     });
-    // },
     async fetchUserData() {
       // Get User by ID
       try {
@@ -133,6 +75,26 @@ export default {
       }
     },
 
+    async getAllCompanies() {
+      // Get all Company Name
+      try {
+        const firestore = getFirestore();
+        const companyCollection = collection(firestore, 'id-companies');
+        const querySnapshot = await getDocs(companyCollection);
+        this.companies = querySnapshot.docs.map(doc => ({
+          id: doc.id
+        }));
+        console.log(this.companies)
+        this.selectedCompany = this.companies[0].id;
+      } catch (error) {
+        console.error("Error getting document:", error);
+      }
+    },
+
+    // submitForm() {
+    //   this.$emit("username", this.form.username);
+    //   this.$emit("company", this.selectedCompany);
+    // }
   },
 };
 </script>
