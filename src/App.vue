@@ -27,16 +27,17 @@ export default {
                 console.log("No user is logged in.");
             }
         });
-    }, methods:{
+    }, methods: {
         async logout() {
-      try {
-        await signOut(auth); // Clear authentication and log out
-        this.user = null;    // Clear user data in the component
-        this.$router.push("/login"); // Redirect to login page after logout
-      } catch (error) {
-        console.error("Error logging out:", error);
-      }
-    },
+            try {
+                await signOut(auth); // Clear authentication and log out
+                this.user = null;    // Clear user data in the component
+                this.$router.push("/login"); // Redirect to login page after logout
+                console.log("logout")
+            } catch (error) {
+                console.error("Error logging out:", error);
+            }
+        },
     }
 };
 
