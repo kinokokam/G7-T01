@@ -13,16 +13,14 @@
                             <input type="password" v-model="password" class="form-control" placeholder="Password"
                                 required />
                         </div>
-                        <div class="mb-3 text-center">
-                            <a href="#" @click.prevent="navigateToForgotPassword">Forgot password?</a>
-                        </div>
                         <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
                         <div class="text-center my-3" id="others">
                             <hr /><span>or</span>
                             <hr />
                         </div>
                         <div class="d-flex justify-content-between otherLoginOptions">
-                            <button type="button" class="btn btn-danger w-48" @click="logout">Google Login</button>
+                            <button type="button" class="btn btn-danger w-100" @click="googleLogin">Google
+                                Login</button>
                         </div>
                     </form>
                 </div>
@@ -79,11 +77,36 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
                         @click="refreshPage">Ok</button>
-                    <!-- <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Back to H</button> -->
                 </div>
             </div>
         </div>
     </div>
+    <!-- End of Login Modal -->
+
+    <!-- Register Bootstrap Modal -->
+    <div class="modal fade" id="registerSuccessModal" tabindex="-1" aria-labelledby="registerSuccessModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registerSuccessModalLabel">Register Successful</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Welcome {{ username }}!</strong></p>
+                    <ul>
+
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                        @click="refreshPage">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Register Modal -->
+
 </template>
 
 <script>
@@ -91,9 +114,9 @@
 // import { auth, firestore } from "../firebase";
 // import { signInWithEmailAndPassword } from 'firebase/auth';
 
-import { auth, firestore } from "../firebase";
-import { getFirestore, collection, addDoc, getDocs, query, where } from 'firebase/firestore';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth';
+import { auth, firestore, provider } from "../firebase";
+import { getFirestore, collection, addDoc, getDocs, query, where, setDoc, doc } from 'firebase/firestore';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, signInWithPopup } from 'firebase/auth';
 
 export default {
 
@@ -153,7 +176,7 @@ export default {
                     this.currentUserName = data.username;
                     console.log(this.currentUserName)
 
-                    // Booking successfully created, show the success modal
+                    // login successfully, show the success modal
                     const modalElement = new bootstrap.Modal(document.getElementById('loginSuccessModal'));
                     modalElement.show();
                     return data;
@@ -163,7 +186,6 @@ export default {
                 }
 
 
-                console.log(this.user)
             } catch (err) {
                 this.error = err.message; // Display error message
                 console.error("Error during login:", err);
@@ -192,6 +214,9 @@ export default {
                 console.log("Registration successful!");
                 console.log(auth);
                 this.isAuthenticated = true;
+                // Booking successfully created, show the success modal
+                const modalElement = new bootstrap.Modal(document.getElementById('registerSuccessModal'));
+                modalElement.show();
 
             } catch (error) {
                 // Handle Firebase-specific errors
@@ -212,17 +237,42 @@ export default {
             //     this.$router.push("/booking");
             //   }
         },
-        navigateToForgotPassword() {
-            this.$router.push('/forgetPw');
-        },
         navigateSignUp() {
             this.$router.push('/register');
         },
-        googleLogin() {
+        async googleLogin() {
             // Handle Google login logic here
-            console.log('Google Login');
+
+            try {
+                // Sign in with Google
+                const result = await signInWithPopup(auth, provider);
+                // The signed-in user info
+                this.user = result.user;
+                console.log('User Info:', this.user);
+
+                // Initialised a firestore instance, connnect application to database
+                const firestore = getFirestore();
+                // Calling the collection "users" and interacting with it
+                const usersCollection = collection(firestore, 'users');
+
+                const user = {
+                    email: this.user.email,
+                    username: this.user.displayName,
+                    gender: '',
+                    contactNum: this.contactNum,
+                    otherSignIn: true
+                };
+                // await addDoc(usersCollection, user, this.user.uid);
+                // Use setDoc to set the document ID as the user's UID
+                const userRef = doc(firestore, 'users', this.user.uid); // Set document ID as user UID
+                await setDoc(userRef, user);  // Store the user data
+            } catch (error) {
+                console.error('Error during Google sign-in:', error.message);
+            }
+
         },
-        
+
+        // Logout Code
         async logout() {
             try {
                 await signOut(auth); // Clear authentication and log out
