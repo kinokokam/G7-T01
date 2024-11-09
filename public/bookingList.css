@@ -1,0 +1,32 @@
+.appointment-list {
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.appointment-list h2 {
+    margin-bottom: 1rem;
+    font-family: 'Helvetica', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #444;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.table th {
+    font-weight: bold;
+    background-color: #f8f9fa;
+}
