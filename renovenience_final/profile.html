@@ -2,779 +2,35 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Real Estate Builders Free Responsive Website Templates - icon">
-    <meta name="author" content="webThemez.com">
-    <title></title>
-    <link rel="favicon" href="assets/images/favicon.png">
-    <link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/css/bootstrap-theme.css" media="screen">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel='stylesheet' id='camera-css' href='assets/css/camera.css' type='text/css' media='all'>
+    <title>vCard - Personal Portfolio</title>
 
+    <!--
+    - favicon
+  -->
+    <link rel="shortcut icon" href="port/assets/images/logo.ico" type="image/x-icon">
 
-    <link href="assets/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-    <link href="assets/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="assets/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
-    <script src="assets/js2/main.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!--
+    - custom css link
+  -->
+    <link rel="stylesheet" href="profile.css">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-
-
+    <!--
+    - google font link
+  -->
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-	<script src="assets/js/html5shiv.js"></script>
-	<script src="assets/js/respond.min.js"></script>
-	<![endif]-->
 </head>
 
-
-<style>
-    :root {
-
-        /**
- * colors
- */
-
-        /* gradient */
-
-        --bg-gradient-onyx: linear-gradient(to bottom right,
-                hsl(240, 1%, 25%) 3%,
-                hsl(0, 0%, 19%) 97%);
-        --bg-gradient-jet: linear-gradient(to bottom right,
-                hsla(240, 1%, 18%, 0.251) 0%,
-                hsla(240, 2%, 11%, 0) 100%), hsl(240, 2%, 13%);
-        --bg-gradient-yellow-1: linear-gradient(to bottom right,
-                hsl(45, 100%, 71%) 0%,
-                hsla(36, 100%, 69%, 0) 50%);
-        --bg-gradient-yellow-2: linear-gradient(135deg,
-                hsla(45, 100%, 71%, 0.251) 0%,
-                hsla(35, 100%, 68%, 0) 59.86%), hsl(240, 2%, 13%);
-        --border-gradient-onyx: linear-gradient(to bottom right,
-                hsl(0, 0%, 25%) 0%,
-                hsla(0, 0%, 25%, 0) 50%);
-        --text-gradient-yellow: linear-gradient(to right,
-                hsl(45, 100%, 72%),
-                hsl(35, 100%, 68%));
-
-        /* solid */
-
-        --jet: hsl(0, 0%, 22%);
-        --onyx: hsl(240, 1%, 17%);
-        --eerie-black-1: hsl(240, 2%, 13%);
-        --eerie-black-2: hsl(240, 2%, 12%);
-        --smoky-black: hsl(0, 0%, 7%);
-        --white-1: hsl(0, 0%, 100%);
-        --white-2: hsl(0, 0%, 98%);
-        --orange-yellow-crayola: hsl(45, 100%, 72%);
-        --vegas-gold: hsl(45, 54%, 58%);
-        --light-gray: hsl(0, 0%, 84%);
-        --light-gray-70: hsla(0, 0%, 84%, 0.7);
-        --bittersweet-shimmer: hsl(0, 43%, 51%);
-
-        /**
- * typography
- */
-
-        /* font-family */
-        --ff-poppins: 'Poppins', sans-serif;
-
-        /* font-size */
-        --fs-1: 24px;
-        --fs-2: 18px;
-        --fs-3: 17px;
-        --fs-4: 16px;
-        --fs-5: 15px;
-        --fs-6: 14px;
-        --fs-7: 13px;
-        --fs-8: 11px;
-
-        /* font-weight */
-        --fw-300: 300;
-        --fw-400: 400;
-        --fw-500: 500;
-        --fw-600: 600;
-
-        /**
- * shadow
- */
-
-        --shadow-1: -4px 8px 24px hsla(0, 0%, 0%, 0.25);
-        --shadow-2: 0 16px 30px hsla(0, 0%, 0%, 0.25);
-        --shadow-3: 0 16px 40px hsla(0, 0%, 0%, 0.25);
-        --shadow-4: 0 25px 50px hsla(0, 0%, 0%, 0.15);
-        --shadow-5: 0 24px 80px hsla(0, 0%, 0%, 0.25);
-
-        /**
- * transition
- */
-
-        --transition-1: 0.25s ease;
-        --transition-2: 0.5s ease-in-out;
-
-    }
-
-
-
-    *,
-    *::before,
-    *::after {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    a {
-        text-decoration: none;
-    }
-
-    li {
-        list-style: none;
-    }
-
-    img,
-    ion-icon,
-    a,
-    button,
-    time,
-    span {
-        display: block;
-    }
-
-    button {
-        font: inherit;
-        background: none;
-        border: none;
-        text-align: left;
-        cursor: pointer;
-    }
-
-    input,
-    textarea {
-        display: block;
-        width: 100%;
-        background: none;
-        font: inherit;
-    }
-
-    ::selection {
-        background: var(--orange-yellow-crayola);
-        color: var(--smoky-black);
-    }
-
-    :focus {
-        outline-color: var(--orange-yellow-crayola);
-    }
-
-    html {
-        font-family: var(--ff-poppins);
-    }
-
-    body {
-        background: var(--smoky-black);
-    }
-
-    .sidebar,
-    article {
-        background-color: rgb(66, 44, 18);
-        border: 1px solid var(--jet);
-        border-radius: 20px;
-        padding: 15px;
-        box-shadow: var(--shadow-1);
-        z-index: 1;
-    }
-
-    .separator {
-        width: 100%;
-        height: 1px;
-        background: #f5f1e5;
-        margin: 16px 0;
-    }
-
-    .icon-box {
-        position: relative;
-        background: rgb(80, 55, 24);
-        width: 30px;
-        height: 30px;
-        border-radius: 8px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 16px;
-        color: rgb(80, 55, 24);
-        box-shadow: var(--shadow-1);
-        z-index: 1;
-    }
-
-    .icon-box::before {
-        content: "";
-        position: absolute;
-        inset: 1px;
-        background: #f5f1e5;
-        border-radius: inherit;
-        z-index: -1;
-    }
-
-    .icon-box ion-icon {
-        --ionicon-stroke-width: 35px;
-    }
-
-    article {
-        display: none;
-    }
-
-    article.active {
-        display: block;
-        animation: fade 0.5s ease backwards;
-    }
-
-    @keyframes fade {
-        0% {
-            opacity: 0;
-        }
-
-        100% {
-            opacity: 1;
-        }
-    }
-
-    .h2,
-    .h3,
-    .h4,
-    .h5 {
-        color: #f5f1e5;
-        text-transform: capitalize;
-    }
-
-    .h2 {
-        font-size: var(--fs-1);
-    }
-
-    .h3 {
-        font-size: var(--fs-2);
-    }
-
-    .h4 {
-        font-size: var(--fs-4);
-    }
-
-    .h5 {
-        font-size: var(--fs-7);
-        font-weight: var(--fw-500);
-    }
-
-    .article-title {
-        position: relative;
-        padding-bottom: 7px;
-    }
-
-    .article-title::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 30px;
-        height: 3px;
-        background: #f5f1e5;
-        border-radius: 3px;
-    }
-
-    .has-scrollbar::-webkit-scrollbar {
-        width: 5px;
-        /* for vertical scrollbar */
-        height: 5px;
-        /* for horizontal scrollbar */
-    }
-
-    .has-scrollbar::-webkit-scrollbar-track {
-        background: var(--onyx);
-        border-radius: 5px;
-    }
-
-    .has-scrollbar::-webkit-scrollbar-thumb {
-        background: #f5f1e5;
-        border-radius: 5px;
-    }
-
-    .has-scrollbar::-webkit-scrollbar-button {
-        width: 20px;
-    }
-
-    .content-card {
-        position: relative;
-        background: var(--border-gradient-onyx);
-        padding: 15px;
-        padding-top: 45px;
-        border-radius: 14px;
-        box-shadow: var(--shadow-2);
-        cursor: pointer;
-        z-index: 1;
-    }
-
-    .content-card::before {
-        content: "";
-        position: absolute;
-        inset: 1px;
-        background: var(--bg-gradient-jet);
-        border-radius: inherit;
-        z-index: -1;
-    }
-
-    main {
-        margin: 15px 12px;
-        margin-bottom: 75px;
-        min-width: 259px;
-    }
-
-    .sidebar {
-        margin-bottom: 15px;
-        max-height: 112px;
-        overflow: hidden;
-        transition: var(--transition-2);
-    }
-
-    .sidebar.active {
-        max-height: 405px;
-    }
-
-    .sidebar-info {
-        position: relative;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        gap: 15px;
-    }
-
-    .avatar-box {
-        background: #f5f1e5;
-        border-radius: 20px;
-    }
-
-    .info-content .name {
-        color: #f5f1e5;
-        font-size: var(--fs-3);
-        font-weight: var(--fw-500);
-        letter-spacing: -0.25px;
-        margin-bottom: 10px;
-    }
-
-    .info-content .title {
-        color: rgb(80, 55, 24);
-        background: #f5f1e5;
-        font-size: var(--fs-8);
-        font-weight: var(--fw-300);
-        width: max-content;
-        padding: 3px 12px;
-        border-radius: 8px;
-    }
-
-    .info_more-btn {
-        position: absolute;
-        top: -15px;
-        right: -15px;
-        border-radius: 0 15px;
-        font-size: 13px;
-        color: var(--orange-yellow-crayola);
-        background: var(--border-gradient-onyx);
-        padding: 10px;
-        box-shadow: var(--shadow-2);
-        transition: var(--transition-1);
-        z-index: 1;
-    }
-
-    .info_more-btn::before {
-        content: "";
-        position: absolute;
-        inset: 1px;
-        border-radius: inherit;
-        background: var(--bg-gradient-jet);
-        transition: var(--transition-1);
-        z-index: -1;
-    }
-
-    .info_more-btn:hover,
-    .info_more-btn:focus {
-        background: var(--bg-gradient-yellow-1);
-    }
-
-    .info_more-btn:hover::before,
-    .info_more-btn:focus::before {
-        background: var(--bg-gradient-yellow-2);
-    }
-
-    .info_more-btn span {
-        display: none;
-    }
-
-    .sidebar-info_more {
-        opacity: 0;
-        visibility: hidden;
-        transition: var(--transition-2);
-    }
-
-    .sidebar.active .sidebar-info_more {
-        opacity: 1;
-        visibility: visible;
-    }
-
-    .contacts-list {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 16px;
-    }
-
-    .contact-item {
-        min-width: 100%;
-        display: flex;
-        align-items: center;
-        gap: 16px;
-    }
-
-    .contact-info {
-        max-width: calc(100% - 46px);
-        width: calc(100% - 46px);
-    }
-
-    .contact-title {
-        color: var(--light-gray-70);
-        font-size: var(--fs-8);
-        text-transform: uppercase;
-        margin-bottom: 2px;
-    }
-
-    .contact-info :is(.contact-link, time, address) {
-        color: var(--white-2);
-        font-size: var(--fs-7);
-    }
-
-    .contact-info address {
-        font-style: normal;
-    }
-
-    .social-list {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        gap: 15px;
-        padding-bottom: 4px;
-        padding-left: 7px;
-    }
-
-    .social-item .social-link {
-        color: var(--light-gray-70);
-        font-size: 18px;
-    }
-
-    .navbar {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        background: #f5f1e5;
-        backdrop-filter: blur(10px);
-        border: 1px solid var(--jet);
-        border-radius: 12px 12px 0 0;
-        box-shadow: var(--shadow-2);
-        z-index: 5;
-    }
-
-    .navbar-list {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        padding: 0 10px;
-    }
-
-    .navbar-link {
-        color: rgba(80, 55, 24, 0.635);
-        font-size: var(--fs-8);
-        padding: 20px 7px;
-        transition: color var(--transition-1);
-    }
-
-    .navbar-link:hover,
-    .navbar-link:focus {
-        color: var(--light-gray-70);
-    }
-
-    .navbar-link.active {
-        color: rgb(80, 55, 24);
-    }
-
-    .about .article-title {
-        margin-bottom: 15px;
-    }
-
-    .about-text {
-        color: var(--light-gray);
-        font-size: var(--fs-6);
-        font-weight: var(--fw-300);
-        line-height: 1.6;
-    }
-
-    .about-text p {
-        margin-bottom: 15px;
-    }
-
-    /**
- * #service 
- */
-
-    .service {
-        margin-bottom: 35px;
-    }
-
-    .service-title {
-        margin-bottom: 20px;
-    }
-
-    .service-list {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-
-    .service-item {
-        position: relative;
-        background: var(--border-gradient-onyx);
-
-        padding: 20px;
-        border-radius: 14px;
-        box-shadow: var(--shadow-2);
-        z-index: 1;
-    }
-
-    .service-item::before {
-        content: "";
-        position: absolute;
-        inset: 1px;
-        background: #f5f1e5;
-        color: rgb(66, 44, 18);
-        border-radius: inherit;
-        z-index: -1;
-    }
-
-    .service-icon-box {
-        margin-bottom: 10px;
-    }
-
-    .service-icon-box img {
-        margin: auto;
-    }
-
-    .service-content-box {
-        text-align: center;
-    }
-
-    .service-item-title {
-        margin-bottom: 7px;
-    }
-
-    .service-item-text {
-        color: var(--light-gray);
-        font-size: var(--fs-6);
-        font-weight: var(--fw-3);
-        line-height: 1.6;
-    }
-
-    /**
- * #testimonials 
- */
-
-    .testimonials {
-        margin-bottom: 30px;
-    }
-
-    .testimonials-title {
-        margin-bottom: 20px;
-    }
-
-    .testimonials-list {
-        display: flex;
-        justify-content: flex-start;
-        align-items: flex-start;
-        gap: 15px;
-        margin: 0 -15px;
-        padding: 25px 15px;
-        padding-bottom: 35px;
-        overflow-x: auto;
-        scroll-behavior: smooth;
-        overscroll-behavior-inline: contain;
-        scroll-snap-type: inline mandatory;
-    }
-
-    .testimonials-item {
-        min-width: 100%;
-        scroll-snap-align: center;
-    }
-
-    .testimonials-avatar-box {
-        position: absolute;
-        top: 0;
-        left: 0;
-        transform: translate(15px, -25px);
-        background: var(--bg-gradient-onyx);
-        border-radius: 14px;
-        box-shadow: var(--shadow-1);
-    }
-
-    .testimonials-item-title {
-        margin-bottom: 7px;
-    }
-
-    .testimonials-text {
-        color: var(--light-gray);
-        font-size: var(--fs-6);
-        font-weight: var(--fw-300);
-        line-height: 1.6;
-        display: -webkit-box;
-        line-clamp: 4;
-        -webkit-line-clamp: 4;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
-
-
-    /**
- * #testimonials-modal
- */
-
-    .modal-container {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        overflow-y: auto;
-        overscroll-behavior: contain;
-        z-index: 20;
-        pointer-events: none;
-        visibility: hidden;
-    }
-
-    .modal-container::-webkit-scrollbar {
-        display: none;
-    }
-
-    .modal-container.active {
-        pointer-events: all;
-        visibility: visible;
-    }
-
-    .overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        background: hsl(0, 0%, 5%);
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-        z-index: 1;
-        transition: var(--transition-1);
-    }
-
-    .overlay.active {
-        opacity: 0.8;
-        visibility: visible;
-        pointer-events: all;
-    }
-
-    .testimonials-modal {
-        background: var(--eerie-black-2);
-        position: relative;
-        padding: 15px;
-        margin: 15px 12px;
-        border: 1px solid var(--jet);
-        border-radius: 14px;
-        box-shadow: var(--shadow-5);
-        transform: scale(1.2);
-        opacity: 0;
-        transition: var(--transition-1);
-        z-index: 2;
-    }
-
-    .modal-container.active .testimonials-modal {
-        transform: scale(1);
-        opacity: 1;
-    }
-
-    .modal-close-btn {
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        background: var(--onyx);
-        border-radius: 8px;
-        width: 32px;
-        height: 32px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: var(--white-2);
-        font-size: 18px;
-        opacity: 0.7;
-    }
-
-    .modal-close-btn:hover,
-    .modal-close-btn:focus {
-        opacity: 1;
-    }
-
-    .modal-close-btn ion-icon {
-        --ionicon-stroke-width: 50px;
-    }
-
-    .modal-avatar-box {
-        background: var(--bg-gradient-onyx);
-        width: max-content;
-        border-radius: 14px;
-        margin-bottom: 15px;
-        box-shadow: var(--shadow-2);
-    }
-
-    .modal-img-wrapper>img {
-        display: none;
-    }
-
-    .modal-title {
-        margin-bottom: 4px;
-    }
-
-    .modal-content time {
-        font-size: var(--fs-6);
-        color: var(--light-gray-70);
-        font-weight: var(--fw-300);
-        margin-bottom: 10px;
-    }
-
-    .modal-content p {
-        color: var(--light-gray);
-        font-size: var(--fs-6);
-        font-weight: var(--fw-300);
-        line-height: 1.6;
-    }
-</style>
-
-<body>
-    <!-- Fixed navbar -->
-    <div class="navbar navbar-inverse">
-        <div class="container">
+<body style="background-color: #f5f1e5;">
+
+    <div class="navbar navbar-inverse"
+        style="background-color: #f5f1e5; padding-top: 0px; padding-left: 0px; margin-left: 0px; margin-top: -10px;">
+        <div class="container" style="background-color: #f5f1e5; ">
             <div class="navbar-header">
                 <!-- Button for smallest screens -->
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span
@@ -788,13 +44,13 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav pull-right mainNav">
                     <!-- <li class="active"><a href="homepage.html" style="font-size: 13px;">Home</a></li> -->
-                    <!-- <li class="active"><a href="about.html" style="font-size: 13px;">About</a></li> -->
+                    <!-- <li><a href="about/homepage.html" style="font-size: 13px;">About</a></li> -->
                     <li><a href="inspiration.html" style="font-size: 13px;">Inspiration</a></li>
                     <li><a href="floorplan.html" style="font-size: 13px;">Floorplan</a></li>
-                    <li><a href="interior.html" style="font-size: 13px;">Interior Design</a></li>
+                    <li class="active"><a href="interior.html" style="font-size: 13px;">Interior Design</a></li>
                     <li><a href="marketplace.html" style="font-size: 13px;">Marketplace</a></li>
                     <li><a href="booking.html" style="font-size: 13px;">Booking</a></li>
-                    <li class="active">
+                    <li>
                         <a href="profile.html" style="font-size: 13px;">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -810,12 +66,15 @@
         </div>
     </div>
     <!-- /.navbar -->
+    <!--
+    - #MAIN
+  -->
 
-    <main>
+    <main style="margin-top: 200px;">
 
         <!--
-          - #SIDEBAR
-        -->
+      - #SIDEBAR
+    -->
 
         <aside class="sidebar" data-sidebar>
 
@@ -857,13 +116,14 @@
                                 reader.readAsDataURL(file);
                             }
                         });
+
+
                     </script>
 
                 </figure>
 
                 <div class="info-content" style="display: flex; align-items: center;">
-                    <h1 class="name" id="userName" title="Click the pencil icon to edit" style="margin-right: 8px;">Lim
-                        Qiao Ye
+                    <h1 class="name" id="userName" title="Click the pencil icon to edit" style="margin-right: 8px;">
                     </h1>
                     <span id="editIcon" style="cursor: pointer;" title="Edit name">✏️</span>
 
@@ -925,7 +185,7 @@
                         <div class="contact-info">
                             <p class="contact-title">Email</p>
 
-                            <a href="mailto:richard@example.com" class="contact-link">limqiaoye27@gmail.com</a>
+                            <a href="mailto:example@example.com" class="contact-link" id="email"></a>
                         </div>
 
                     </li>
@@ -939,7 +199,7 @@
                         <div class="contact-info">
                             <p class="contact-title">Phone</p>
 
-                            <a href="tel:+12133522795" class="contact-link">+1 (213) 352-2795</a>
+                            <a href="tel:+12133522795" class="contact-link" id="phone"></a>
                         </div>
 
                     </li>
@@ -1003,38 +263,26 @@
         </aside>
 
         <!--
-          - #main-content
-        -->
+      - #main-content
+    -->
 
         <div class="main-content">
 
             <!--
-            - #NAVBAR
-          -->
+        - #NAVBAR
+      -->
 
             <nav class="navbar">
 
                 <ul class="navbar-list">
 
                     <li class="navbar-item">
-                        <button class="navbar-link  active" data-nav-link>Profile</button>
-                    </li>
-
-                    <li class="navbar-item">
-                        <button class="navbar-link" data-nav-link>Orders</button>
+                        <button class="navbar-link active" data-nav-link>Orders</button>
                     </li>
 
                     <li class="navbar-item">
                         <button class="navbar-link" data-nav-link>Favourites</button>
                     </li>
-
-                    <!-- <li class="navbar-item">
-                <button class="navbar-link" data-nav-link>Blog</button>
-              </li>
-    
-              <li class="navbar-item">
-                <button class="navbar-link" data-nav-link>Contact</button>
-              </li> -->
 
                 </ul>
 
@@ -1045,489 +293,36 @@
 
 
             <!--
-            - #ABOUT
-          -->
+        - #ABOUT
+      -->
 
-            <article class="about  active" data-page="profile">
-
-                <header>
-                    <h2 class="h2 article-title">About me</h2>
-                </header>
-
-                <section class="about-text">
-                    <p>
-                        I'm Creative Director and UI/UX Designer from Sydney, Australia, working in web development and
-                        print media.
-                        I enjoy
-                        turning complex problems into simple, beautiful and intuitive designs.
-                    </p>
-
-                    <p>
-                        My job is to build your website so that it is functional and user-friendly but at the same time
-                        attractive.
-                        Moreover, I
-                        add personal touch to your product and make sure that is eye-catching and easy to use. My aim is
-                        to bring
-                        across your
-                        message and identity in the most creative way. I created web design for many famous brand
-                        companies.
-                    </p>
-                </section>
-
-
-                <!--
-              - service
-            -->
-
-                <section class="service">
-
-                    <h3 class="h3 service-title">My Preferences</h3>
-
-                    <ul class="service-list">
-
-                        <li class="service-item">
-
-                            <div class="service-icon-box">
-                                <img src="./assets/images/icon-design.svg
-                    " alt="design icon" width="40">
-                            </div>
-
-                            <div class="service-content-box">
-                                <h4 class="h4 service-item-title" style="color: rgb(66, 44, 18);">Web design</h4>
-
-                                <p class="service-item-text" style="color: rgb(66, 44, 18);">
-                                    The most modern and high-quality design made at a professional level.
-                                </p>
-                            </div>
-
-                        </li>
-
-                        <li class="service-item">
-
-                            <div class="service-icon-box">
-                                <img src="./assets/images/icon-dev.svg" alt="Web development icon" width="40">
-                            </div>
-
-                            <div class="service-content-box">
-                                <h4 class="h4 service-item-title" style="color: rgb(66, 44, 18);">Web development</h4>
-
-                                <p class="service-item-text" style="color: rgb(66, 44, 18);">
-                                    High-quality development of sites at the professional level.
-                                </p>
-                            </div>
-
-                        </li>
-
-                        <li class="service-item">
-
-                            <!-- <div class="service-icon-box">
-                    <img src="./assets/images/icon-app.svg" alt="mobile app icon" width="40" >
-                  </div> -->
-
-                            <div class="service-content-box">
-                                <h4 class="h4 service-item-title" style="color: rgb(66, 44, 18);">Mobile apps</h4>
-
-                                <p class="service-item-text" style="color: rgb(66, 44, 18);">
-                                    Professional development of applications for iOS and Android.
-                                </p>
-                            </div>
-
-                        </li>
-
-                        <li class="service-item">
-
-                            <div class="service-icon-box">
-                                <img src="./assets/images/icon-photo.svg" alt="camera icon" width="40">
-                            </div>
-
-                            <div class="service-content-box">
-                                <h4 class="h4 service-item-title" style="color: rgb(66, 44, 18);">Photography</h4>
-
-                                <p class="service-item-text" style="color: rgb(66, 44, 18);">
-                                    I make high-quality photos of any category at a professional level.
-                                </p>
-                            </div>
-
-                        </li>
-
-                    </ul>
-
-                </section>
-
-
-                <!--
-              - testimonials
-            -->
-
-                <section class="testimonials">
-
-                    <h3 class="h3 testimonials-title">Companies I've Worked With</h3>
-
-                    <ul class="testimonials-list has-scrollbar">
-
-                        <li class="testimonials-item">
-                            <div class="content-card" data-testimonials-item>
-
-                                <figure class="testimonials-avatar-box">
-                                    <img src="./assets/images/avatar-1.png" alt="Daniel lewis" width="60"
-                                        data-testimonials-avatar>
-                                </figure>
-
-                                <h4 class="h4 testimonials-item-title" data-testimonials-title>Daniel lewis</h4>
-
-                                <div class="testimonials-text" data-testimonials-text>
-                                    <p>
-                                        Richard was hired to create a corporate identity. We were very pleased with the
-                                        work done. She has a
-                                        lot of experience
-                                        and is very concerned about the needs of client. Lorem ipsum dolor sit amet,
-                                        ullamcous cididt
-                                        consectetur adipiscing
-                                        elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
-                                    </p>
-                                </div>
-
-                            </div>
-                        </li>
-
-                        <li class="testimonials-item">
-                            <div class="content-card" data-testimonials-item>
-
-                                <figure class="testimonials-avatar-box">
-                                    <img src="./assets/images/avatar-2.png" alt="Jessica miller" width="60"
-                                        data-testimonials-avatar>
-                                </figure>
-
-                                <h4 class="h4 testimonials-item-title" data-testimonials-title>Jessica miller</h4>
-
-                                <div class="testimonials-text" data-testimonials-text>
-                                    <p>
-                                        Richard was hired to create a corporate identity. We were very pleased with the
-                                        work done. She has a
-                                        lot of experience
-                                        and is very concerned about the needs of client. Lorem ipsum dolor sit amet,
-                                        ullamcous cididt
-                                        consectetur adipiscing
-                                        elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
-                                    </p>
-                                </div>
-
-                            </div>
-                        </li>
-
-                        <li class="testimonials-item">
-                            <div class="content-card" data-testimonials-item>
-
-                                <figure class="testimonials-avatar-box">
-                                    <img src="./assets/images/avatar-3.png" alt="Emily evans" width="60"
-                                        data-testimonials-avatar>
-                                </figure>
-
-                                <h4 class="h4 testimonials-item-title" data-testimonials-title>Emily evans</h4>
-
-                                <div class="testimonials-text" data-testimonials-text>
-                                    <p>
-                                        Richard was hired to create a corporate identity. We were very pleased with the
-                                        work done. She has a
-                                        lot of experience
-                                        and is very concerned about the needs of client. Lorem ipsum dolor sit amet,
-                                        ullamcous cididt
-                                        consectetur adipiscing
-                                        elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
-                                    </p>
-                                </div>
-
-                            </div>
-                        </li>
-
-                        <li class="testimonials-item">
-                            <div class="content-card" data-testimonials-item>
-
-                                <figure class="testimonials-avatar-box">
-                                    <img src="./assets/images/avatar-4.png" alt="Henry william" width="60"
-                                        data-testimonials-avatar>
-                                </figure>
-
-                                <h4 class="h4 testimonials-item-title" data-testimonials-title>Henry william</h4>
-
-                                <div class="testimonials-text" data-testimonials-text>
-                                    <p>
-                                        Richard was hired to create a corporate identity. We were very pleased with the
-                                        work done. She has a
-                                        lot of experience
-                                        and is very concerned about the needs of client. Lorem ipsum dolor sit amet,
-                                        ullamcous cididt
-                                        consectetur adipiscing
-                                        elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
-                                    </p>
-                                </div>
-
-                            </div>
-                        </li>
-
-                    </ul>
-
-                </section>
-
-
-                <!--
-              - testimonials modal
-            -->
-
-                <div class="modal-container" data-modal-container>
-
-                    <div class="overlay" data-overlay></div>
-
-                    <section class="testimonials-modal">
-
-                        <button class="modal-close-btn" data-modal-close-btn>
-                            <ion-icon name="close-outline"></ion-icon>
-                        </button>
-
-                        <div class="modal-img-wrapper">
-                            <figure class="modal-avatar-box">
-                                <img src="./assets/images/avatar-1.png" alt="Daniel lewis" width="80" data-modal-img>
-                            </figure>
-
-                            <img src="./assets/images/icon-quote.svg" alt="quote icon">
-                        </div>
-
-                        <div class="modal-content">
-
-                            <h4 class="h3 modal-title" data-modal-title>Daniel lewis</h4>
-
-                            <time datetime="2021-06-14">14 June, 2021</time>
-
-                            <div data-modal-text>
-                                <p>
-                                    Richard was hired to create a corporate identity. We were very pleased with the work
-                                    done. She has a
-                                    lot of experience
-                                    and is very concerned about the needs of client. Lorem ipsum dolor sit amet,
-                                    ullamcous cididt
-                                    consectetur adipiscing
-                                    elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
-                                </p>
-                            </div>
-
-                        </div>
-
-                    </section>
-
-                </div>
-
-
-                <!--
-              - clients
-            -->
-
-
-
-            </article>
-
-
-            <!--
-            - #RESUME
-          -->
-
-            <article class="resume" data-page="orders">
+            <article class="about  active" data-page="orders">
 
                 <header>
                     <h2 class="h2 article-title">My Orders</h2>
                 </header>
 
+                <section class="about-text">
 
-
-                <div class="title-wrapper">
-                    <div class="icon-box">
-                        <ion-icon name="book-outline"></ion-icon>
-                    </div>
-
-                    <h3 class="h3">Education</h3>
-                </div>
-
-                <ol class="timeline-list">
-
-                    <li class="timeline-item">
-
-                        <h4 class="h4 timeline-item-title">University school of the arts</h4>
-
-                        <span>2007 — 2008</span>
-
-                        <p class="timeline-text">
-                            Nemo enims ipsam voluptatem, blanditiis praesentium voluptum delenit atque corrupti, quos
-                            dolores et
-                            quas molestias
-                            exceptur.
-                        </p>
-
-                    </li>
-
-                    <li class="timeline-item">
-
-                        <h4 class="h4 timeline-item-title">New york academy of art</h4>
-
-                        <span>2006 — 2007</span>
-
-                        <p class="timeline-text">
-                            Ratione voluptatem sequi nesciunt, facere quisquams facere menda ossimus, omnis voluptas
-                            assumenda est
-                            omnis..
-                        </p>
-
-                    </li>
-
-                    <li class="timeline-item">
-
-                        <h4 class="h4 timeline-item-title">High school of art and design</h4>
-
-                        <span>2002 — 2004</span>
-
-                        <p class="timeline-text">
-                            Duis aute irure dolor in reprehenderit in voluptate, quila voluptas mag odit aut fugit, sed
-                            consequuntur
-                            magni dolores
-                            eos.
-                        </p>
-
-                    </li>
-
-                </ol>
 
                 </section>
 
-                <section class="timeline">
 
-                    <div class="title-wrapper">
-                        <div class="icon-box">
-                            <ion-icon name="book-outline"></ion-icon>
-                        </div>
-
-                        <h3 class="h3">Experience</h3>
-                    </div>
-
-                    <ol class="timeline-list">
-
-                        <li class="timeline-item">
-
-                            <h4 class="h4 timeline-item-title">Creative director</h4>
-
-                            <span>2015 — Present</span>
-
-                            <p class="timeline-text">
-                                Nemo enim ipsam voluptatem blanditiis praesentium voluptum delenit atque corrupti, quos
-                                dolores et qvuas
-                                molestias
-                                exceptur.
-                            </p>
-
-                        </li>
-
-                        <li class="timeline-item">
-
-                            <h4 class="h4 timeline-item-title">Art director</h4>
-
-                            <span>2013 — 2015</span>
-
-                            <p class="timeline-text">
-                                Nemo enims ipsam voluptatem, blanditiis praesentium voluptum delenit atque corrupti,
-                                quos dolores et
-                                quas molestias
-                                exceptur.
-                            </p>
-
-                        </li>
-
-                        <li class="timeline-item">
-
-                            <h4 class="h4 timeline-item-title">Web designer</h4>
-
-                            <span>2010 — 2013</span>
-
-                            <p class="timeline-text">
-                                Nemo enims ipsam voluptatem, blanditiis praesentium voluptum delenit atque corrupti,
-                                quos dolores et
-                                quas molestias
-                                exceptur.
-                            </p>
-
-                        </li>
-
-                    </ol>
-
-                </section>
-
-                <section class="skill">
-
-                    <h3 class="h3 skills-title">My skills</h3>
-
-                    <ul class="skills-list content-card">
-
-                        <li class="skills-item">
-
-                            <div class="title-wrapper">
-                                <h5 class="h5">Web design</h5>
-                                <data value="80">80%</data>
-                            </div>
-
-                            <div class="skill-progress-bg">
-                                <div class="skill-progress-fill" style="width: 80%;"></div>
-                            </div>
-
-                        </li>
-
-                        <li class="skills-item">
-
-                            <div class="title-wrapper">
-                                <h5 class="h5">Graphic design</h5>
-                                <data value="70">70%</data>
-                            </div>
-
-                            <div class="skill-progress-bg">
-                                <div class="skill-progress-fill" style="width: 70%;"></div>
-                            </div>
-
-                        </li>
-
-                        <li class="skills-item">
-
-                            <div class="title-wrapper">
-                                <h5 class="h5">Branding</h5>
-                                <data value="90">90%</data>
-                            </div>
-
-                            <div class="skill-progress-bg">
-                                <div class="skill-progress-fill" style="width: 90%;"></div>
-                            </div>
-
-                        </li>
-
-                        <li class="skills-item">
-
-                            <div class="title-wrapper">
-                                <h5 class="h5">WordPress</h5>
-                                <data value="50">50%</data>
-                            </div>
-
-                            <div class="skill-progress-bg">
-                                <div class="skill-progress-fill" style="width: 50%;"></div>
-                            </div>
-
-                        </li>
-
+                <!-- order List -->
+                <section class="service" >
+                    <ul class="service-list" id="orderList">
                     </ul>
 
-                </section> -->
+                </section>
 
+
+                <div class="modal-container" data-modal-container>
+                    <div class="overlay" data-overlay></div>
+                    <button class="modal-close-btn" data-modal-close-btn></button>
+                </div>
             </article>
 
 
-
-
-
-            <!--
-            - #PORTFOLIO
-          -->
 
             <article class="portfolio" data-page="favourites">
 
@@ -1766,39 +561,221 @@
     </main>
 
 
-    <footer id="footer">
-        <div class="footer2">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 panel">
-                        <div class="panel-body">
-                            <p class="simplenav">
-                                <a href="homepage.html">Home</a> |
-                                <!-- <a href="about.html">About</a> | -->
-                                <a href="inspiration.html">Inspiration</a> |
-                                <a href="floorplan.html">Floorplan</a> |
-                                <a href="interior.html">Interior Design</a> |
-                                <a href="marketplace.html">Marketplace</a> |
-                                <a href="booking.html">Booking</a>|
-                            </p>
-                        </div>
-                    </div>
 
-                    <div class="col-md-6 panel">
-                        <div class="panel-body">
-                            <p class="text-right">
-                                Copyright &copy; 2024 renovenience
-                            </p>
-                        </div>
-                    </div>
 
-                </div>
-                <!-- /row of panels -->
-            </div>
-        </div>
-    </footer>
 
-    <a href="#" class="back-to-top"
-        style="position: fixed; bottom: 20px; right: 20px; display: none;  padding: 10px 15px; border-radius: 50%; text-align: center; cursor: pointer; font-size: 20px;">
-        <i class="ion-ios-arrow-up"></i>
-    </a>
+
+    <!--
+    - custom js link
+  -->
+    <script src="profile.js"></script>
+
+    <!--
+    - ionicon link
+  -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+
+    <script type="module">
+
+        import {
+            auth, firestore, provider,
+            onAuthStateChanged, signOut, signInWithPopup, collection,
+            addDoc, getDocs, query, where, setDoc, doc
+        } from "./src/firebase";
+
+        var currentUser;
+        var userId;
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                console.log("Authenticated user:", user);
+                // Get current authenticated user
+                currentUser = auth.currentUser;
+
+                if (!currentUser) {
+                    console.log("No user is signed in.");
+                    return null;
+                }
+
+                userId = currentUser.uid;  // Get the user ID from the authenticated user
+
+                fetchUserData();  // Proceed to fetch user data after auth is initialized
+                getAllOrdersbyUserID(userId);
+            } else {
+                console.log("No user signed in");
+            }
+        });
+
+        async function fetchUserData() {
+            try {
+
+                // Firestore collection reference
+                const usersCollection = collection(firestore, 'users');
+
+                // Query to get the user document by ID
+                const q = query(usersCollection, where("__name__", "==", userId));
+
+                // Fetch data from Firestore
+                const querySnapshot = await getDocs(q);
+
+                if (!querySnapshot.empty) {
+                    const data = querySnapshot.docs[0].data(); // Get the first document's data
+                    console.log("User Data:", data);
+                    document.getElementById('userName').innerText = data.username;
+                    document.getElementById('email').innerText = data.email;
+                    document.getElementById('email').setAttribute('href', 'mailto:' + data.email);
+                    document.getElementById('phone').innerText = '(+65) ' + data.contactNum;
+                    document.getElementById('phone').setAttribute('href', 'tel:+65' + data.contactNum);
+
+                } else {
+                    console.log("No such document found!");
+                    return null;
+                }
+            } catch (error) {
+                console.error("Error getting document:", error);
+                return null; // Return null if there's an error
+            }
+        }
+
+       async function getAllOrdersbyUserID(userId) {
+    try {
+        // Reference to Firestore's 'orders' collection
+        const orderCollection = collection(firestore, 'orders');
+
+        // Query orders where the 'userId' field matches the passed 'userId'
+        const q = query(orderCollection, where("userId", "==", userId));
+
+        // Get documents that match the query
+        const querySnapshot = await getDocs(q);
+
+        // Map the documents to an array of orders
+        const orders = querySnapshot.docs.map(doc => ({
+            id: doc.id,
+            data: doc.data()
+        }));
+
+        // Get the container where you want to append the order list
+        const orderListContainer = document.getElementById('orderList');
+
+        // Loop through the orders array and create an <li> for each order
+        for (let i = 0; i < orders.length; i++) {
+            const order = orders[i];
+            const listOfItem = order.data.items;  // Assuming `items` is an object like { chair: { Quantity: 3, Price: 234 }, ... }
+
+            // Create the <li> element for each order
+            const orderItem = document.createElement('li');
+            orderItem.classList.add('service-item');
+            orderItem.style.marginBottom = '20px';
+
+            // Create the service content box <div>
+            const serviceContentBox = document.createElement('div');
+            serviceContentBox.classList.add('service-content-box');
+
+            // Create the <h4> for Order # with the title
+            const orderTitle = document.createElement('h4');
+            orderTitle.classList.add('h4', 'service-item-title');
+            orderTitle.style.color = 'rgb(66, 44, 18)';
+            orderTitle.textContent = `Order #${order.id}`;
+
+            // Create the <p> for the order details (if available)
+            const orderText = document.createElement('p');
+            orderText.classList.add('service-item-text');
+            orderText.style.color = 'rgb(66, 44, 18)';
+            orderText.textContent = order.data.details ? order.data.details : 'No details available';
+
+            // Append the title and text to the content box
+            serviceContentBox.appendChild(orderTitle);
+            serviceContentBox.appendChild(orderText);
+
+            // Create a table for the items
+            const itemTable = document.createElement('table');
+            itemTable.classList.add('item-table');  // Add a class for styling (optional)
+
+            // Create the table header row
+            const headerRow = document.createElement('tr');
+            const itemHeader = document.createElement('th');
+            itemHeader.textContent = 'Item Name';
+            headerRow.appendChild(itemHeader);
+
+            const quantityHeader = document.createElement('th');
+            quantityHeader.textContent = 'Quantity';
+            headerRow.appendChild(quantityHeader);
+
+            const priceHeader = document.createElement('th');
+            priceHeader.textContent = 'Price';
+            headerRow.appendChild(priceHeader);
+
+            // Append the header row to the table
+            itemTable.appendChild(headerRow);
+
+            // Loop through the items in `listOfItem` (which is an object now)
+            for (let key in listOfItem) {
+                if (listOfItem.hasOwnProperty(key)) {
+                    const itemDetails = listOfItem[key];  // Contains { Quantity, Price }
+
+                    // Create a table row for each item
+                    const itemRow = document.createElement('tr');
+
+                    // Create a table data cell for the item name
+                    const itemNameCell = document.createElement('td');
+                    itemNameCell.textContent = key || 'Unnamed item';
+                    itemRow.appendChild(itemNameCell);
+
+                    // Create a table data cell for the item quantity
+                    const itemQuantityCell = document.createElement('td');
+                    itemQuantityCell.textContent = itemDetails.quantity || 'N/A';
+                    itemRow.appendChild(itemQuantityCell);
+
+                    // Create a table data cell for the item price
+                    const itemPriceCell = document.createElement('td');
+                    itemPriceCell.textContent = itemDetails.price ? `$${itemDetails.price}` : 'N/A';
+                    itemRow.appendChild(itemPriceCell);
+
+                    // Append the item row to the table
+                    itemTable.appendChild(itemRow);
+                }
+            }
+
+            // Fetch the totalPrice directly from Firestore data
+            const totalPrice = order.data.totalPrice || 0;  // Assuming totalPrice is stored in the order document
+
+            // Create the total price row
+            const totalPriceRow = document.createElement('tr');
+            totalPriceRow.style.fontWeight = 'bold';
+
+            // Create a table cell for the total label
+            const totalLabelCell = document.createElement('td');
+            totalLabelCell.textContent = 'Total Price';
+            totalLabelCell.setAttribute('colspan', '2'); // Span across two columns
+            totalPriceRow.appendChild(totalLabelCell);
+
+            // Create a table cell for the total price value
+            const totalPriceCell = document.createElement('td');
+            totalPriceCell.textContent = `$${totalPrice.toFixed(2)}`;
+            totalPriceRow.appendChild(totalPriceCell);
+
+            // Append the total price row to the table
+            itemTable.appendChild(totalPriceRow);
+
+            // Append the table to the content box
+            serviceContentBox.appendChild(itemTable);
+
+            // Append the content box to the <li> for the order
+            orderItem.appendChild(serviceContentBox);
+
+            // Finally, append the <li> to the list container
+            orderListContainer.appendChild(orderItem);
+        }
+
+    } catch (error) {
+        console.error("Error getting document:", error);
+    }
+}
+
+
+    </script>
+
+</body>
+
+</html>
