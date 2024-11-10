@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects Explorer</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+
+
+    <!-- <link rel="stylesheet" href="../assets/css/bootstrap.min.css"> -->
+    <!-- <link rel="stylesheet" href="../assets/css/font-awesome.min.css"> -->
+    <!-- <link rel="stylesheet" href="../assets/css/bootstrap-theme.css" media="screen"> -->
+    <!-- <link rel='stylesheet' id='camera-css' href='../assets/css/camera.css' type='text/css' media='all'> -->
+    <link rel="stylesheet" href="./main.css">
+    <link rel="icon" href="../assets/images/logo.png">
+
+
+
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Aboreto', cursive;
+            margin: 0;
+            height: 100vh;
+            width: 100vw;
+            background: url('../assets/images/inspobg.svg') repeat center center/cover;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Video Carousel Styles */
+        .video-carousel {
+            width: 100%;
+            margin: 2rem 0;
+            padding: 0 1rem;
+        }
+
+        .carousel-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .carousel-control {
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .carousel-control:hover:not(:disabled) {
+            background-color: #e0e0e0;
+        }
+
+        .carousel-control:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .videos-container {
+            overflow: hidden;
+            margin: 0 -0.5rem;
+        }
+
+        .videos-wrapper {
+            display: flex;
+            transition: transform 0.3s ease;
+        }
+
+        .video-item {
+            padding: 0 0.5rem;
+            flex-shrink: 0;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .video-content {
+            background-color: #f5f1e5b3;
+            width: fit-content;
+            height: 120px;
+
+            text-align: center;
+            padding: 0.5rem;
+        }
+
+        .video-title {
+            margin: 0.5rem 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-align: center;
+
+        }
+
+        .video-description {
+            font-size: 0.7rem;
+            color: #666;
+            margin-top: 1rem;
+            text-align: center;
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Search Section Styles */
+        .search-section {
+          
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-input {
+            background-color: #f5f1e5;
+            color:rgba(80, 55, 24, 0.7); 
+            flex: 1;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .search-input::placeholder{
+            color:rgba(80, 55, 24, 0.7); 
+        }
+
+        .reset-button {
+            padding: 8px 16px;
+            background-color: #f5f1e5;
+            color:rgba(80, 55, 24, 0.7); 
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .reset-button:hover {
+            background-color: #e0e0e0;
+        }
+
+        /* Article Card Styles */
+        .articles-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .article-card {
+            border-radius: 8px;
+            overflow: hidden;
+            height: 300px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .article-content {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .article-text {
+            position: relative;
+            height: 100%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: linear-gradient(to bottom,
+                    rgba(0, 0, 0, 0.1) 0%,
+                    rgba(0, 0, 0, 0.7) 70%,
+                    rgba(0, 0, 0, 0.9) 100%);
+            color: white;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .article-title {
+            font-size: 1.5rem;
+            margin: 0;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        }
+
+        .article-excerpt {
+            color: #f0f0f0;
+            margin: 15px 0;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease-in-out;
+            height: 0;
+            overflow: hidden;
+        }
+
+        .read-more {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            background-color: rgba(195, 144, 97, 0.95);
+            border-radius: 4px;
+            align-self: flex-start;
+            transition: background-color 0.2s;
+        }
+
+        /* Filter Section Styles */
+        .filter-selections {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            width:fit-content; 
+            height: fit-content;
+            background-color: rgba(80, 55, 24, 0.858);
+            color: #f5f1e5;
+            padding: 70px 10px 70px 10px;
+            border: 2px solid #f5f1e5;
+            border-radius: 30px;
+        }
+
+        .filter-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .filter-label {
+            margin-right: 0.5rem;
+            font-weight: bold;
+            color: #f5f1e5;
+            letter-spacing: 0.1rem;
+        }
+
+        .filter-dropdown {
+            padding: 1rem 1rem;
+            color: rgba(80, 55, 24, 0.858);
+            border: 1px solid #f5f1e5;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .filter-button {
+            padding: 0.5rem 1rem;
+            background-color: #f5f1e5;
+            color: rgba(80, 55, 24, 0.858);
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .filter-button:hover {
+            background-color: #a7a7a7;
+        }
+
+        /* Project Card Styles */
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .btn-save-project {
+            display: inline-block;
+            background-color: rgba(80, 55, 24, 0.755);
+            color: #f5f1e5;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            font-size: 0.7rem;
+            line-height: 1.5;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-save-project:hover {
+            background-color: #875d3ab8;
+            color:#f5f1e5;
+        }
+
+        .carousel-inner {
+            height: 250px;
+            /* Set a fixed height for all carousel containers */
+        }
+
+        .carousel-item {
+            height: 100%;
+            /* Make carousel items fill the container height */
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* This will maintain aspect ratio while covering the area */
+            object-position: center;
+            /* Center the image */
+        }
+
+        .card {
+            min-height: 450px;
+            /* Increased height to accommodate content */
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            transition: transform 0.2s;
+        }
+
+        .carousel {
+            height: 250px;
+            /* Fixed height for carousel */
+        }
+
+        .carousel-inner {
+            height: 100%;
+        }
+
+        .card-body {
+            flex: 1;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            /* Changed from auto to hidden */
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-details {
+            font-size: 0.875rem;
+            line-height: 1.4;
+            margin-bottom: 0.5rem;
+        }
+
+        .btn-save-project {
+            margin-top: auto;
+            align-self: flex-end;
+        }
+
+        /* Optional: Add text truncation for long descriptions */
+        .project-details {
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            /* Limit to 4 lines */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Pagination Styles */
+        .pagination {
+            margin-top: 2rem;
+        }
+
+        .page-item .page-link {
+            color: rgba(80, 55, 24, 0.643);
+            border-color: #dee2e6;
+            padding: 0.5rem 1rem;
+        }
+
+        .page-item.active .page-link {
+            background-color: rgba(80, 55, 24, 0.766);
+            border-color: #9b6b43;
+            color: #fff;
+        }
+
+        .page-item.disabled .page-link {
+            color: rgba(80, 55, 24, 0.766);
+            pointer-events: none;
+            cursor: auto;
+        }
+
+        /* Hover Effects */
+        .article-card:hover .article-text {
+            background: linear-gradient(to bottom,
+                    rgba(0, 0, 0, 0.7) 0%,
+                    rgba(0, 0, 0, 0.75) 70%,
+                    rgba(0, 0, 0, 0.8) 100%);
+        }
+
+        .article-card:hover .article-excerpt {
+            font-size: 12px;
+            padding: 10px;
+            opacity: 1;
+            transform: translateY(0);
+            height: auto;
+            margin-bottom: 20px;
+        }
+        .read-more{
+            background-color: #f5f1e5; 
+            color:rgba(80, 55, 24, 0.7); 
+        }
+
+        .read-more:hover {
+            background-color: rgba(80, 55, 24, 0.7);
+            color:#f5f1e5;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .articles-list {
+                grid-template-columns: 1fr;
+            }
+
+            .article-card {
+                height: 250px;
+            }
+
+            .article-excerpt {
+                opacity: 1;
+                transform: none;
+                height: auto;
+            }
+
+            .video-carousel {
+                padding: 0 0.5rem;
+            }
+
+            .filter-selections {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .filter-dropdown {
+                width: 100%;
+            }
+        }
+
+        /* Bootstrap Overrides */
+        .carousel-control-prev,
+        .carousel-control-next {
+            width: 15%;
+            border: none;
+            z-index: 10;
+        }
+
+        .carousel-control-prev-icon:hover,
+        .carousel-control-next-icon:hover {
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            padding: 1rem;
+        }
+
+        .carousel-indicators [data-bs-target] {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin: 0 4px;
+        }
+
+        .navbar {
+            background-color: #f5f1e5;
+            /* Light beige background */
+        }
+
+
+        .nav-link,
+        .form-control {
+            color: #50371851;
+            padding-top: 12px;
+            padding-bottom: 12px;
+            font-family: 'Aboreto', cursive;
+            font-size: 10px;
+            font-weight: 300;
+            letter-spacing: 0.3rem;
+        }
+
+        .active {
+            color: rgba(80, 55, 24, 0.7);
+        }
+
+
+        .navbar-toggler {
+            border-color: rgba(80, 55, 24, 0.7);
+        }
+
+        .navbar-logo {
+            width: 80%;
+
+            /* Adjust size as needed */
+            height: 70%;
+            border-radius: 50%;
+            /* Optional: makes the logo circular */
+            object-fit: cover;
+            /* Ensures the image fits properly */
+        }
+
+        .nav-link:hover{
+            color:rgba(80, 55, 24, 0.7); 
+        }
+
+        
+    </style>
+
+</head>
+
+<body>
+
+    <nav class="navbar fixed-top navbar-expand-lg">
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="col-lg-1"></div>
+
+                <div class="col-lg-2">
+                    <a class="navbar-brand" href="../homepage.html"><img src="../assets/images/logo.png" class="navbar-logo"
+                            style="margin-right: -100px; margin-top: 0px;"></a>
+                </div>
+
+                <div class="col-lg-2"></div>
+
+                <div class="col-lg-7" style="margin-top: 30px;">
+                    <div class="collapse navbar-collapse">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item active">
+                                <a class="nav-link active" aria-current="page" href="#"
+                                    style="font-size: 13px;">Inspiration</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../floorplan.html" style="font-size: 13px;">Floorplan</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../interior.html" style="font-size: 13px;">Interior Design</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../marketplace.html" style="font-size: 13px;">Marketplace</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../booking.html" style="font-size: 13px;">Booking</a>
+                            </li>
+                            <li>
+                                <a href="../profile.html" style="font-size: 13px;" class="nav-link">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="12" cy="8" r="4" stroke="#50371851" stroke-width="1" fill="none" />
+                                        <path d="M4 20c0-4 4-7 8-7s8 3 8 7" stroke="#50371851" stroke-width="1"
+                                            fill="none" />
+                                    </svg>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <div id="app" style="margin-top: 150px;">
+        <!-- Video Carousel Section -->
+        <div class="container">
+            <div class="video-carousel">
+                <div class="carousel-controls">
+                    <button class="carousel-control" id="prevVideo" disabled style="background-color: rgba(80, 55, 24, 0.7); color: #f5f1e5;">
+                        &lt; Previous
+                    </button>
+                    <button class="carousel-control" id="nextVideo" style="background-color: rgba(80, 55, 24, 0.7); color: #f5f1e5;">
+                        Next &gt;
+                    </button>
+                </div>
+
+                <div class="videos-container">
+                    <div class="videos-wrapper" id="videosWrapper">
+                        <!-- Video items will be dynamically inserted here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search and Articles Section -->
+        <div class="container">
+            <div class="search-section">
+                <input type="text" class="search-input" placeholder="Search articles..." id="searchInput">
+                <button class="reset-button" id="resetSearch">
+                    Reset Search
+                </button>
+            </div>
+
+            <!-- Articles List -->
+            <div class="articles-list" id="articlesList">
+                <!-- Article cards will be dynamically inserted here -->
+            </div>
+        </div>
+
+        <!-- Projects Section -->
+        <div class="container-fluid py-5" id="projectsSection">
+
+            <!-- Filter Section -->
+            <div class="container-fluid py-5 selection" style="margin-bottom: 0px;">
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-center mb-4">
+                        <div class="filter-selections" >
+                            <!-- Property Type Filter -->
+                            <div class="filter-item">
+                                <label for="property-type" class="filter-label">Property Type:</label>
+                                <select id="propertyType" class="filter-dropdown">
+                                    <option value="">All</option>
+                                    <option value="Condominium">Condominium</option>
+                                    <option value="HDB">HDB</option>
+                                    <option value="Maisonette">HDB, Maisonette</option>
+                                    <option value="Landed">Landed</option>
+                                </select>
+                            </div>
+
+                            <!-- Property Size Filter -->
+                            <div class="filter-item">
+                                <label for="property-size" class="filter-label">Property Size:</label>
+                                <select id="propertySize" class="filter-dropdown">
+                                    <option value="">All</option>
+                                    <option value="100">50 - 100 sqm</option>
+                                    <option value="200">101 - 200 sqm</option>
+                                    <option value="300">201 - 300 sqm</option>
+                                    <option value="400">301 - 400 sqm</option>
+                                    <option value="500">401 - 500 sqm</option>
+                                    <option value="501">Above 500 sqm</option>
+                                </select>
+                            </div>
+
+                            <!-- Budget Filter -->
+                            <div class="filter-item">
+                                <label for="budget" class="filter-label">Budget:</label>
+                                <select id="budget" class="filter-dropdown">
+                                    <option value="">All</option>
+                                    <option value="29999">$20,000 - $29,999</option>
+                                    <option value="34999">$30,000 - $34,999</option>
+                                    <option value="39999">$35,000 - $39,999</option>
+                                    <option value="44999">$40,000 - $44,999</option>
+                                    <option value="49999">$45,000 - $49,999</option>
+                                    <option value="54999">$50,000 - $54,999</option>
+                                    <option value="59999">$55,000 - $59,999</option>
+                                    <option value="64999">$60,000 - $64,999</option>
+                                    <option value="69999">$65,000 - $69,999</option>
+                                    <option value="74999">$70,000 - $74,999</option>
+                                    <option value="79999">$75,000 - $79,999</option>
+                                    <option value="89999">$80,000 - $89,999</option>
+                                    <option value="99999">$90,000 - $99,999</option>
+                                    <option value="199999">$100,000 - $199,999</option>
+                                    <option value="299999">$200,000 - $300,000</option>
+                                    <option value="300000">Above $300,000</option>
+                                </select>
+                            </div>
+
+                            <!-- Timeline Filter -->
+                            <div class="filter-item">
+                                <label for="timeline" class="filter-label">Timeline:</label>
+                                <select id="timeline" class="filter-dropdown">
+                                    <option value="">All</option>
+                                    <option value="3">1-3 months</option>
+                                    <option value="6">3-6 months</option>
+                                    <option value="12">6-12 months</option>
+                                    <option value="12">More than 1 year</option>
+                                </select>
+                            </div>
+
+                            <!-- Design Style Filter -->
+                            <div class="filter-item">
+                                <label for="design-style" class="filter-label">Design Style:</label>
+                                <select id="designStyle" class="filter-dropdown">
+                                    <option value="">All</option>
+                                    <option value="Contemporary">Contemporary</option>
+                                    <option value="Eclectic">Eclectic</option>
+                                    <option value="Industrial">Industrial</option>
+                                    <option value="Japandi">Japandi</option>
+                                    <option value="Mid-Century">Mid-Century</option>
+                                    <option value="Minimalist">Minimalist</option>
+                                    <option value="Modern">Modern</option>
+                                    <option value="Monochrome">Monochrome</option>
+                                    <option value="Muji">Muji</option>
+                                    <option value="Scandinavian">Scandinavian</option>
+                                    <option value="Wabi-sabi">Wabi-sabi</option>
+                                </select>
+                            </div>
+
+                            <!-- Interior Company Filter -->
+                            <div class="filter-item">
+                                <label for="company" class="filter-label">Interior Company:</label>
+                                <select id="company" class="filter-dropdown">
+                                    <option value="">All</option>
+                                    <option value="Aestherior">Aestherior</option>
+                                    <option value="IPlan">The I-Plan Studio</option>
+                                    <option value="InteriorTimes">Interior Times</option>
+                                    <option value="Renologist">Renologist</option>
+                                    <option value="SES">Style Element Studio</option>
+                                    <option value="SupremeHouzz">Supreme Houzz</option>
+                                    <option value="UltraSD">Ultra Space Design</option>
+                                    <option value="Visionary">Visionary Interior</option>
+                                    <option value="21ID">21 Interior Studio</option>
+                                    <option value="89Interior">89 Interior</option>
+                                </select>
+                            </div>
+
+                            <!-- Apply Filters Button -->
+                            <div class="filter-item">
+                                <button id="applyFilters" class="filter-button" style="padding: 15px;">Apply Filters</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Projects Display -->
+            <div class="container py-5">
+                <h1 style="text-align: center; margin-bottom: 50px;">Completed Projects</h1>
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="projectsContainer">
+                    <!-- Project cards will be dynamically inserted here -->
+                </div>
+
+                <!-- Pagination -->
+                <nav aria-label="Page navigation" >
+                    <ul class="pagination justify-content-center" id="pagination">
+                        
+                        <!-- Pagination items will be dynamically inserted here -->
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <!-- Templates for dynamic content -->
+    <!-- Article Template -->
+    <template id="articleTemplate">
+        <div class="article-card">
+            <div class="article-content">
+                <div class="article-text">
+                    <div class="article-header">
+                        <h2 class="article-title" style="color: #f5f1e5;"></h2>
+                        <p class="article-excerpt"></p>
+                    </div>
+                    <a class="read-more" target="_blank" >Read more</a>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- -->
+    <template id="projectTemplate">
+        <div class="col">
+            <div class="card h-100 overflow-hidden" style="background-color: #f5f1e5; border: 1px solid rgb(80, 55, 24); border-radius: 20px;">
+                <div class="carousel slide" data-bs-ride="false">
+                    <div class="carousel-indicators"></div>
+                    <div class="carousel-inner"></div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+                <div class="card-body" >
+                    <h5 class="card-title"></h5>
+                    <p class="card-text project-details" style="font-size: 12px; color: rgba(80, 55, 24, 0.755);"></p>
+                    <button class="btn btn-save-project">Save Project</button>
+                </div>
+            </div>
+        </div>
+    </template>
+    <script>
+        // Single state object to manage all application data
+        const state = {
+            currentVideoIndex: 0,
+            videosToShow: 3,
+            currentPage: 1,
+            itemsPerPage: 9,
+            searchQuery: '',
+            isLoading: false,
+            videos: [
+                {
+                    id: 1,
+                    youtubeId: 'zjyeK2ZWBWs?si=UhTnh5U0mzbEga5Z',
+                    title: 'House Tour: Modern Contemporary 5-Room HDB, BTO',
+                    description: 'Get inspiration for your own home'
+                },
+                {
+                    id: 2,
+                    youtubeId: '3_POGf4nNs4?si=eJDhkf92OKiAwoRA',
+                    title: 'House Tour: Wabi Sabi 2-Bedroom Condo',
+                    description: 'Latest trends in interior design'
+                },
+                {
+                    id: 3,
+                    youtubeId: 'VNWEq88H8kM?si=IzTs5Gm_hR7SDmCw',
+                    title: 'House Tour: Smart Home- 4-Room HDB, Resale',
+                    description: 'Complete guide to renovating your kitchen'
+                },
+                {
+                    id: 4,
+                    youtubeId: 'uQG91o3Ho5M?si=LX-nbfzvKx5LxGcd',
+                    title: '3 Shops to Visit for Your Home Renovation',
+                    description: 'Rooma, MC2 & Viva Nueva are the places to visit for your furnishing needs'
+                }
+            ],
+            articles: [
+                {
+                    id: 1,
+                    title: 'DIY vs Interior Designer in Singapore: Which Is Best for Your Home Renovation?',
+                    excerpt: 'When renovating your home, one of the first decisions you\'ll face is whether to take the DIY route or to hire a professional Interior Designer (ID).',
+                    image: './assets/article1/Article1.png',
+                    link: './assets/article1/Article1.htm',
+                },
+                {
+                    id: 2,
+                    title: 'Best Interior Design Hacks for Renovating Small Homes in Singapore',
+                    excerpt: 'Renovating a small home in Singapore can be a challenge, but with the right interior design hacks, you can make even the most compact spaces feel functional, stylish, and surprisingly spacious.',
+                    image: './assets/article2/Article2.png',
+                    link: './assets/article2/Article2.htm',
+                },
+                {
+                    id: 3,
+                    title: 'Embracing Curves and Arches in Your Home: Trendy or Timeless?',
+                    excerpt: 'You\'ve seen it on Youtube, you\'ve seen it on your reno board on Pinterest—Curves and arches have been making a big splash in the world of interior design, popping up everywhere from furniture to architectural details.',
+                    image: './assets/article3/Article3.png',
+                    link: './assets/article3/Article3.htm',
+                },
+                {
+                    id: 4,
+                    title: '5 Smart Home Upgrades You Need Right Now From Futurahaus',
+                    excerpt: 'Imagine this: It is finally the December holidays, and you\'ve just landed in Bali with your family for vacation. However, you suddenly recall that your living room lights are still shining bright as you left home in a hurry this morning to catch the flight.',
+                    image: './assets/article4/Article4.png',
+                    link: './assets/article4/Article4.htm',
+                },
+                {
+                    id: 5,
+                    title: 'Light vs Dark Renovation Colour Schemes: Which Should You Pick?',
+                    excerpt: 'When it comes to renovating your home, one of the most exciting decisions you\'ll make is choosing the colour scheme. Will you go light and airy or dark and dramatic?',
+                    image: '../public/Articles/Article5/Article5.png',
+                    link: '../public/Articles/Article5/Article5.htm',
+                },
+                {
+                    id: 6,
+                    title: 'Muji Interior Design Made Simple: Key Elements for Achieving the Look',
+                    excerpt: 'Ever walked into the furniture section of a Muji store, and wished your house had the same aesthetic? You\'re not alone.',
+                    image: '../public/Articles/Article6/Article6.png',
+                    link: '../public/Articles/Article6/Article6.htm',
+                },
+                {
+                    id: 7,
+                    title: '5 Study Room Designs To Maximise Productivity and Style',
+                    excerpt: 'The COVID-19 pandemic has transformed our way of working, where we see the new norm of hybrid work arrangements leaving us the need to create a conducive and encouraging environment for days we work from home. Here are our top 5 picks of study room designs that can help you maximise your productivity while looking aesthetically pleasing.',
+                    image: '../public/Articles/Article7/Article7.jpg',
+                    link: '../public/Articles/Article7/Article7.htm',
+                },
+                {
+                    id: 8,
+                    title: 'Budget-Friendly Interior Design Tips for First-Time Home Renovators',
+                    excerpt: 'So, you\'ve finally got the keys to your new flat and you\'re looking to make it your own. However, you\'ve just forked out a huge sum for the place, and you have a wedding or life milestone coming up that you could really use the cash on. However, there\'s no way you can have your new home like how you like your coffee—kosong! Don\'t worry, we\'ve got you covered.',
+                    image: '../public/Articles/Article8/Article8.png',
+                    link: '../public/Articles/Article8/Article8.htm',
+                },
+                {
+                    id: 9,
+                    title: 'The Organic Elegance of Wabi-sabi Interior Design: Our Top Five Picks',
+                    excerpt: 'Inspired by a set of Japanese ancient ideals - wabi (侘び) and sabi (寂び), the wabi-sabi interior design style has taken over Singaporean homes by storm. Wabi-sabi homes are designed from the fundamental value of appreciating nature\'s beauty in spite of its imperfections and incompleteness. Here are our top five picks of the most gorgeous wabi-sabi homes that truly encompass organic elegance.',
+                    image: '../public/Articles/Article9/Article9.png',
+                    link: '../public/Articles/Article9/Article9.htm',
+                },
+                {
+                    id: 10,
+                    title: 'Must-Have Bathroom Features for Singapore Homes in 2024',
+                    excerpt: 'Renovating your bathroom is serious business. There\'s no bathroom better than home, so you want to make sure that you\'re renovating it right. However, where do you start? What features should you actually splurge on and what can you skip? Don\'t worry, because the EZiD team has got your back!',
+                    image: '../public/Articles/Article10/Article10.jpg',
+                    link: '../public/Articles/Article10/Article10.htm',
+                },
+                {
+                    id: 11,
+                    title: 'Transforming Your Home: The Magic of TV Console Feature Walls',
+                    excerpt: 'You\'ve heard the term buzzing around in renovation conversations, but what exactly are TV feature walls? How do they transform your living space into a stylish and practical masterpiece? If you\'re on a quest to make your TV console both functional and fun, look no further as we\'re here to tell you why they are so popular and how they can do wonders for your home.',
+                    image: '../public/Articles/Article11/Article11.jpg',
+                    link: '../public/Articles/Article11/Article11.htm',
+                },
+                {
+                    id: 12,
+                    title: 'Cove Lighting In Every Style You Can Imagine: From Modern Luxury to Muji',
+                    excerpt: 'Cove lighting has not only made its way to people\'s hearts, but also to every possible interior design style you can imagine. Versatile, it shines (pun intended) in every type of Singaporean housing. Be inspired by the versatile uses of cove lighting today!',
+                    image: '../public/Articles/Article12/Article12.jpg',
+                    link: '../public/Articles/Article12/Article12.htm',
+                },
+                {
+                    id: 13,
+                    title: 'Renovating for the First Time? Here Are Questions You Should Ask Your Interior Designer',
+                    excerpt: 'An interior designer (ID) can guide you through the process, but not all IDs are created equal. Asking the right questions upfront will help you find the perfect partner for the job. At EZiD, we\'ve rounded up the top 10 questions every first-timer should ask their ID.',
+                    image: '../public/Articles/Article13/Article13.png',
+                    link: '../public/Articles/Article13/Article13.htm',
+                },
+                {
+                    id: 14,
+                    title: 'The Transformative Power of Fluted Panels: 10 Creative Ways To Infuse Your Home With Character',
+                    excerpt: 'There are so many ways fluted panels can be customised and infused into a space to create a distinct atmosphere or mood, and we have compiled creative ways this stunning feature can add character and personality to the various areas of your very own home!',
+                    image: '../public/Articles/Article14/Article14.jpeg',
+                    link: '../public/Articles/Article14/Article14.htm',
+                },
+                {
+                    id: 15,
+                    title: 'The Ultimate Guide to Kitchen Renovations in Singapore—Must-have Features and More',
+                    excerpt: 'Renovating a kitchen involves many decisions, and it can be overwhelming to navigate all the options. This guide to kitchen renovations in Singapore will be ultimate to successfully creating a functional and beautiful space! From layouts and storage solutions to appliances and finishes, this comprehensive guide will help you plan your dream kitchen.',
+                    image: '../public/Articles/Article15/Article15.png',
+                    link: '../public/Articles/Article15/Article15.htm',
+                },
+                {
+                    id: 16,
+                    title: 'Common Styles of Interior Design to Inspire Your Next Project',
+                    excerpt: 'Feeling inspired to change things up in your house? Here are some different interior design styles to help you out on your next project!',
+                    image: '../public/Articles/Article16/Article16.jpg',
+                    link: '../public/Articles/Article16/Article16.htm',
+                },
+                {
+                    id: 17,
+                    title: 'Home Office Design Ideas to Boost Productivity',
+                    excerpt: '', // No excerpt provided in the HTML snippet.
+                    image: '../public/Articles/Article17/Article17.png',
+                    link: '../public/Articles/Article17/Article17.htm',
+                },
+                {
+                    id: 18,
+                    title: 'Essential Elements of Luxury Design for Home Interiors',
+                    excerpt: '', // No excerpt provided in the HTML snippet.
+                    image: '../public/Articles/Article18/Article18.jpg',
+                    link: '../public/Articles/Article18/Article18.htm',
+                },
+                {
+                    id: 19,
+                    title: '5 Tips On How to Choose Interior Designer Singapore',
+                    excerpt: '', // No excerpt provided in the HTML snippet.
+                    image: '../public/Articles/Article19/Article19.jpg',
+                    link: '../public/Articles/Article19/Article19.htm',
+                },
+                {
+                    id: 20,
+                    title: 'Renovation Red Flags: What to Watch Out for When Hiring a Contractor',
+                    excerpt: 'Renovating your home can be an exciting and rewarding experience. However, it can quickly turn into a nightmare if you don\'t hire the right contractor or interior designer. That\'s why in this article, we\'ll take a closer look at the renovation red flags you should be aware of.',
+                    image: '../public/Articles/Article20/Article20.jpg',
+                    link: '../public/Articles/Article20/Article20.htm',
+                },
+            ],
+            projects: [],
+            filteredProjects: []
+        };
+
+        // Firebase initialization
+        // ... existing code ...
+
+        // Update the Firebase initialization and fetchProjects function
+        const firebaseConfig = {
+            apiKey: "AIzaSyDvJo_HCmN5F97adAZjmIVEJZv0UU6FxZE",
+            authDomain: "renovenience.firebaseapp.com",
+            projectId: "renovenience",
+            storageBucket: "renovenience.appspot.com",
+            messagingSenderId: "279886416921",
+            appId: "1:279886416921:web:1b41f31c84cdb8ca962e88",
+            measurementId: "G-YEQ58X83LB"
+        };
+
+        // Initialize Firebase
+        let db;
+        if (typeof firebase !== 'undefined') {
+            firebase.initializeApp(firebaseConfig);
+            db = firebase.firestore();
+        }
+
+        async function fetchProjects() {
+            try {
+                state.isLoading = true;
+                // Check if db is initialized
+                if (!db) {
+                    throw new Error('Firebase not initialized');
+                }
+
+                // Update collection name to match your Firebase collection
+                const projectsRef = db.collection('explore-projects'); // Make sure this matches your collection name
+                const snapshot = await projectsRef.get();
+
+                if (snapshot.empty) {
+                    console.log('No projects found');
+                    state.projects = [];
+                } else {
+                    state.projects = snapshot.docs.map(doc => {
+                        const data = doc.data();
+                        return {
+                            id: doc.id,
+                            ...data,
+                            // Ensure these fields exist
+                            images: data.images || [],
+                            priceStr: data.priceStr || `$${data.price?.toLocaleString()}` || 'Price not available',
+                            name: data.name || 'Untitled Project'
+                        };
+                    });
+                    console.log('Fetched projects:', state.projects); // Debug log
+                }
+
+                state.filteredProjects = [...state.projects];
+                state.isLoading = false;
+                renderProjects();
+                renderPagination();
+            } catch (error) {
+                console.error("Error fetching projects:", error);
+                state.isLoading = false;
+                const container = document.getElementById('projectsContainer');
+                if (container) {
+                    container.innerHTML = `
+                <div class="col-12 text-center">
+                    <p class="text-danger">Error loading projects. Please try again later.</p>
+                    <p class="text-danger">Error details: ${error.message}</p>
+                </div>
+            `;
+                }
+            }
+        }
+
+        // Updated render functions
+        function renderVideos() {
+            const wrapper = document.getElementById('videosWrapper');
+            if (!wrapper) return;
+
+            wrapper.innerHTML = '';
+
+            state.videos.forEach((video, index) => {
+                if (index >= state.currentVideoIndex && index < state.currentVideoIndex + state.videosToShow) {
+                    const videoItem = document.createElement('div');
+                    videoItem.className = 'video-item';
+                    videoItem.style.width = `${100 / state.videosToShow}%`;
+
+                    videoItem.innerHTML = `
+                <div class="video-wrapper">
+                    <iframe
+                        src="https://www.youtube.com/embed/${video.youtubeId}"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
+                    ></iframe>
+                </div>
+                <div class="video-content">
+                    <h3 class="video-title">${video.title}</h3>
+                    <p class="video-description">${video.description}</p>
+                </div>
+            `;
+                    wrapper.appendChild(videoItem);
+                }
+            });
+
+            updateNavigationButtons();
+        }
+
+        function renderArticles() {
+            const articlesList = document.getElementById('articlesList');
+            if (!articlesList) return;
+
+            articlesList.innerHTML = '';
+
+            const filteredArticles = state.articles.filter(article =>
+                article.title.toLowerCase().includes(state.searchQuery.toLowerCase()) ||
+                article.excerpt.toLowerCase().includes(state.searchQuery.toLowerCase())
+            );
+
+            filteredArticles.forEach(article => {
+                const template = document.getElementById('articleTemplate');
+                if (!template) return;
+
+                const clone = template.content.cloneNode(true);
+                const articleCard = clone.querySelector('.article-card');
+
+                articleCard.querySelector('.article-content').style.backgroundImage = `url(${article.image})`;
+                articleCard.querySelector('.article-title').textContent = article.title;
+                articleCard.querySelector('.article-excerpt').textContent = article.excerpt;
+                articleCard.querySelector('.read-more').href = article.link;
+
+                articlesList.appendChild(clone);
+            });
+        }
+
+        function renderProjects() {
+            const container = document.getElementById('projectsContainer');
+            if (!container) return;
+
+            if (state.isLoading) {
+                container.innerHTML = `
+            <div class="col-12 text-center">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        `;
+                return;
+            }
+
+            container.innerHTML = '';
+
+            const startIndex = (state.currentPage - 1) * state.itemsPerPage;
+            const endIndex = startIndex + state.itemsPerPage;
+            const projectsToShow = state.filteredProjects.slice(startIndex, endIndex);
+
+            if (projectsToShow.length === 0) {
+                container.innerHTML = `
+            <div class="col-12 text-center">
+                <p>No projects found matching your criteria.</p>
+            </div>
+        `;
+                return;
+            }
+
+            projectsToShow.forEach(project => {
+                const template = document.getElementById('projectTemplate');
+                if (!template) return;
+
+                const clone = template.content.cloneNode(true);
+
+                // Populate project data
+                clone.querySelector('.card-title').textContent = project.name;
+
+                // Create project details string
+                const details = `
+            ${project.description},
+            ${project.size} sqm<br>
+            ${project.timeline} Month<br>
+            <strong>${project.priceStr}</strong><br>
+            Project by: <strong>${project.idCompany}</strong>
+        `;
+                clone.querySelector('.project-details').innerHTML = details;
+
+                // Setup carousel if project has images
+                if (project.images && project.images.length > 0) {
+                    setupProjectCarousel(clone, project);
+                }
+
+                container.appendChild(clone);
+            });
+
+            // Initialize Bootstrap carousels
+            if (typeof bootstrap !== 'undefined') {
+                document.querySelectorAll('.carousel').forEach(carouselEl => {
+                    new bootstrap.Carousel(carouselEl, {
+                        interval: false,
+                        wrap: true,
+                        keyboard: true
+                    });
+                });
+            }
+        }
+
+
+        // Helper functions
+        function updateNavigationButtons() {
+            const prevButton = document.getElementById('prevVideo');
+            const nextButton = document.getElementById('nextVideo');
+
+            if (prevButton) {
+                prevButton.disabled = state.currentVideoIndex === 0;
+            }
+            if (nextButton) {
+                nextButton.disabled = state.currentVideoIndex >= state.videos.length - state.videosToShow;
+            }
+        }
+
+        function setupProjectCarousel(card, project) {
+            const carousel = card.querySelector('.carousel');
+            const indicators = carousel.querySelector('.carousel-indicators');
+            const inner = carousel.querySelector('.carousel-inner');
+
+            // Generate unique ID for this carousel
+            const carouselId = `carousel-${project.id}`;
+            carousel.id = carouselId;
+
+            // Clear existing content
+            indicators.innerHTML = '';
+            inner.innerHTML = '';
+
+            // Add data-bs-target to carousel controls
+            carousel.querySelector('.carousel-control-prev').setAttribute('data-bs-target', `#${carouselId}`);
+            carousel.querySelector('.carousel-control-next').setAttribute('data-bs-target', `#${carouselId}`);
+
+            // Add images to carousel
+            project.images.forEach((imageUrl, index) => {
+                // Add indicator
+                indicators.innerHTML += `
+            <button type="button" 
+                data-bs-target="#${carouselId}" 
+                data-bs-slide-to="${index}" 
+                ${index === 0 ? 'class="active" aria-current="true"' : ''}
+                aria-label="Slide ${index + 1}">
+            </button>
+        `;
+
+                // Add carousel item
+                inner.innerHTML += `
+            <div class="carousel-item ${index === 0 ? 'active' : ''}">
+                <img src="${imageUrl}" class="d-block w-100" alt="Project image ${index + 1}">
+            </div>
+        `;
+            });
+        }
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialize the page
+            updateVideosToShow();
+            renderVideos();
+            renderArticles();
+            fetchProjects();
+
+            if (typeof bootstrap !== 'undefined') {
+                const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+                tooltipTriggerList.map(function (tooltipTriggerEl) {
+                    return new bootstrap.Tooltip(tooltipTriggerEl);
+                });
+            }
+
+            // Video carousel controls
+            document.getElementById('prevVideo')?.addEventListener('click', () => {
+                if (state.currentVideoIndex > 0) {
+                    state.currentVideoIndex--;
+                    renderVideos();
+                }
+            });
+
+            document.getElementById('nextVideo')?.addEventListener('click', () => {
+                if (state.currentVideoIndex < state.videos.length - state.videosToShow) {
+                    state.currentVideoIndex++;
+                    renderVideos();
+                }
+            });
+
+            // Search functionality
+            document.getElementById('searchInput')?.addEventListener('input', (e) => {
+                state.searchQuery = e.target.value;
+                renderArticles();
+            });
+
+            document.getElementById('resetSearch')?.addEventListener('click', () => {
+                state.searchQuery = '';
+                const searchInput = document.getElementById('searchInput');
+                if (searchInput) searchInput.value = '';
+                renderArticles();
+            });
+
+            // Filter functionality
+            document.getElementById('applyFilters')?.addEventListener('click', applyFilters);
+
+            // Window resize handler
+            window.addEventListener('resize', updateVideosToShow);
+        });
+
+        // Add these functions to your existing JavaScript code
+
+        // Function to update videos to show based on screen width
+        function updateVideosToShow() {
+            const width = window.innerWidth;
+            if (width < 768) {
+                state.videosToShow = 1;
+            } else if (width < 1024) {
+                state.videosToShow = 2;
+            } else {
+                state.videosToShow = 3;
+            }
+            renderVideos();
+        }
+
+        // Function to save project
+        async function saveProject(projectId) {
+            try {
+                if (typeof firebase === 'undefined') {
+                    console.log('Project saved:', projectId);
+                    alert('Project saved successfully!');
+                    return;
+                }
+
+                // Implement your Firebase save logic here
+                const savedProjectsRef = db.collection('savedProjects');
+                await savedProjectsRef.add({
+                    projectId: projectId,
+                    savedAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+
+                alert('Project saved successfully!');
+            } catch (error) {
+                console.error('Error saving project:', error);
+                alert('Failed to save project. Please try again.');
+            }
+        }
+
+        // Function to apply filters
+        function applyFilters() {
+            const propertyType = document.getElementById('propertyType').value;
+            const propertySizeSelect = document.getElementById('propertySize').value;
+            const budget = document.getElementById('budget').value;
+            const timeline = document.getElementById('timeline').value;
+            const designStyle = document.getElementById('designStyle').value;
+            const company = document.getElementById('company').value;
+
+            state.filteredProjects = state.projects.filter(project => {
+                let matches = true;
+
+                if (propertyType && project.propertyType !== propertyType) {
+                    matches = false;
+                }
+
+                if (propertySizeSelect) {
+                    const size = parseInt(project.size);
+                    const filterSize = parseInt(propertySizeSelect);
+
+                    if (filterSize === 49 && size >= 50) matches = false;
+                    else if (filterSize === 100 && (size < 50 || size > 100)) matches = false;
+                    else if (filterSize === 200 && (size < 101 || size > 200)) matches = false;
+                    else if (filterSize === 300 && (size < 201 || size > 300)) matches = false;
+                    else if (filterSize === 400 && (size < 301 || size > 400)) matches = false;
+                    else if (filterSize === 500 && (size < 401 || size > 500)) matches = false;
+                    else if (filterSize === 501 && size <= 500) matches = false;
+                }
+
+                if (budget) {
+                    const projectPrice = parseInt(project.priceStr.replace(/[^0-9]/g, ''));
+                    const filterPrice = parseInt(budget);
+
+                    if (filterPrice === 29999 && (projectPrice < 20000 || projectPrice > 29999)) matches = false;
+                    else if (filterPrice === 34999 && (projectPrice < 30000 || projectPrice > 34999)) matches = false;
+                    else if (filterPrice === 39999 && (projectPrice < 35000 || projectPrice > 39999)) matches = false;
+                    else if (filterPrice === 44999 && (projectPrice < 40000 || projectPrice > 44999)) matches = false;
+                    else if (filterPrice === 49999 && (projectPrice < 45000 || projectPrice > 49999)) matches = false;
+                    else if (filterPrice === 54999 && (projectPrice < 50000 || projectPrice > 54999)) matches = false;
+                    else if (filterPrice === 59999 && (projectPrice < 55000 || projectPrice > 59999)) matches = false;
+                    else if (filterPrice === 64999 && (projectPrice < 60000 || projectPrice > 64999)) matches = false;
+                    else if (filterPrice === 69999 && (projectPrice < 65000 || projectPrice > 69999)) matches = false;
+                    else if (filterPrice === 74999 && (projectPrice < 70000 || projectPrice > 74999)) matches = false;
+                    else if (filterPrice === 79999 && (projectPrice < 75000 || projectPrice > 79999)) matches = false;
+                    else if (filterPrice === 89999 && (projectPrice < 80000 || projectPrice > 89999)) matches = false;
+                    else if (filterPrice === 99999 && (projectPrice < 90000 || projectPrice > 99999)) matches = false;
+                    else if (filterPrice === 199999 && (projectPrice < 100000 || projectPrice > 199999)) matches = false;
+                    else if (filterPrice === 299999 && (projectPrice < 200000 || projectPrice > 300000)) matches = false;
+                    else if (filterPrice === 300000 && projectPrice <= 300000) matches = false;
+                }
+
+                if (timeline) {
+                    const projectTimeline = parseInt(project.timeline);
+                    const filterTimeline = parseInt(timeline);
+                    if (projectTimeline > filterTimeline) matches = false;
+                }
+
+                if (designStyle && project.designStyle !== designStyle) {
+                    matches = false;
+                }
+
+                if (company && project.companyID !== company) {
+                    matches = false;
+                }
+
+                return matches;
+            });
+
+            // Reset to first page when applying filters
+            state.currentPage = 1;
+            renderProjects();
+            renderPagination();
+        }
+
+        // Function to render pagination
+        function renderPagination() {
+            const paginationElement = document.getElementById('pagination');
+            if (!paginationElement) return;
+
+            const totalPages = Math.ceil(state.filteredProjects.length / state.itemsPerPage);
+
+            let paginationHTML = '';
+
+            // Previous button
+            paginationHTML += `
+        <li class="page-item ${state.currentPage === 1 ? 'disabled' : ''}">
+            <a class="page-link" href="#" data-page="${state.currentPage - 1}">Previous</a>
+        </li>
+    `;
+
+            // Page numbers
+            for (let i = 1; i <= totalPages; i++) {
+                paginationHTML += `
+            <li class="page-item ${state.currentPage === i ? 'active' : ''}">
+                <a class="page-link" href="#" data-page="${i}">${i}</a>
+            </li>
+        `;
+            }
+
+            // Next button
+            paginationHTML += `
+        <li class="page-item ${state.currentPage === totalPages ? 'disabled' : ''}">
+            <a class="page-link" href="#" data-page="${state.currentPage + 1}">Next</a>
+        </li>
+    `;
+
+            paginationElement.innerHTML = paginationHTML;
+
+            // Add click handlers for pagination
+            paginationElement.querySelectorAll('.page-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const newPage = parseInt(e.target.dataset.page);
+                    if (newPage >= 1 && newPage <= totalPages) {
+                        state.currentPage = newPage;
+                        renderProjects();
+                        renderPagination();
+                        window.scrollTo({
+                            top: document.getElementById('projectsContainer').offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+
+    </script>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
