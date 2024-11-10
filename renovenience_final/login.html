@@ -129,7 +129,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                            @click="refreshPage">Ok</button>
+                            @click="redirect">Ok</button>
                     </div>
                 </div>
             </div>
@@ -283,6 +283,9 @@
                     }
 
                 },
+                redirect(){
+                    window.location.href = "homepage.html";                
+                }
             }
         });
         app.mount('#app');
