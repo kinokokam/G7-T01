@@ -1,0 +1,183 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout Page</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        /* Basic styles for the form */
+        .container { max-width: 400px; margin: auto; padding: 20px; }
+        .payment-form { display: flex; flex-direction: column; gap: 15px; }
+        #card-element { padding: 10px; border: 1px solid #ddd; }
+        #submit-button { background-color: #4CAF50; color: white; padding: 10px; cursor: pointer; }
+        .result-message { color: green; }
+        .error-message { color: red; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Checkout</h2>
+        <form id="payment-form" class="payment-form">
+            <div id="card-element"></div>
+            <button id="submit-button" type="button">Pay Now</button>
+        </form>
+        <div id="result-message" class="result-message"></div>
+        <div id="error-message" class="error-message"></div>
+    </div>
+
+    <script>
+        const stripe = Stripe("pk_test_51QGaJLAUyOi61T2YhyBDVaXa2xGl3EBV8wviFNYPsY60U60WEK612k5bkb00m17rE3Chl7IUmBeYQCxXBcbjeXqL00VWr9ekMy"); // Replace with your Stripe Publishable Key
+        const elements = stripe.elements();
+        const card = elements.create("card");
+        card.mount("#card-element");
+
+        document.getElementById("submit-button").addEventListener("click", async (event) => {
+            event.preventDefault();
+            const { error, paymentMethod } = await stripe.createPaymentMethod("card", card);
+            if (error) {
+                displayError(error.message);
+            } else {
+                await processPayment(paymentMethod.id);
+            }
+        });
+
+        async function processPayment(paymentMethodId) {
+            const response = await fetch("/create-payment-intent", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ paymentMethodId }),
+            });
+
+            const result = await response.json();
+            if (result.error) {
+                displayError(result.error.message);
+            } else {
+                document.getElementById("result-message").textContent = "Payment Successful!";
+            }
+        }
+
+        function displayError(message) {
+            document.getElementById("error-message").textContent = message;
+        }
+    </script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout Page</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        /* Basic styles for the form */
+        .container { max-width: 400px; margin: auto; padding: 20px; }
+        .payment-form { display: flex; flex-direction: column; gap: 15px; }
+        #card-element { padding: 10px; border: 1px solid #ddd; }
+        .result-message { color: green; }
+        .error-message { color: red; }
+        #submit-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.875rem;
+            letter-spacing: 0.05rem;
+            border: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        #submit-button:hover {background-color: #45a049;}
+
+        .form-group {
+            margin-bottom: 0px;
+            display:flex;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Checkout</h2>
+        <form id="payment-form" class="payment-form">
+            <div id="card-element"></div>
+
+            <div class="form-group">
+                <input type="text" id="postal-code" name="postal-code" placeholder="Postal code" required>
+                <span>&nbsp;</span>
+                <span style="display: flex; align-items: center;">#</span>
+                <input type="text" id="unit-no" name="unit-no" placeholder="Unit No." required>
+            </div>
+            <div class="form-group">
+                <input type="text" id="address" name="address" placeholder="Address" required>
+            </div>            
+            <button id="submit-button" type="button">Pay Now</button>
+        </form>
+        <div id="result-message" class="result-message"></div>
+        <div id="error-message" class="error-message"></div>
+    </div>
+
+    <script>
+        const stripe = Stripe("pk_test_51QGaJLAUyOi61T2YhyBDVaXa2xGl3EBV8wviFNYPsY60U60WEK612k5bkb00m17rE3Chl7IUmBeYQCxXBcbjeXqL00VWr9ekMy"); // Replace with your Stripe Publishable Key
+        const elements = stripe.elements();
+        const card = elements.create("card");
+        card.mount("#card-element");
+
+        document.getElementById("submit-button").addEventListener("click", async (event) => {
+            event.preventDefault();
+
+            const postalCode = document.querySelector('input[name="postal-code"]').value;
+            const address = document.querySelector('input[name="address"]').value;
+            const unitNo = document.querySelector('input[name="unit-no"]').value;
+
+        if (!postalCode || !address || !unitNo) {
+            displayError("All fields are required.");
+            return;
+        }else{
+            if (!/^\d{6}$/.test(postalCode)) {
+                displayError("Enter a valid postal code (e.g., 123456)");
+                return;
+            }else{
+                displayError("")
+            }
+
+            if (!/^[A-Za-z0-9]+-[A-Za-z0-9]+$/.test(unitNo)) {
+                displayError("Enter a valid unit no. (e.g., 12-34).");
+                return;
+            }
+        }
+            const { error, paymentMethod } = await stripe.createPaymentMethod("card", card);
+            if (error) {
+                displayError(error.message);
+            } else {
+                await processPayment(paymentMethod.id);
+            }
+        });
+
+        async function processPayment(paymentMethodId) {
+            // Simulate a successful payment
+            const result = { success: true };
+
+            if (result.success) {
+            document.getElementById("result-message").textContent = "Payment Successful!";
+            alert("Payment successful");
+            } else {
+            displayError("Payment failed");
+            }
+        }
+
+        function displayError(message) {
+            document.getElementById("error-message").textContent = message;
+        }
+    </script>
+</body>
+</html>
