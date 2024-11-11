@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile </title>
+    <script src="profile.js"></script>
 
     <!--
     - favicon
@@ -133,7 +134,7 @@
                 <div class="col-lg-1"></div>
 
                 <div class="col-lg-2">
-                    <a class="navbar-brand" href="index.html"><img src="assets/images/logo.png" class="navbar-logo"
+                    <a class="navbar-brand" href="homepage.html"><img src="assets/images/logo.png" class="navbar-logo"
                             style="margin-right: -100px; margin-top: 0px;"></a>
                 </div>
 
@@ -196,39 +197,10 @@
                         style="width: 150px; height: 150px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
                         <span id="uploadText" style="text-align: center; font-size: 15px;">Click to upload image</span>
                         <img id="profileImage" src="" alt="Profile Image"
-                            style="display: none; width: 100%; height: 100%; object-fit: cover;">
+                            style="display: block; width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <input type="file" id="profileImageUpload" style="display: none;" accept="image/*">
 
-                    <script>
-                        // Click the hidden file input when the box is clicked
-                        document.getElementById('uploadBox').addEventListener('click', function () {
-                            document.getElementById('profileImageUpload').click();
-                        });
-
-                        // Handle image upload and preview
-                        document.getElementById('profileImageUpload').addEventListener('change', function (event) {
-                            const file = event.target.files[0];
-                            if (file && file.type.startsWith('image/')) {
-                                const reader = new FileReader();
-
-                                reader.onload = function (e) {
-                                    // Display the uploaded image in the box
-                                    const profileImage = document.getElementById('profileImage');
-                                    profileImage.src = e.target.result;
-                                    profileImage.style.display = 'block';
-
-                                    // Hide the upload text
-                                    document.getElementById('uploadText').style.display = 'none';
-                                };
-
-                                // Read the image file as a data URL
-                                reader.readAsDataURL(file);
-                            }
-                        });
-
-
-                    </script>
 
                 </figure>
 
@@ -237,9 +209,13 @@
                     </h1>
                     <span id="editIconUsername" style="cursor: pointer;" title="Edit name">✏️</span>
                 </div>
+
+
                 <div class="info-content">
-                    <p class="title">Web developer</p>
+
+                    <button class="btn-logout" id="logoutButton">Logout</button>
                 </div>
+
 
 
                 <button class="info_more-btn" data-sidebar-btn>
@@ -263,7 +239,9 @@
                         </div>
 
                         <div class="contact-info">
-                            <p class="contact-title">Email</p>
+                            <p class="contact-title">
+                                Email
+                            </p>
 
                             <a href="mailto:example@example.com" class="contact-link" id="email"></a>
                         </div>
@@ -277,23 +255,11 @@
                         </div>
 
                         <div class="contact-info">
-                            <p class="contact-title">Phone</p>
-
+                            <p class="contact-title">
+                                Phone
+                                <span id="editIconPhone" class="editIcon" title="Edit phone">✏️</span>
+                            </p>
                             <a href="tel:+12133522795" class="contact-link" id="phone"></a>
-                        </div>
-
-                    </li>
-
-                    <li class="contact-item">
-
-                        <div class="icon-box">
-                            <ion-icon name="calendar-outline"></ion-icon>
-                        </div>
-
-                        <div class="contact-info">
-                            <p class="contact-title">Birthday</p>
-
-                            <time datetime="1982-06-23">June 23, 1982</time>
                         </div>
 
                     </li>
@@ -305,14 +271,59 @@
                         </div>
 
                         <div class="contact-info">
-                            <p class="contact-title">Location</p>
+                            <p class="contact-title">Address
+                                <span id="editIconAddress" class="editIcon" title="Edit address">✏️</span>
+                            </p>
 
-                            <address>Sacramento, California, USA</address>
+                            <address id="address">No Address Yet</address>
                         </div>
 
                     </li>
 
                 </ul>
+
+                <script>
+
+                    const nameElement = document.getElementById('userName');
+                    // const editIcon = document.getElementById('editIcon');
+
+                    // Make the name editable when the edit icon is clicked
+                    editIconUsername.addEventListener('click', function () {
+                        nameElement.setAttribute('contenteditable', 'true');
+                        nameElement.focus();
+                    });
+
+                    // Remove edit mode on blur (when the user clicks outside)
+                    nameElement.addEventListener('blur', function () {
+                        nameElement.setAttribute('contenteditable', 'false');
+                    });
+
+                    const phoneElement = document.getElementById('phone');
+                    // Make the name editable when the edit icon is clicked
+                    editIconPhone.addEventListener('click', function () {
+                        phoneElement.setAttribute('contenteditable', 'true');
+                        phoneElement.focus();
+                    });
+
+                    // Remove edit mode on blur (when the user clicks outside)
+                    phoneElement.addEventListener('blur', function () {
+                        phoneElement.setAttribute('contenteditable', 'false');
+                    });
+
+                    const addressElement = document.getElementById('address');
+                    // Make the name editable when the edit icon is clicked
+                    editIconAddress.addEventListener('click', function () {
+                        addressElement.setAttribute('contenteditable', 'true');
+                        addressElement.focus();
+                    });
+
+                    // Remove edit mode on blur (when the user clicks outside)
+                    addressElement.addEventListener('blur', function () {
+                        addressElement.setAttribute('contenteditable', 'false');
+                    });
+
+
+                </script>
 
                 <div class="separator"></div>
 
@@ -348,38 +359,12 @@
 
         <div class="main-content">
 
-            <!--
-        - #NAVBAR
-      -->
 
-            <!-- <nav class="navbar">
-
-                <ul class="navbar-list">
-
-                    <li class="navbar-item">
-                        <button class="navbar-link active" data-nav-link>Orders</button>
-                    </li>
-
-                    <li class="navbar-item">
-                        <button class="navbar-link" data-nav-link>Favourites</button>
-                    </li>
-
-                </ul>
-
-            </nav> -->
-
-
-
-
-
-            <!--
-        - #ABOUT
-      -->
             <div class="container-fluid">
 
                 <div class="row">
                     <div class="col-md-6 col-sm-12" style="height: 806px;">
-                        <article class="about  active" data-page="orders">
+                        <article class="about active" data-page="orders">
 
                             <header>
                                 <h2 class="h2 article-title">My Orders</h2>
@@ -387,10 +372,7 @@
 
                             <section class="about-text">
 
-
                             </section>
-
-
                             <!-- order List -->
                             <section class="service">
                                 <ul class="service-list" id="orderList">
@@ -416,226 +398,7 @@
 
                             <section class="projects">
 
-                                <ul class="filter-list">
-
-                                    <li class="filter-item">
-                                        <button class="active" data-filter-btn>All</button>
-                                    </li>
-
-                                    <li class="filter-item">
-                                        <button data-filter-btn>Web design</button>
-                                    </li>
-
-                                    <li class="filter-item">
-                                        <button data-filter-btn>Applications</button>
-                                    </li>
-
-                                    <li class="filter-item">
-                                        <button data-filter-btn>Web development</button>
-                                    </li>
-
-                                </ul>
-
-                                <div class="filter-select-box">
-
-                                    <button class="filter-select" data-select>
-
-                                        <div class="select-value" data-selecct-value>Select category</div>
-
-                                        <div class="select-icon">
-                                            <ion-icon name="chevron-down"></ion-icon>
-                                        </div>
-
-                                    </button>
-
-                                    <ul class="select-list">
-
-                                        <li class="select-item">
-                                            <button data-select-item>All</button>
-                                        </li>
-
-                                        <li class="select-item">
-                                            <button data-select-item>Web design</button>
-                                        </li>
-
-                                        <li class="select-item">
-                                            <button data-select-item>Applications</button>
-                                        </li>
-
-                                        <li class="select-item">
-                                            <button data-select-item>Web development</button>
-                                        </li>
-
-                                    </ul>
-
-                                </div>
-
-                                <ul class="project-list">
-
-                                    <li class="project-item  active" data-filter-item data-category="web development">
-                                        <a href="#">
-
-                                            <figure class="project-img">
-                                                <div class="project-item-icon-box">
-                                                    <ion-icon name="eye-outline"></ion-icon>
-                                                </div>
-
-                                                <img src="./assets/images/project-1.jpg" alt="finance" loading="lazy">
-                                            </figure>
-
-                                            <h3 class="project-title">Finance</h3>
-
-                                            <p class="project-category">Web development</p>
-
-                                        </a>
-                                    </li>
-
-                                    <li class="project-item  active" data-filter-item data-category="web development">
-                                        <a href="#">
-
-                                            <figure class="project-img">
-                                                <div class="project-item-icon-box">
-                                                    <ion-icon name="eye-outline"></ion-icon>
-                                                </div>
-
-                                                <img src="./assets/images/project-2.png" alt="orizon" loading="lazy">
-                                            </figure>
-
-                                            <h3 class="project-title">Orizon</h3>
-
-                                            <p class="project-category">Web development</p>
-
-                                        </a>
-                                    </li>
-
-                                    <li class="project-item  active" data-filter-item data-category="web design">
-                                        <a href="#">
-
-                                            <figure class="project-img">
-                                                <div class="project-item-icon-box">
-                                                    <ion-icon name="eye-outline"></ion-icon>
-                                                </div>
-
-                                                <img src="./assets/images/project-3.jpg" alt="fundo" loading="lazy">
-                                            </figure>
-
-                                            <h3 class="project-title">Fundo</h3>
-
-                                            <p class="project-category">Web design</p>
-
-                                        </a>
-                                    </li>
-
-                                    <li class="project-item  active" data-filter-item data-category="applications">
-                                        <a href="#">
-
-                                            <figure class="project-img">
-                                                <div class="project-item-icon-box">
-                                                    <ion-icon name="eye-outline"></ion-icon>
-                                                </div>
-
-                                                <img src="./assets/images/project-4.png" alt="brawlhalla"
-                                                    loading="lazy">
-                                            </figure>
-
-                                            <h3 class="project-title">Brawlhalla</h3>
-
-                                            <p class="project-category">Applications</p>
-
-                                        </a>
-                                    </li>
-
-                                    <li class="project-item  active" data-filter-item data-category="web design">
-                                        <a href="#">
-
-                                            <figure class="project-img">
-                                                <div class="project-item-icon-box">
-                                                    <ion-icon name="eye-outline"></ion-icon>
-                                                </div>
-
-                                                <img src="./assets/images/project-5.png" alt="dsm." loading="lazy">
-                                            </figure>
-
-                                            <h3 class="project-title">DSM.</h3>
-
-                                            <p class="project-category">Web design</p>
-
-                                        </a>
-                                    </li>
-
-                                    <li class="project-item  active" data-filter-item data-category="web design">
-                                        <a href="#">
-
-                                            <figure class="project-img">
-                                                <div class="project-item-icon-box">
-                                                    <ion-icon name="eye-outline"></ion-icon>
-                                                </div>
-
-                                                <img src="./assets/images/project-6.png" alt="metaspark" loading="lazy">
-                                            </figure>
-
-                                            <h3 class="project-title">MetaSpark</h3>
-
-                                            <p class="project-category">Web design</p>
-
-                                        </a>
-                                    </li>
-
-                                    <li class="project-item  active" data-filter-item data-category="web development">
-                                        <a href="#">
-
-                                            <figure class="project-img">
-                                                <div class="project-item-icon-box">
-                                                    <ion-icon name="eye-outline"></ion-icon>
-                                                </div>
-
-                                                <img src="./assets/images/project-7.png" alt="summary" loading="lazy">
-                                            </figure>
-
-                                            <h3 class="project-title">Summary</h3>
-
-                                            <p class="project-category">Web development</p>
-
-                                        </a>
-                                    </li>
-
-                                    <li class="project-item  active" data-filter-item data-category="applications">
-                                        <a href="#">
-
-                                            <figure class="project-img">
-                                                <div class="project-item-icon-box">
-                                                    <ion-icon name="eye-outline"></ion-icon>
-                                                </div>
-
-                                                <img src="./assets/images/project-8.jpg" alt="task manager"
-                                                    loading="lazy">
-                                            </figure>
-
-                                            <h3 class="project-title">Task Manager</h3>
-
-                                            <p class="project-category">Applications</p>
-
-                                        </a>
-                                    </li>
-
-                                    <li class="project-item  active" data-filter-item data-category="web development">
-                                        <a href="#">
-
-                                            <figure class="project-img">
-                                                <div class="project-item-icon-box">
-                                                    <ion-icon name="eye-outline"></ion-icon>
-                                                </div>
-
-                                                <img src="./assets/images/project-9.png" alt="arrival" loading="lazy">
-                                            </figure>
-
-                                            <h3 class="project-title">Arrival</h3>
-
-                                            <p class="project-category">Web development</p>
-
-                                        </a>
-                                    </li>
-
+                                <ul class="project-list" id="projectList">
                                 </ul>
 
                             </section>
@@ -646,10 +409,6 @@
             </div>
 
     </main>
-
-
-
-
 
 
     <!--
@@ -665,7 +424,6 @@
 
 
     <script type="module">
-
         import {
             auth, firestore, storage,
             onAuthStateChanged, signOut, collection,
@@ -695,6 +453,26 @@
             }
         });
 
+        async function logout() {
+            try {
+                // const auth = getAuth(); // Initialize auth
+                await signOut(auth); // Clear authentication and log out
+                console.log("User logged out");
+
+                // Redirect to login page after logout
+                window.location.href = "login.html"; // Adjust path as needed
+            } catch (error) {
+                console.error("Error logging out:", error);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const logoutButton = document.getElementById("logoutButton");
+            if (logoutButton) {
+                logoutButton.addEventListener("click", logout);
+            }
+        });
+
         async function fetchUserData() {
             try {
 
@@ -713,8 +491,9 @@
                     document.getElementById('userName').innerText = data.username;
                     document.getElementById('email').innerText = data.email;
                     document.getElementById('email').setAttribute('href', 'mailto:' + data.email);
-                    document.getElementById('phone').innerText = '(+65) ' + data.contactNum;
+                    document.getElementById('phone').innerText = data.contactNum;
                     document.getElementById('phone').setAttribute('href', 'tel:+65' + data.contactNum);
+                    document.getElementById('address').innerText = data.address;
 
                 } else {
                     console.log("No such document found!");
@@ -725,9 +504,6 @@
                 return null; // Return null if there's an error
             }
         }
-
-        // Expose the logout function to the global scope
-
 
         async function getAllOrdersbyUserID(userId) {
             try {
@@ -859,10 +635,115 @@
                     orderListContainer.appendChild(orderItem);
                 }
 
+                // Define the path to the image in Firebase Storage
+                const filePath = `profilePictures/${userId}`;
+                const imageRef = ref(storage, filePath);
+
+                // Get the download URL
+                const downloadURL = await getDownloadURL(imageRef);
+                console.log("Image download URL:", downloadURL);
+
+                // Set the image URL as the src of the img element
+                // document.getElementById("").src = downloadURL;
+                document.getElementById("profileImage").setAttribute("src", downloadURL);
+                console.log(document.getElementById('profileImage').src)
+                if(downloadURL != ''){
+                    document.getElementById('uploadText').style.display = "none";
+                }
+
             } catch (error) {
-                console.error("Error getting document:", error);
+                console.error("Error fetching profile image:", error);
+                alert("Failed to load profile image. Please try again.");
             }
         }
+
+        async function editUserInfo() {
+            const collectionRef = collection(firestore, 'users');
+            const docRef = doc(collectionRef, userId);
+            const editedUsername = document.getElementById("userName").innerText;
+            const editedPhone = document.getElementById('phone').innerText;
+            const editedAddress = document.getElementById('address').innerText;
+            await updateDoc(docRef, { username: editedUsername, contactNum: editedPhone, address: editedAddress });
+        }
+
+        // Optional: Save the edited name on Enter key press
+        nameElement.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // Prevent a new line from being added
+                editUserInfo()
+                nameElement.blur(); // Remove focus, ending editing mode
+            }
+        });
+
+        phoneElement.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // Prevent a new line from being added
+                editUserInfo()
+                phoneElement.blur(); // Remove focus, ending editing mode
+            }
+        });
+
+        addressElement.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // Prevent a new line from being added
+                editUserInfo()
+                addressElement.blur(); // Remove focus, ending editing mode
+            }
+        });
+
+
+        async function uploadProfilePicture(file) {
+            if (!file) {
+                console.error("File is undefined");
+                alert("Please select a file first.");
+                return;
+            }
+
+            // Create a reference to Firebase Storage with the file name
+            const storageRef = ref(storage, `profilePictures/${userId}`);
+
+            try {
+                // Upload the file to Firebase Storage
+                await uploadBytes(storageRef, file);
+                console.log("File uploaded successfully");
+
+                // Get the download URL of the uploaded file
+                const downloadURL = await getDownloadURL(storageRef);
+                console.log("File available at", downloadURL);
+
+                alert("Profile picture uploaded successfully!");
+            } catch (error) {
+                console.error("Error uploading file:", error);
+                alert("Failed to upload profile picture. Please try again.");
+            }
+        }
+
+        // Click the hidden file input when the box is clicked
+        document.getElementById('uploadBox').addEventListener('click', function () {
+            document.getElementById('profileImageUpload').click();
+        });
+
+        document.getElementById('profileImageUpload').addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                console.log("File selected:", file);
+
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const profileImage = document.getElementById('profileImage');
+                    profileImage.src = e.target.result;
+                    profileImage.style.display = 'block';
+                    document.getElementById('uploadText').style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+
+                uploadProfilePicture(file);
+            } else {
+                console.error("No valid image file selected.");
+            }
+        });
+
+
 
 
     </script>

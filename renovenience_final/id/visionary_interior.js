@@ -1,4 +1,3 @@
-
 // Import Firebase services from the CDN
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
 import { getFirestore, collection, addDoc, getDocs, query, where, setDoc, doc } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js";
@@ -109,4 +108,3 @@ async function fetchAndPopulate() {
 
 // Call Function to Fetch Data and Populate HTML
 fetchAndPopulate();
-

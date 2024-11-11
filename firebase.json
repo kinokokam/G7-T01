@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "renovenience_final",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

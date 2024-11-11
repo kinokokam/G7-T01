@@ -237,7 +237,7 @@
             height: fit-content;
             background-color: rgba(80, 55, 24, 0.858);
             color: #f5f1e5;
-            padding: 25px 10px;
+            padding: 70px 10px 70px 10px;
             border: 2px solid #f5f1e5;
             border-radius: 30px;
         }
@@ -424,38 +424,37 @@
         }
 
         /* Responsive Styles */
-        /* Mobile responsive adjustments */
-        @media (max-width: 991px) {
-            .navbar-nav {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
+        @media (max-width: 768px) {
+            .articles-list {
+                grid-template-columns: 1fr;
             }
-            
-            .nav-item {
-                padding: 0.25rem;
-            }
-            
-            .navbar-logo {
-                width: 200px;
-            }
-            
-            .nav-link {
-                font-size: 11px !important;
-                padding: 8px;
-                letter-spacing: 0.2rem;
-            }
-        }
 
-        @media (max-width: 576px) {
-            .navbar-logo {
-                width: 150px;
+            .article-card {
+                height: 250px;
             }
-            
-            .nav-link {
-                font-size: 10px !important;
-                padding: 6px;
-                letter-spacing: 0.1rem;
+
+            .article-excerpt {
+                opacity: 1;
+                transform: none;
+                height: auto;
+            }
+
+            .video-carousel {
+                padding: 0 0.5rem;
+            }
+
+            .filter-selections {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .filter-dropdown {
+                width: 100%;
             }
         }
 
@@ -483,7 +482,7 @@
 
         .navbar {
             background-color: #f5f1e5;
-            padding: 0.5rem 1rem;
+            /* Light beige background */
         }
 
 
@@ -508,14 +507,18 @@
         }
 
         .navbar-logo {
-            width: 200px; /* Adjusted for better mobile display */
-            height: auto;
-            max-height: 70px;
+            width: 80%;
+
+            /* Adjust size as needed */
+            height: 70%;
+            border-radius: 50%;
+            /* Optional: makes the logo circular */
             object-fit: cover;
+            /* Ensures the image fits properly */
         }
 
         .nav-link:hover{
-            color: rgba(80, 55, 24, 0.7);
+            color:rgba(80, 55, 24, 0.7); 
         }
 
         
@@ -525,7 +528,7 @@
 
 <body>
 
-    <!-- <nav class="navbar fixed-top navbar-expand-lg">
+    <nav class="navbar fixed-top navbar-expand-lg">
         <div class="container-fluid">
             <div class="row">
 
@@ -570,41 +573,6 @@
                         </ul>
                     </div>
                 </div>
-            </div>
-        </div>
-    </nav> -->
-    <nav class="navbar fixed-top navbar-expand">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="../homepage.html">
-                <img src="../assets/images/logo.png" class="navbar-logo">
-            </a>
-            
-            <div class="navbar-collapse">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#" style="font-size: 13px;">Inspiration</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../floorplan.html" style="font-size: 13px;">Floorplan</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../interior.html" style="font-size: 13px;">Interior Design</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../marketplace.html" style="font-size: 13px;">Marketplace</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../booking.html" style="font-size: 13px;">Booking</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="../profile.html" class="nav-link" style="font-size: 13px;">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="12" cy="8" r="4" stroke="#50371851" stroke-width="1" fill="none" />
-                                <path d="M4 20c0-4 4-7 8-7s8 3 8 7" stroke="#50371851" stroke-width="1" fill="none" />
-                            </svg>
-                        </a>
-                    </li>
-                </ul>
             </div>
         </div>
     </nav>
