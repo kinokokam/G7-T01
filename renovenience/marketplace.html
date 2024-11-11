@@ -154,12 +154,13 @@
 					before searching for furniture</p>
 				-->
             </div>
+        </div>
 
             <!-- Products Grid -->
             <div class="card-deck">
                 <div v-for="(product,index) in products" :key="product.product_id" class="col-md-3 col-sm-6">
                     <div class="card">
-                        <img :src="product.thumbnails[0][0]" class="product-img w-auto">
+                        <img :src="product.thumbnails[0][3]" class="product-img" style="width:auto; height: auto;">
                         <h5 class="mt-2">{{ product.title }}</h5>
                         <p class="text-primary">${{ product.price }}</p>
                         <button @click="addToCart(product.product_id)" class="btn btn-colour">
@@ -220,7 +221,6 @@
                     </template>
                 </div>
             </div>
-        </div>
     </div>
 
     <script>
