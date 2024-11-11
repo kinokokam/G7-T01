@@ -177,8 +177,8 @@
   <script async="" src="./style_elements_files/js(1)"></script>
   <script
     type="text/javascript">window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date()); gtag('set', 'developer_id.dZGVlNj', true); gtag('config', 'G-WZ5VVK5Q52');</script>
-  <script
-    type="text/javascript">!function (f, b, e, v, n, t, s) { if (f.fbq) return; n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments) }; if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0'; n.agent = 'plwebflow'; n.queue = []; t = b.createElement(e); t.async = !0; t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s) }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js'); fbq('init', '312720751270200'); fbq('track', 'PageView');</script>
+  <script type="text/javascript">!function (f, b, e, v, n, t, s) { if (f.fbq) return; n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments) }; if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0'; n.agent = 'plwebflow'; n.queue = []; t = b.createElement(e); t.async = !0; t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s) }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js'); fbq('init', '312720751270200'); fbq('track', 'PageView');
+  </script>
   <!-- Google Tag Manager -->
   <script>(function (w, d, s, l, i) {
       w[l] = w[l] || []; w[l].push({
@@ -476,12 +476,12 @@
         </div>
       </div>
     </div>
-    <div class="idprojects">
+    <div class="idprojects" id="projectsId">
       <div>
         <h1 class="lh1 dark">Featured Projects</h1>
       </div>
       <div class="w-dyn-list">
-        <div role="list" class="w-dyn-items" id="projectsId">
+        <div role="list" class="w-dyn-items">
 
         </div>
       </div>
@@ -694,7 +694,9 @@
         onAuthStateChanged, signOut, signInWithPopup, collection,
         addDoc, getDocs, query, where, setDoc, doc
     } from "../src/firebase.js";
-  
+  </script>
+
+  <script>
     $(document).ready(function () {
       $('#sliderone').find('.w-slider-dot').attrchange({
         trackValues: true,
