@@ -532,11 +532,8 @@
         <h1 class="lh1 dark">Featured Projects</h1>
       </div>
       <div class="w-dyn-list">
-        <div role="list" class="w-dyn-items">
-          
-
-          
-
+        <div role="list" class="w-dyn-items" id="projectsId">
+        
         </div>
       </div>
     </div>
@@ -747,7 +744,9 @@
         onAuthStateChanged, signOut, signInWithPopup, collection,
         addDoc, getDocs, query, where, setDoc, doc
     } from "../src/firebase.js";
+  </script>
 
+  <script>
     $(document).ready(function () {
       $('#sliderone').find('.w-slider-dot').attrchange({
         trackValues: true,
