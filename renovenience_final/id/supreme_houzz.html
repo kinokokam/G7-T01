@@ -643,23 +643,17 @@ crossorigin="anonymous"></script>
     });
   </script>
 
-<script type="module" src="21_interior.js"></script>
- 
 
+  <script src="./supreme_houzz_files/attrchange.min.js"></script>
 
-
+  <script type="module" src="supreme_houzz.js"></script>
   <script type="module">
-
     import {
         auth, firestore, provider, createUserWithEmailAndPassword, signInWithEmailAndPassword,
         onAuthStateChanged, signOut, signInWithPopup, collection,
         addDoc, getDocs, query, where, setDoc, doc
     } from "../src/firebase.js";
-</script>
 
-  <script src="./supreme_houzz_files/attrchange.min.js"></script>
-
-  <script>
     $(document).ready(function () {
       $('#sliderone').find('.w-slider-dot').attrchange({
         trackValues: true,
