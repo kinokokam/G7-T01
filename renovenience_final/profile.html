@@ -73,6 +73,54 @@
     .nav-link:hover {
         color: rgba(80, 55, 24, 0.7);
     }
+
+    .about-text,
+    .service {
+        max-height: 800px;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        max-width: 500px;
+        scrollbar-color: rgba(80, 55, 24, 0.5) rgba(245, 241, 229);
+
+    }
+
+
+
+    .about-text::-webkit-scrollbar,
+    .service::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    li.service-item::before {
+        width: 350px;
+    }
+
+    .projects {
+        max-height: 400px;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(80, 55, 24, 0.5) rgba(245, 241, 229);
+
+    }
+
+    .btn-logout {
+        background-color: #f5f1e5;
+        color: rgba(80, 55, 24, 0.7);
+        padding: 16px;
+        font-size: 12px;
+        font-family: 'Aboreto', cursive;
+        border-radius: 10px;
+    }
+
+    .contact-title {
+        display: flex;
+        align-items: center;
+    }
+
+    .editIcon {
+        cursor: pointer;
+        margin-left: 8px;
+    }
 </style>
 
 <body style="background-color: #f5f1e5;">
@@ -187,37 +235,7 @@
                 <div class="info-content" style="display: flex; align-items: center;">
                     <h1 class="name" id="userName" title="Click the pencil icon to edit" style="margin-right: 8px;">
                     </h1>
-                    <span id="editIcon" style="cursor: pointer;" title="Edit name">✏️</span>
-
-                    <script>
-
-                        const nameElement = document.getElementById('userName');
-                        const editIcon = document.getElementById('editIcon');
-
-                        // Make the name editable when the edit icon is clicked
-                        editIcon.addEventListener('click', function () {
-                            nameElement.setAttribute('contenteditable', 'true');
-                            nameElement.focus();
-                        });
-
-                        // Remove edit mode on blur (when the user clicks outside)
-                        nameElement.addEventListener('blur', function () {
-                            nameElement.setAttribute('contenteditable', 'false');
-                        });
-
-                        // Optional: Save the edited name on Enter key press
-                        nameElement.addEventListener('keydown', function (event) {
-                            if (event.key === 'Enter') {
-                                event.preventDefault(); // Prevent a new line from being added
-                                nameElement.blur(); // Remove focus, ending editing mode
-                            }
-                        });
-
-                    </script>
-
-
-
-
+                    <span id="editIconUsername" style="cursor: pointer;" title="Edit name">✏️</span>
                 </div>
                 <div class="info-content">
                     <p class="title">Web developer</p>
@@ -649,10 +667,11 @@
     <script type="module">
 
         import {
-            auth, firestore, provider,
-            onAuthStateChanged, signOut, signInWithPopup, collection,
-            addDoc, getDocs, query, where, setDoc, doc
-        } from "./src/firebase";
+            auth, firestore, storage,
+            onAuthStateChanged, signOut, collection,
+            addDoc, getDocs, query, where, setDoc, doc, updateDoc
+        } from "./src/firebase.js";
+        import { ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-storage.js";
 
         var currentUser;
         var userId;
@@ -706,6 +725,9 @@
                 return null; // Return null if there's an error
             }
         }
+
+        // Expose the logout function to the global scope
+
 
         async function getAllOrdersbyUserID(userId) {
             try {
