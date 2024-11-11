@@ -136,30 +136,6 @@
             </div>
         </div>
         <!-- End of Login Modal -->
-
-        <!-- Register Bootstrap Modal -->
-        <div class="modal fade" id="registerSuccessModal" tabindex="-1" aria-labelledby="registerSuccessModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="registerSuccessModalLabel">Register Successful</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p><strong>Welcome {{ username }}!</strong></p>
-                        <ul>
-
-                        </ul>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                            @click="refreshPage">Ok</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End of Register Modal -->
     </div>
 
 
@@ -285,7 +261,7 @@
 
                 },
                 redirect(){
-                    window.location.href = "homepage.html";                
+                    window.location.href = "index.html";                
                 }
             }
         });
