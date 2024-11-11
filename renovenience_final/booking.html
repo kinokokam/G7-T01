@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Booking</title>
+    <!-- Bootstrap CSS for responsive layout and UI components -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.2.47"></script>
+    <link href="calendar.css" rel="stylesheet">
+
+    <link rel="favicon" href="assets/images/favicon.png">
+    <link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap-theme.css" media="screen">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" href="assets/images/logo.png">
+
+
+</head>
+
+<style>
+    body {
+
+        margin: 0;
+        /* Remove default margin */
+
+        height: 120vh;
+        /* Full viewport height */
+        width: 100vw;
+        /* Full viewport width */
+        background: url('./id/aestherior_files/64cdb7f1d4cd56cf05a25521_Blk\ 115A\ Jalan\ Ayer\ 4.jpg') no-repeat center center/cover;
+        /* Background image */
+
+    }
+</style>
+
+<body>
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-inverse" style="position: fixed; top:0">
+        <div class="container">
+            <div class="navbar-header">
+                <!-- Button for smallest screens -->
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span
+                        class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+
+                <a class="navbar-brand" href="index.html">
+                    <img src="assets/images/logo.png"
+                        style="width: 100%; max-width: 300px; height: auto; display: block; margin-top: -50px; margin-left: -120px;">
+                </a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav pull-right mainNav">
+                    <!-- <li class="active"><a href="homepage.html" style="font-size: 13px;">Home</a></li> -->
+                    <!-- <li class="active"><a href="about.html" style="font-size: 13px;">About</a></li> -->
+                    <li><a href="./Final-2/inspiration.html" style="font-size: 13px;">Inspiration</a></li>
+                    <li><a href="floorplan.html" style="font-size: 13px;">Floorplan</a></li>
+                    <li><a href="interior.html" style="font-size: 13px;">Interior Design</a></li>
+                    <li><a href="marketplace.html" style="font-size: 13px;">Marketplace</a></li>
+                    <li class="active"><a href="booking.html" style="font-size: 13px;">Booking</a></li>
+                    <li>
+                        <a href="profile.html" style="font-size: 13px;">
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="8" r="4" stroke="#50371851" stroke-width="1" fill="none"/>
+                            <path d="M4 20c0-4 4-7 8-7s8 3 8 7" stroke="#50371851" stroke-width="1" fill="none"/>
+                          </svg>
+                        </a>
+                      </li>
+                      
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.navbar -->
+
+
+    <div id="app" style="margin-top: 100px; padding-top: 80px; margin-bottom: 30px;">
+        <h1 class="heading-title">Book Your Appointment With Us</h1>
+        <div class="row">
+            <!-- Calendar Component -->
+            <!-- <div class="col-lg-1"></div> -->
+            <div class="form-container col-lg-5">
+                <form id="booking-form" @submit.prevent="submitBooking">
+                    <div class="form-group" style="padding-bottom: 20px;">
+                        <label for="name" class="form-label"
+                            style="font-family: 'Aboreto', cursive;  color: #f5f1e5; ">Username</label>
+                        <input type="text" id="name" v-model="form.username" class="form-control" disabled />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="form-label"
+                            style="font-family: 'Aboreto', cursive;   color: #f5f1e5; ">Email Address</label>
+                        <input type="email" id="email" v-model="form.email" class="form-control" disabled />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone" class="form-label"
+                            style="font-family: 'Aboreto', cursive;   color: #f5f1e5; ">Phone Number</label>
+                        <input type="tel" id="phone" class="form-control" v-model="form.contactNum" disabled />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="agency" class="form-label"
+                            style="font-family: 'Aboreto', cursive;   color: #f5f1e5; ">Agency</label>
+                        <select v-model="selectedCompany" class="form-control">
+                            <option v-for="company in companies" :key="company.id" :value="company.id">
+                                {{ company.id }}
+                            </option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="submit-btn" style="font-size: 14px; ">Book Appointment</button>
+                </form>
+            </div>
+
+            <div class="col-lg-1"></div>
+            <!-- Booking Form -->
+            <div class="calendar-container col-lg-6">
+                <div class="carousel-controls"
+                    style="display: flex; align-items: center; justify-content: space-between; margin-top: 50px;">
+                    <!-- Left Button -->
+                    <button @click="navigateMonth(-1)"
+                        style="color: #f5f1e5; font-family: 'Aboreto', cursive; font-size: 16px; background: none; border: none; cursor: pointer;">
+                        &lt;
+                    </button>
+
+                    <!-- Centered Month and Year -->
+                    <h1
+                        style="color: #f5f1e5; font-family: 'Aboreto', cursive; margin: 0; text-align: center; flex-grow: 1; ">
+                        {{ monthName }} {{ currentYear }}
+                    </h1>
+
+                    <!-- Right Button -->
+                    <button @click="navigateMonth(1)"
+                        style="color: #f5f1e5; font-family: 'Aboreto', cursive; font-size: 16px; background: none; border: none; cursor: pointer;">
+                        &gt;
+                    </button>
+                </div>
+
+                <div class="calendar" style="padding: 20px; margin-top: 80px;">
+                    <!-- Days of the week -->
+                    <div class="day" v-for="day in daysOfWeek" :key="day"
+                        style="font-family: 'Aboreto', cursive; font-size: 15px;">{{ day }}</div>
+
+                    <!-- Days of the month -->
+                    <div v-for="day in calendarDays" :key="day" class="day-number"
+                        :class="{'disabled': isPastDate(day), 'selected': day === selectedDate}"
+                        @click="selectDate(day)" style="font-family: 'Aboreto', cursive;">
+                        {{ day }}
+
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- Bootstrap Modal -->
+            <div class="modal fade" id="bookingSuccessModal" tabindex="-1" aria-labelledby="bookingSuccessModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="bookingSuccessModalLabel">Booking Successful</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Your booking has been successfully created. Thank you!</p>
+                            <p><strong>Booking Details:</strong></p>
+                            <ul>
+                                <li><strong>Appointment Date:</strong> {{ bookingDetails.appointmentDate }}</li>
+                                <li><strong>Company:</strong> {{ bookingDetails.company }}</li>
+                                <li><strong>Current Date:</strong> {{ bookingDetails.currentDate }}</li>
+                                <li><strong>Booked By:</strong> {{ bookingDetails.userName }}</li>
+                            </ul>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                                @click="refreshPage">Make Another Booking</button>
+
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                                @click="redirectBooking">Check Booking</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div onclick="window.open('bookingList.html', '_blank')"
+        style="cursor: pointer; text-align: center; padding: 15px; background-color: #f5f1e5; color: rgba(80, 55, 24, 0.921); font-family: 'Aboreto', cursive; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); transition: background-color 0.3s ease;"
+        onmouseover="this.style.backgroundColor='rgba(80, 55, 24, 0.8)'; this.style.color='#f5f1e5';"
+        onmouseout="this.style.backgroundColor='#f5f1e5'; this.style.color='rgba(80, 55, 24, 0.921)';">
+        See My Bookings
+    </div>
+
+    <footer id="footer">
+        <div class="footer2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 panel">
+                    <div class="panel-body">
+                        <p class="simplenav">
+                            <a href="homepage.html">Home</a> |
+                            <!-- <a href="about.html">About</a> | -->
+                            <a href="inspiration.html">Inspiration</a> |
+                            <a href="floorplan.html">Floorplan</a> |
+                            <a href="interior.html">Interior Design</a> |
+                            <a href="marketplace.html">Marketplace</a> |
+                            <a href="booking.html">Booking</a>|
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 panel">
+                    <div class="panel-body">
+                        <p class="text-right">
+                            Copyright &copy; 2024 renovenience
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /row of panels -->
+        </div>
+    </div>
+</footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.2.47"></script>
+
+    <script type="module">
+
+        import {
+            auth, firestore, provider, createUserWithEmailAndPassword, signInWithEmailAndPassword,
+            onAuthStateChanged, signOut, signInWithPopup, collection,
+            addDoc, getDocs, query, where, setDoc, doc
+        } from "./src/firebase.js";
+        const app = Vue.createApp({
+            data() {
+                return {
+                    currentMonth: new Date().getMonth(),
+                    currentYear: new Date().getFullYear(),
+                    daysOfWeek: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+                    selectedCompany: '',
+                    companies: [],
+                    showModal: false, // To trigger modal visibility
+                    bookingDetails: {},
+                    currentDate: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' }),
+                    selectedDate: '',
+                    form: {
+                        username: "",
+                        email: "",
+                        contactNum: "",
+                        company: "",
+                    },
+                    user: "",
+                    companies: [],
+                    selectedCompany: '',
+                    bookingDetails: {
+                        appointmentDate: '',
+                        company: '', // Replace with actual company if available
+                        currentDate: '',
+                        userName: '', // Example for showing user's name
+                    },
+                    showModal: false, // To trigger modal visibility
+                };
+            }, computed: {
+                monthName() {
+                    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                    return monthNames[this.currentMonth];
+                },
+                calendarDays() {
+                    const firstDayOfMonth = new Date(this.currentYear, this.currentMonth, 1);
+                    const lastDayOfMonth = new Date(this.currentYear, this.currentMonth + 1, 0);
+                    const daysInMonth = lastDayOfMonth.getDate();
+                    const firstDayOffset = firstDayOfMonth.getDay();
+
+                    // Create the list of days
+                    const days = [];
+                    for (let i = 0; i < firstDayOffset; i++) {
+                        days.push(null); // Empty space before the first day
+                    }
+
+                    // Add day numbers
+                    for (let day = 1; day <= daysInMonth; day++) {
+                        days.push(day);
+                    }
+                    return days;
+                },
+            },
+            async created() {
+                onAuthStateChanged(auth, async (user) => {
+                    this.user = user.uid;
+                    await this.fetchUserData();
+                    await this.getAllCompanies();
+                });
+            },
+            methods: {
+                selectDate(day) {
+                    // Do nothing if the day is disabled (past date)
+                    if (!day || this.isPastDate(day)) return;
+
+                    // Set selected date
+                    this.selectedDate = day;
+                },
+                navigateMonth(offset) {
+                    this.currentMonth += offset;
+                    if (this.currentMonth < 0) {
+                        this.currentMonth = 11;
+                        this.currentYear--;
+                    } else if (this.currentMonth > 11) {
+                        this.currentMonth = 0;
+                        this.currentYear++;
+                    }
+                },
+                isPastDate(day) {
+                    const date = new Date(this.currentYear, this.currentMonth, day);
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0); // Set time to 00:00:00
+                    return date < today;
+
+                },
+                async fetchUserData() {
+                    // Get User by ID
+                    try {
+                        const usersCollection = collection(firestore, 'users');
+                        const q = query(usersCollection, where("__name__", "==", this.user)); // Use `__name__` to query by document ID
+                        const querySnapshot = await getDocs(q);
+
+                        if (!querySnapshot.empty) {
+                            const data = querySnapshot.docs[0].data(); // Get the data from the first document
+                            console.log(data)
+                            this.form = data;
+                            return data;
+                        } else {
+                            console.log("No such document!");
+                            return null;
+                        }
+                    } catch (error) {
+                        console.error("Error getting document:", error);
+                    }
+                },
+                updateSelectedDate(date) {
+                    this.selectedDate = date;
+                },
+                async getAllCompanies() {
+                    // Get all Company Name
+                    try {
+                        const companyCollection = collection(firestore, 'id-companies');
+                        const querySnapshot = await getDocs(companyCollection);
+                        this.companies = querySnapshot.docs.map(doc => ({
+                            id: doc.id
+                        }));
+                        console.log(this.companies)
+                        this.selectedCompany = this.companies[0].id;
+                    } catch (error) {
+                        console.error("Error getting document:", error);
+                    }
+                },
+                submitBooking() {
+                    console.log('test');
+                    const user = auth.currentUser;
+                    const selectedDateObj = new Date(this.currentYear, this.currentMonth, this.selectedDate);
+                    try {
+                        const bookingCollection = collection(firestore, 'bookings');
+                        const booking = {
+                            userId: this.user,
+                            appointmentDate: selectedDateObj.toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' }),
+                            company: this.selectedCompany,
+                            currentDate: this.currentDate
+                        };
+
+
+                        // add data in to database
+                        addDoc(bookingCollection, booking);
+                        this.bookingDetails = booking;
+                        this.bookingDetails.userName = this.form.username;
+
+
+                        // You can also use Bootstrap modal's JavaScript API if needed
+                        this.showModal = true;
+
+                        const modalElement = new bootstrap.Modal(document.getElementById('bookingSuccessModal'));
+                        modalElement.show();
+
+                        console.log("Booking successfully created!");
+
+                    } catch (err) {
+                        this.error = err.message; // Display error message
+                        console.error("Error creating bookings:", err);
+                    }
+                },
+                refreshPage() {
+                    window.location.reload()
+                },
+                redirectBooking() {
+                    window.location.href = "login.html";
+                },
+            },
+        });
+
+        app.mount('#app');
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="./src/firebase.js"></script>
+
+
+</body>
+
+
+</html>

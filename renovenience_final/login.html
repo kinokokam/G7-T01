@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!-- Vue 3 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.2.47/dist/vue.global.prod.js"></script>
+
+    <!-- Bootstrap 5 CDN for styling -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- Firebase config and functions -->
+    <script type="module" src="./src/firebase.js"></script>
+    <link rel="icon" href="assets/images/logo.png">
+</head>
+
+
+<style>
+    body {
+
+        margin: 0;
+        /* Remove default margin */
+
+        height: 120vh;
+        /* Full viewport height */
+        width: 100vw;
+        /* Full viewport width */
+        background: url('./assets/images/loginbg.svg') no-repeat center center/cover;
+        /* Background image */
+        
+
+    }
+    #login{
+        background-color: #f5f1e5bb;
+        height: 600px;
+       
+
+    }
+
+    input{
+        border: 1px solid rgb(80, 55, 24) ; 
+        border-radius: 5px;
+    }
+
+    .btn3{
+        background-color: rgba(80, 55, 24, 0.921);
+        color:#f5f1e5; 
+        font-family: 'Aboreto', cursive;
+        padding: 10px;
+        border: 0px;
+    }
+    .btn3:hover{
+        background-color:#f5f1e5 ;
+        color: rgba(80, 55, 24, 0.921);
+    }
+    .signup{
+        font-family: 'Aboreto', cursive;
+        text-align: center;
+        margin-top: 90px;
+        color: rgba(80, 55, 24, 0.921);
+    }
+
+    .form-control::placeholder {
+        color: rgba(80, 55, 24, 0.8);
+        font-family: 'Aboreto', cursive;
+    }
+</style>
+
+<body>
+
+
+    <div id="app" class="container d-flex align-items-center justify-content-center vh-100">
+        <div class="row w-100" style="">
+            <!-- Login Section -->
+            <div class="col-md-8 col-lg-8 mx-auto" >
+                <div id="login" class="p-4 border rounded shadow-sm" style="margin-top: 400px;">
+                    <h2 class="text-center">Login</h2>
+                    <form @submit.prevent="handleLogin" class="mt-4">
+                        <div class="mb-3">
+                            <input type="email" v-model="email" class="form-control" placeholder="Email" required / style="border: 1px solid rgb(80, 55, 24) ; 
+                            border-radius: 5px;">
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" v-model="password" class="form-control" placeholder="Password"
+                                required / style="border: 1px solid rgb(80, 55, 24) ; 
+                                border-radius: 5px;">
+                        </div>
+                        <button type="submit" class="btn3 w-100 mb-3">Login</button>
+                        <div class="text-center my-3" id="others">
+                            <hr /><span style="font-family:'Aboreto', cursive;">or</span>
+                            <hr />
+                        </div>
+                        <div class="d-flex justify-content-between otherLoginOptions">
+                            <button type="button" class="btn3  w-100" @click="googleLogin">Google
+                                Login</button>
+                        </div>
+                        <p class="signup">
+                            Don't have an account? 
+                            <a href="signup.html" style="text-decoration: underline; color: rgba(80, 55, 24, 0.8); font-weight: bold;">
+                                Sign up here
+                            </a>
+                        </p>
+                        
+                    </form>
+                </div>
+            </div>
+
+            <p></p>
+
+
+        </div>
+
+        <!-- Login Bootstrap Modal -->
+        <div class="modal fade" id="loginSuccessModal" tabindex="-1" aria-labelledby="loginSuccessModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="loginSuccessModalLabel">Login Successful</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>Welcome back {{ currentUserName }}!</strong></p>
+                        <ul>
+
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                            @click="redirect">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End of Login Modal -->
+
+        <!-- Register Bootstrap Modal -->
+        <div class="modal fade" id="registerSuccessModal" tabindex="-1" aria-labelledby="registerSuccessModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="registerSuccessModalLabel">Register Successful</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>Welcome {{ username }}!</strong></p>
+                        <ul>
+
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                            @click="refreshPage">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End of Register Modal -->
+    </div>
+
+
+
+    <script type="module">
+
+
+        import {
+            auth, firestore, provider, createUserWithEmailAndPassword, signInWithEmailAndPassword,
+            onAuthStateChanged, signOut, signInWithPopup, collection,
+            addDoc, getDocs, query, where, setDoc, doc
+        } from "./src/firebase.js";
+
+
+        const app = Vue.createApp({
+            data() {
+                return {
+                    email: '',
+                    password: '',
+                    registerEmail: '',
+                    registerPassword: '',
+                    confirmPassword: '',
+                    username: '',
+                    contactNum: '',
+                    errorMessage: '',
+                    currentUserName: '',
+                    user: null,
+                };
+            },
+            async created() {
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        this.user = user;
+                        // this.$router.push("/booking");
+                    }
+                });
+            },
+            methods: {
+                // Function to validate email format using regex
+                validateEmail(email) {
+                    const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+                    return re.test(String(email).toLowerCase());
+                },
+                async handleLogin() {
+                    try {
+                        await signInWithEmailAndPassword(auth, this.email, this.password);
+                        // Handle successful login (e.g., redirect)
+                        console.log("Login successful!");
+                        // this.$router.push("/booking");
+                        const usersCollection = collection(firestore, 'users');
+                        const q = query(usersCollection, where("__name__", "==", this.user.uid)); // Use `__name__` to query by document ID
+                        const querySnapshot = await getDocs(q);
+
+                        if (!querySnapshot.empty) {
+                            const data = querySnapshot.docs[0].data(); // Get the data from the first document
+                            console.log(data)
+                            this.currentUserName = data.username;
+                            console.log(this.currentUserName)
+
+                            // login successfully, show the success modal
+                            const modalElement = new bootstrap.Modal(document.getElementById('loginSuccessModal'));
+                            modalElement.show();
+                            return data;
+                        } else {
+                            console.log("No such document!");
+                            return null;
+                        }
+
+
+                    } catch (err) {
+                        this.error = err.message; // Display error message
+                        console.error("Error during login:", err);
+
+                    }
+                },
+
+                async registerAcc() {
+                    // if (this.registerPassword !== this.confirmPassword) {
+                    //     this.errorMessage = "Passwords do not match.";
+                    //     return;
+                    // }
+
+                    // Validate email format
+                    if (!this.registerEmail || !this.validateEmail(this.registerEmail)) {
+                        this.errorMessage = "Please enter a valid email address.";
+                        return;
+                    }
+
+                    try {
+                        await createUserWithEmailAndPassword(auth, this.registerEmail, this.registerPassword);
+                        const user = auth.currentUser;
+                        const userRef = doc(firestore, "users", user.uid);
+                        await setDoc(userRef, {
+                            username: this.username,
+                            email: this.registerEmail,
+                            contactNum: this.contactNum,
+                        });
+
+                        console.log("Registration successful!");
+                        const modalElement = new bootstrap.Modal(document.getElementById('registerSuccessModal'));
+                        modalElement.show();
+                    } catch (error) {
+                        this.errorMessage = error.message;
+                        console.error("Registration Error:", error);
+                    }
+                },
+
+                async googleLogin() {
+                    try {
+                        const result = await signInWithPopup(auth, provider);
+                        const user = result.user;
+                        console.log("Google Login Success:", user);
+
+                        const userRef = doc(firestore, "users", user.uid);
+                        await setDoc(userRef, {
+                            username: user.displayName,
+                            email: user.email,
+
+                        })
+                    } catch (error) {
+                        console.error('Error during Google sign-in:', error.message);
+                    }
+
+                },
+                redirect(){
+                    window.location.href = "homepage.html";                
+                }
+            }
+        });
+        app.mount('#app');
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="./src/firebase.js"></script>
+
+</body>

@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile </title>
+
+    <!--
+    - favicon
+  -->
+
+
+    <!--
+    - custom css link
+  -->
+    <link rel="stylesheet" href="profile.css">
+
+    <!--
+    - google font link
+  -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Aboreto&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+
+    <link rel="icon" href="assets/images/logo.png">
+</head>
+
+<style>
+    .navbar {
+        background-color: #f5f1e5;
+        /* Light beige background */
+    }
+
+
+    .nav-link,
+    .form-control {
+        color: #50371851;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        font-family: 'Aboreto', cursive;
+        font-size: 10px;
+        font-weight: 300;
+        letter-spacing: 0.3rem;
+    }
+
+    .active {
+        color: rgba(80, 55, 24, 0.7);
+    }
+
+
+    .navbar-toggler {
+        border-color: rgba(80, 55, 24, 0.7);
+    }
+
+    .navbar-logo {
+        width: 80%;
+
+        /* Adjust size as needed */
+        height: 70%;
+        border-radius: 50%;
+        /* Optional: makes the logo circular */
+        object-fit: cover;
+        /* Ensures the image fits properly */
+    }
+
+    .nav-link:hover {
+        color: rgba(80, 55, 24, 0.7);
+    }
+</style>
+
+<body style="background-color: #f5f1e5;">
+
+
+    <nav class="navbar fixed-top navbar-expand-lg">
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="col-lg-1"></div>
+
+                <div class="col-lg-2">
+                    <a class="navbar-brand" href="index.html"><img src="assets/images/logo.png" class="navbar-logo"
+                            style="margin-right: -100px; margin-top: 0px;"></a>
+                </div>
+
+                <div class="col-lg-2"></div>
+
+                <div class="col-lg-7" style="margin-top: 30px;">
+                    <div class="collapse navbar-collapse">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item active">
+                                <a class="nav-link active" aria-current="page" href="./Final-2/inspiration.html"
+                                    style="font-size: 13px;">Inspiration</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="floorplan.html" style="font-size: 13px;">Floorplan</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="interior.html" style="font-size: 13px;">Interior Design</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="marketplace.html" style="font-size: 13px;">Marketplace</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="booking.html" style="font-size: 13px;">Booking</a>
+                            </li>
+                            <li>
+                                <a href="profile.html" style="font-size: 13px;" class="nav-link">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="12" cy="8" r="4" stroke="#50371851" stroke-width="1" fill="none" />
+                                        <path d="M4 20c0-4 4-7 8-7s8 3 8 7" stroke="#50371851" stroke-width="1"
+                                            fill="none" />
+                                    </svg>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <!--
+    - #MAIN
+  -->
+
+    <main style="margin-top: 200px;">
+
+        <!--
+      - #SIDEBAR
+    -->
+
+        <aside class="sidebar" data-sidebar>
+
+            <div class="sidebar-info">
+
+                <figure class="avatar-box">
+                    <!-- Profile Image Upload Box -->
+                    <div id="uploadBox"
+                        style="width: 150px; height: 150px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+                        <span id="uploadText" style="text-align: center; font-size: 15px;">Click to upload image</span>
+                        <img id="profileImage" src="" alt="Profile Image"
+                            style="display: none; width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <input type="file" id="profileImageUpload" style="display: none;" accept="image/*">
+
+                    <script>
+                        // Click the hidden file input when the box is clicked
+                        document.getElementById('uploadBox').addEventListener('click', function () {
+                            document.getElementById('profileImageUpload').click();
+                        });
+
+                        // Handle image upload and preview
+                        document.getElementById('profileImageUpload').addEventListener('change', function (event) {
+                            const file = event.target.files[0];
+                            if (file && file.type.startsWith('image/')) {
+                                const reader = new FileReader();
+
+                                reader.onload = function (e) {
+                                    // Display the uploaded image in the box
+                                    const profileImage = document.getElementById('profileImage');
+                                    profileImage.src = e.target.result;
+                                    profileImage.style.display = 'block';
+
+                                    // Hide the upload text
+                                    document.getElementById('uploadText').style.display = 'none';
+                                };
+
+                                // Read the image file as a data URL
+                                reader.readAsDataURL(file);
+                            }
+                        });
+
+
+                    </script>
+
+                </figure>
+
+                <div class="info-content" style="display: flex; align-items: center;">
+                    <h1 class="name" id="userName" title="Click the pencil icon to edit" style="margin-right: 8px;">
+                    </h1>
+                    <span id="editIcon" style="cursor: pointer;" title="Edit name">✏️</span>
+
+                    <script>
+
+                        const nameElement = document.getElementById('userName');
+                        const editIcon = document.getElementById('editIcon');
+
+                        // Make the name editable when the edit icon is clicked
+                        editIcon.addEventListener('click', function () {
+                            nameElement.setAttribute('contenteditable', 'true');
+                            nameElement.focus();
+                        });
+
+                        // Remove edit mode on blur (when the user clicks outside)
+                        nameElement.addEventListener('blur', function () {
+                            nameElement.setAttribute('contenteditable', 'false');
+                        });
+
+                        // Optional: Save the edited name on Enter key press
+                        nameElement.addEventListener('keydown', function (event) {
+                            if (event.key === 'Enter') {
+                                event.preventDefault(); // Prevent a new line from being added
+                                nameElement.blur(); // Remove focus, ending editing mode
+                            }
+                        });
+
+                    </script>
+
+
+
+
+                </div>
+                <div class="info-content">
+                    <p class="title">Web developer</p>
+                </div>
+
+
+                <button class="info_more-btn" data-sidebar-btn>
+                    <span>Show Contacts</span>
+
+                    <ion-icon name="chevron-down"></ion-icon>
+                </button>
+
+            </div>
+
+            <div class="sidebar-info_more">
+
+                <div class="separator"></div>
+
+                <ul class="contacts-list">
+
+                    <li class="contact-item">
+
+                        <div class="icon-box">
+                            <ion-icon name="mail-outline"></ion-icon>
+                        </div>
+
+                        <div class="contact-info">
+                            <p class="contact-title">Email</p>
+
+                            <a href="mailto:example@example.com" class="contact-link" id="email"></a>
+                        </div>
+
+                    </li>
+
+                    <li class="contact-item">
+
+                        <div class="icon-box">
+                            <ion-icon name="phone-portrait-outline"></ion-icon>
+                        </div>
+
+                        <div class="contact-info">
+                            <p class="contact-title">Phone</p>
+
+                            <a href="tel:+12133522795" class="contact-link" id="phone"></a>
+                        </div>
+
+                    </li>
+
+                    <li class="contact-item">
+
+                        <div class="icon-box">
+                            <ion-icon name="calendar-outline"></ion-icon>
+                        </div>
+
+                        <div class="contact-info">
+                            <p class="contact-title">Birthday</p>
+
+                            <time datetime="1982-06-23">June 23, 1982</time>
+                        </div>
+
+                    </li>
+
+                    <li class="contact-item">
+
+                        <div class="icon-box">
+                            <ion-icon name="location-outline"></ion-icon>
+                        </div>
+
+                        <div class="contact-info">
+                            <p class="contact-title">Location</p>
+
+                            <address>Sacramento, California, USA</address>
+                        </div>
+
+                    </li>
+
+                </ul>
+
+                <div class="separator"></div>
+
+                <ul class="social-list">
+
+                    <li class="social-item">
+                        <a href="#" class="social-link">
+                            <ion-icon name="logo-facebook"></ion-icon>
+                        </a>
+                    </li>
+
+                    <li class="social-item">
+                        <a href="#" class="social-link">
+                            <ion-icon name="logo-twitter"></ion-icon>
+                        </a>
+                    </li>
+
+                    <li class="social-item">
+                        <a href="#" class="social-link">
+                            <ion-icon name="logo-instagram"></ion-icon>
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </aside>
+
+        <!--
+      - #main-content
+    -->
+
+        <div class="main-content">
+
+            <!--
+        - #NAVBAR
+      -->
+
+            <!-- <nav class="navbar">
+
+                <ul class="navbar-list">
+
+                    <li class="navbar-item">
+                        <button class="navbar-link active" data-nav-link>Orders</button>
+                    </li>
+
+                    <li class="navbar-item">
+                        <button class="navbar-link" data-nav-link>Favourites</button>
+                    </li>
+
+                </ul>
+
+            </nav> -->
+
+
+
+
+
+            <!--
+        - #ABOUT
+      -->
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-md-6 col-sm-12" style="height: 806px;">
+                        <article class="about  active" data-page="orders">
+
+                            <header>
+                                <h2 class="h2 article-title">My Orders</h2>
+                            </header>
+
+                            <section class="about-text">
+
+
+                            </section>
+
+
+                            <!-- order List -->
+                            <section class="service">
+                                <ul class="service-list" id="orderList">
+                                </ul>
+
+                            </section>
+
+
+                            <div class="modal-container" data-modal-container>
+                                <div class="overlay" data-overlay></div>
+                                <button class="modal-close-btn" data-modal-close-btn></button>
+                            </div>
+                        </article>
+                    </div>
+
+
+                    <div class="col-md-6 col-sm-12" style="height: 806px">
+                        <article class="portfolio active" data-page="favourites">
+
+                            <header>
+                                <h2 class="h2 article-title">My Favourites</h2>
+                            </header>
+
+                            <section class="projects">
+
+                                <ul class="filter-list">
+
+                                    <li class="filter-item">
+                                        <button class="active" data-filter-btn>All</button>
+                                    </li>
+
+                                    <li class="filter-item">
+                                        <button data-filter-btn>Web design</button>
+                                    </li>
+
+                                    <li class="filter-item">
+                                        <button data-filter-btn>Applications</button>
+                                    </li>
+
+                                    <li class="filter-item">
+                                        <button data-filter-btn>Web development</button>
+                                    </li>
+
+                                </ul>
+
+                                <div class="filter-select-box">
+
+                                    <button class="filter-select" data-select>
+
+                                        <div class="select-value" data-selecct-value>Select category</div>
+
+                                        <div class="select-icon">
+                                            <ion-icon name="chevron-down"></ion-icon>
+                                        </div>
+
+                                    </button>
+
+                                    <ul class="select-list">
+
+                                        <li class="select-item">
+                                            <button data-select-item>All</button>
+                                        </li>
+
+                                        <li class="select-item">
+                                            <button data-select-item>Web design</button>
+                                        </li>
+
+                                        <li class="select-item">
+                                            <button data-select-item>Applications</button>
+                                        </li>
+
+                                        <li class="select-item">
+                                            <button data-select-item>Web development</button>
+                                        </li>
+
+                                    </ul>
+
+                                </div>
+
+                                <ul class="project-list">
+
+                                    <li class="project-item  active" data-filter-item data-category="web development">
+                                        <a href="#">
+
+                                            <figure class="project-img">
+                                                <div class="project-item-icon-box">
+                                                    <ion-icon name="eye-outline"></ion-icon>
+                                                </div>
+
+                                                <img src="./assets/images/project-1.jpg" alt="finance" loading="lazy">
+                                            </figure>
+
+                                            <h3 class="project-title">Finance</h3>
+
+                                            <p class="project-category">Web development</p>
+
+                                        </a>
+                                    </li>
+
+                                    <li class="project-item  active" data-filter-item data-category="web development">
+                                        <a href="#">
+
+                                            <figure class="project-img">
+                                                <div class="project-item-icon-box">
+                                                    <ion-icon name="eye-outline"></ion-icon>
+                                                </div>
+
+                                                <img src="./assets/images/project-2.png" alt="orizon" loading="lazy">
+                                            </figure>
+
+                                            <h3 class="project-title">Orizon</h3>
+
+                                            <p class="project-category">Web development</p>
+
+                                        </a>
+                                    </li>
+
+                                    <li class="project-item  active" data-filter-item data-category="web design">
+                                        <a href="#">
+
+                                            <figure class="project-img">
+                                                <div class="project-item-icon-box">
+                                                    <ion-icon name="eye-outline"></ion-icon>
+                                                </div>
+
+                                                <img src="./assets/images/project-3.jpg" alt="fundo" loading="lazy">
+                                            </figure>
+
+                                            <h3 class="project-title">Fundo</h3>
+
+                                            <p class="project-category">Web design</p>
+
+                                        </a>
+                                    </li>
+
+                                    <li class="project-item  active" data-filter-item data-category="applications">
+                                        <a href="#">
+
+                                            <figure class="project-img">
+                                                <div class="project-item-icon-box">
+                                                    <ion-icon name="eye-outline"></ion-icon>
+                                                </div>
+
+                                                <img src="./assets/images/project-4.png" alt="brawlhalla"
+                                                    loading="lazy">
+                                            </figure>
+
+                                            <h3 class="project-title">Brawlhalla</h3>
+
+                                            <p class="project-category">Applications</p>
+
+                                        </a>
+                                    </li>
+
+                                    <li class="project-item  active" data-filter-item data-category="web design">
+                                        <a href="#">
+
+                                            <figure class="project-img">
+                                                <div class="project-item-icon-box">
+                                                    <ion-icon name="eye-outline"></ion-icon>
+                                                </div>
+
+                                                <img src="./assets/images/project-5.png" alt="dsm." loading="lazy">
+                                            </figure>
+
+                                            <h3 class="project-title">DSM.</h3>
+
+                                            <p class="project-category">Web design</p>
+
+                                        </a>
+                                    </li>
+
+                                    <li class="project-item  active" data-filter-item data-category="web design">
+                                        <a href="#">
+
+                                            <figure class="project-img">
+                                                <div class="project-item-icon-box">
+                                                    <ion-icon name="eye-outline"></ion-icon>
+                                                </div>
+
+                                                <img src="./assets/images/project-6.png" alt="metaspark" loading="lazy">
+                                            </figure>
+
+                                            <h3 class="project-title">MetaSpark</h3>
+
+                                            <p class="project-category">Web design</p>
+
+                                        </a>
+                                    </li>
+
+                                    <li class="project-item  active" data-filter-item data-category="web development">
+                                        <a href="#">
+
+                                            <figure class="project-img">
+                                                <div class="project-item-icon-box">
+                                                    <ion-icon name="eye-outline"></ion-icon>
+                                                </div>
+
+                                                <img src="./assets/images/project-7.png" alt="summary" loading="lazy">
+                                            </figure>
+
+                                            <h3 class="project-title">Summary</h3>
+
+                                            <p class="project-category">Web development</p>
+
+                                        </a>
+                                    </li>
+
+                                    <li class="project-item  active" data-filter-item data-category="applications">
+                                        <a href="#">
+
+                                            <figure class="project-img">
+                                                <div class="project-item-icon-box">
+                                                    <ion-icon name="eye-outline"></ion-icon>
+                                                </div>
+
+                                                <img src="./assets/images/project-8.jpg" alt="task manager"
+                                                    loading="lazy">
+                                            </figure>
+
+                                            <h3 class="project-title">Task Manager</h3>
+
+                                            <p class="project-category">Applications</p>
+
+                                        </a>
+                                    </li>
+
+                                    <li class="project-item  active" data-filter-item data-category="web development">
+                                        <a href="#">
+
+                                            <figure class="project-img">
+                                                <div class="project-item-icon-box">
+                                                    <ion-icon name="eye-outline"></ion-icon>
+                                                </div>
+
+                                                <img src="./assets/images/project-9.png" alt="arrival" loading="lazy">
+                                            </figure>
+
+                                            <h3 class="project-title">Arrival</h3>
+
+                                            <p class="project-category">Web development</p>
+
+                                        </a>
+                                    </li>
+
+                                </ul>
+
+                            </section>
+
+                        </article>
+                    </div>
+                </div>
+            </div>
+
+    </main>
+
+
+
+
+
+
+    <!--
+    - custom js link
+  -->
+    <script src="profile.js"></script>
+
+    <!--
+    - ionicon link
+  -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+
+    <script type="module">
+
+        import {
+            auth, firestore, provider,
+            onAuthStateChanged, signOut, signInWithPopup, collection,
+            addDoc, getDocs, query, where, setDoc, doc
+        } from "./src/firebase";
+
+        var currentUser;
+        var userId;
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                console.log("Authenticated user:", user);
+                // Get current authenticated user
+                currentUser = auth.currentUser;
+
+                if (!currentUser) {
+                    console.log("No user is signed in.");
+                    return null;
+                }
+
+                userId = currentUser.uid;  // Get the user ID from the authenticated user
+
+                fetchUserData();  // Proceed to fetch user data after auth is initialized
+                getAllOrdersbyUserID(userId);
+            } else {
+                console.log("No user signed in");
+            }
+        });
+
+        async function fetchUserData() {
+            try {
+
+                // Firestore collection reference
+                const usersCollection = collection(firestore, 'users');
+
+                // Query to get the user document by ID
+                const q = query(usersCollection, where("__name__", "==", userId));
+
+                // Fetch data from Firestore
+                const querySnapshot = await getDocs(q);
+
+                if (!querySnapshot.empty) {
+                    const data = querySnapshot.docs[0].data(); // Get the first document's data
+                    console.log("User Data:", data);
+                    document.getElementById('userName').innerText = data.username;
+                    document.getElementById('email').innerText = data.email;
+                    document.getElementById('email').setAttribute('href', 'mailto:' + data.email);
+                    document.getElementById('phone').innerText = '(+65) ' + data.contactNum;
+                    document.getElementById('phone').setAttribute('href', 'tel:+65' + data.contactNum);
+
+                } else {
+                    console.log("No such document found!");
+                    return null;
+                }
+            } catch (error) {
+                console.error("Error getting document:", error);
+                return null; // Return null if there's an error
+            }
+        }
+
+        async function getAllOrdersbyUserID(userId) {
+            try {
+                // Reference to Firestore's 'orders' collection
+                const orderCollection = collection(firestore, 'orders');
+
+                // Query orders where the 'userId' field matches the passed 'userId'
+                const q = query(orderCollection, where("userId", "==", userId));
+
+                // Get documents that match the query
+                const querySnapshot = await getDocs(q);
+
+                // Map the documents to an array of orders
+                const orders = querySnapshot.docs.map(doc => ({
+                    id: doc.id,
+                    data: doc.data()
+                }));
+
+                // Get the container where you want to append the order list
+                const orderListContainer = document.getElementById('orderList');
+
+                // Loop through the orders array and create an <li> for each order
+                for (let i = 0; i < orders.length; i++) {
+                    const order = orders[i];
+                    const listOfItem = order.data.items;  // Assuming `items` is an object like { chair: { Quantity: 3, Price: 234 }, ... }
+
+                    // Create the <li> element for each order
+                    const orderItem = document.createElement('li');
+                    orderItem.classList.add('service-item');
+                    orderItem.style.marginBottom = '20px';
+
+                    // Create the service content box <div>
+                    const serviceContentBox = document.createElement('div');
+                    serviceContentBox.classList.add('service-content-box');
+
+                    // Create the <h4> for Order # with the title
+                    const orderTitle = document.createElement('h4');
+                    orderTitle.classList.add('h4', 'service-item-title');
+                    orderTitle.style.color = 'rgb(66, 44, 18)';
+                    orderTitle.textContent = `Order #${order.id}`;
+
+                    // Create the <p> for the order details (if available)
+                    const orderText = document.createElement('p');
+                    orderText.classList.add('service-item-text');
+                    orderText.style.color = 'rgb(66, 44, 18)';
+                    orderText.textContent = order.data.details ? order.data.details : 'No details available';
+
+                    // Append the title and text to the content box
+                    serviceContentBox.appendChild(orderTitle);
+                    serviceContentBox.appendChild(orderText);
+
+                    // Create a table for the items
+                    const itemTable = document.createElement('table');
+                    itemTable.classList.add('item-table');  // Add a class for styling (optional)
+
+                    // Create the table header row
+                    const headerRow = document.createElement('tr');
+                    const itemHeader = document.createElement('th');
+                    itemHeader.textContent = 'Item Name';
+                    headerRow.appendChild(itemHeader);
+
+                    const quantityHeader = document.createElement('th');
+                    quantityHeader.textContent = 'Quantity';
+                    headerRow.appendChild(quantityHeader);
+
+                    const priceHeader = document.createElement('th');
+                    priceHeader.textContent = 'Price';
+                    headerRow.appendChild(priceHeader);
+
+                    // Append the header row to the table
+                    itemTable.appendChild(headerRow);
+
+                    // Loop through the items in `listOfItem` (which is an object now)
+                    for (let key in listOfItem) {
+                        if (listOfItem.hasOwnProperty(key)) {
+                            const itemDetails = listOfItem[key];  // Contains { Quantity, Price }
+
+                            // Create a table row for each item
+                            const itemRow = document.createElement('tr');
+
+                            // Create a table data cell for the item name
+                            const itemNameCell = document.createElement('td');
+                            itemNameCell.textContent = key || 'Unnamed item';
+                            itemRow.appendChild(itemNameCell);
+
+                            // Create a table data cell for the item quantity
+                            const itemQuantityCell = document.createElement('td');
+                            itemQuantityCell.textContent = itemDetails.quantity || 'N/A';
+                            itemRow.appendChild(itemQuantityCell);
+
+                            // Create a table data cell for the item price
+                            const itemPriceCell = document.createElement('td');
+                            itemPriceCell.textContent = itemDetails.price ? `$${itemDetails.price}` : 'N/A';
+                            itemRow.appendChild(itemPriceCell);
+
+                            // Append the item row to the table
+                            itemTable.appendChild(itemRow);
+                        }
+                    }
+
+                    // Fetch the totalPrice directly from Firestore data
+                    const totalPrice = order.data.totalPrice || 0;  // Assuming totalPrice is stored in the order document
+
+                    // Create the total price row
+                    const totalPriceRow = document.createElement('tr');
+                    totalPriceRow.style.fontWeight = 'bold';
+
+                    // Create a table cell for the total label
+                    const totalLabelCell = document.createElement('td');
+                    totalLabelCell.textContent = 'Total Price';
+                    totalLabelCell.setAttribute('colspan', '2'); // Span across two columns
+                    totalPriceRow.appendChild(totalLabelCell);
+
+                    // Create a table cell for the total price value
+                    const totalPriceCell = document.createElement('td');
+                    totalPriceCell.textContent = `$${totalPrice.toFixed(2)}`;
+                    totalPriceRow.appendChild(totalPriceCell);
+
+                    // Append the total price row to the table
+                    itemTable.appendChild(totalPriceRow);
+
+                    // Append the table to the content box
+                    serviceContentBox.appendChild(itemTable);
+
+                    // Append the content box to the <li> for the order
+                    orderItem.appendChild(serviceContentBox);
+
+                    // Finally, append the <li> to the list container
+                    orderListContainer.appendChild(orderItem);
+                }
+
+            } catch (error) {
+                console.error("Error getting document:", error);
+            }
+        }
+
+
+    </script>
+
+</body>
+
+</html>
