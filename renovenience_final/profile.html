@@ -122,9 +122,96 @@
         cursor: pointer;
         margin-left: 8px;
     }
+
+
+    /* Alert Design */
+    .alert-overlay {
+        display: none;
+        /* Hidden by default */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        /* Semi-transparent black background */
+        z-index: 9999;
+        /* Make sure it stays on top of other content */
+    }
+
+    /* Style for the custom alert box */
+    .custom-alert {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #f5f1e5;
+        color: black;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+        width: 400px;
+        text-align: center;
+        font-family: Arial, sans-serif;
+    }
+
+    /* Style for the close button */
+    .custom-alert .closebtn {
+        color: black;
+        font-size: 24px;
+        font-weight: bold;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+
+    /* Style for the alert message */
+    .custom-alert .message {
+        font-size: 16px;
+        margin: 10px 0;
+    }
+
+    /* Optional: Animation for alert box */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translate(-50%, -45%);
+        }
+
+        to {
+            opacity: 1;
+            transform: translate(-50%, -50%);
+        }
+    }
+
+    .custom-alert.show {
+        animation: fadeIn 0.5s;
+    }
+
+    .loginPage {
+        margin: auto;
+        color: #f5f1e5;
+        background-color: rgba(80, 55, 24, 0.7);
+        padding: 15px;
+        font-size: 12px;
+        font-family: 'Aboreto', cursive;
+        border-radius: 10px;
+    }
 </style>
 
 <body style="background-color: #f5f1e5;">
+    <!-- Alert Box -->
+    <div class="alert-overlay" id="alertOverlay">
+        <div class="custom-alert" id="customAlert">
+            <!-- <button class="closebtn" onclick="closeAlert()">&times;</button> -->
+            <div class="message">This is a custom alert box!</div>
+            <button class="loginPage" id="goLogin">Go to Login</button>
+        </div>
+    </div>
+
 
 
     <nav class="navbar fixed-top navbar-expand-lg">
@@ -358,8 +445,6 @@
     -->
 
         <div class="main-content">
-
-
             <div class="container-fluid">
 
                 <div class="row">
@@ -433,24 +518,40 @@
 
         var currentUser;
         var userId;
-        auth.onAuthStateChanged((user) => {
-            if (user) {
-                console.log("Authenticated user:", user);
-                // Get current authenticated user
-                currentUser = auth.currentUser;
 
-                if (!currentUser) {
-                    console.log("No user is signed in.");
-                    return null;
+        // Immediately check if the user is signed in when the page loads
+        window.onload = () => {
+
+            // Listen for changes in authentication state as well
+            auth.onAuthStateChanged((user) => {
+                if (user) {
+                    console.log("User signed in:", user);
+                    currentUser = auth.currentUser;  // Get the current user immediately
+                    userId = currentUser.uid;  // Get the user ID from the authenticated user
+
+                    fetchUserData();  // Proceed to fetch user data after auth is initialized
+                    getAllOrdersbyUserID(userId);
+                } else {
+                    showAlert("You have to be logged in to access this page! \n Please login!")
+                    console.log("No user signed in.");
                 }
+            });
+        };
 
-                userId = currentUser.uid;  // Get the user ID from the authenticated user
+        // Function to show the custom alert
+        function showAlert(message) {
+            // Show the overlay and alert box
+            const overlay = document.getElementById('alertOverlay');
+            const alertBox = document.getElementById('customAlert');
+            const alertMessage = document.querySelector('.custom-alert .message');
 
-                fetchUserData();  // Proceed to fetch user data after auth is initialized
-                getAllOrdersbyUserID(userId);
-            } else {
-                console.log("No user signed in");
-            }
+            alertMessage.textContent = message;  // Update the message
+            overlay.style.display = 'block';
+            alertBox.classList.add('show'); // Add animation class
+        }
+        const loginPgBtn = document.getElementById('goLogin');
+        loginPgBtn.addEventListener('click', () => {
+            window.location.href = 'login.html';
         });
 
         async function logout() {
@@ -647,7 +748,7 @@
                 // document.getElementById("").src = downloadURL;
                 document.getElementById("profileImage").setAttribute("src", downloadURL);
                 console.log(document.getElementById('profileImage').src)
-                if(downloadURL != ''){
+                if (downloadURL != '') {
                     document.getElementById('uploadText').style.display = "none";
                 }
 
