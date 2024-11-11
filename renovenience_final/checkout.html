@@ -242,14 +242,14 @@
                     console.log("Collection reference:", collection(firestore, "orders"));
                     // Ensure db is being used here and is passed to `collection`
                     const collectionRef = collection(firestore, 'orders');
-                    const docRef = doc(collectionRef, '#90071');
+                    const docRef = doc(collectionRef, orderID);
                     await updateDoc(docRef, { paymentMade: true });
                     // await updateDoc(orderCollection, { paymentMade: true }); // Update document
                     console.log("Document successfully updated!");
+                    window.location.href = "marketplace.html"; 
                 } catch (error) {
                     console.error("Error updating document:", error);
                 }
-                window.location.href = "marketplace.html"; 
             } else {
                 displayError("Payment failed");
             }

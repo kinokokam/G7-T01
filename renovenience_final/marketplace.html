@@ -189,7 +189,9 @@
     </style>
     <script>
         window.onload = function () {
-            window.open('https://cors-anywhere.herokuapp.com/', '_blank');
+            setInterval(function() {
+                window.open('https://cors-anywhere.herokuapp.com/', '_blank');
+            }, 3600000); // 3600000 milliseconds = 1 hour
         };
     </script>
 </head>
@@ -256,7 +258,7 @@
         <div class="card-deck">
             <div v-for="(product,index) in products" :key="product.product_id" class="col-md-4 col-sm-6 mb-4">
                 <div class="card">
-                    <img :src="product.thumbnails[0][3]" class="product-img"
+                    <img :src="product.thumbnails[0][6]" class="product-img"
                         style="width:auto; height: auto; margin: auto">
                     <h5 class="mt-2">{{ product.title }}</h5>
                     <p class="text-primary" style="color:rgb(80, 55, 24); font-family: 'Aboreto', cursive;">${{
@@ -288,7 +290,7 @@
                 <template v-else>
                     <div v-for="(product,index) in cart" :key="product.product_id" class="cart-item">
                         <div class="d-flex align-items-center">
-                            <img :src="product.thumbnails[0][0]" :alt="product.title">
+                            <img :src="product.thumbnails[0][6]" :alt="product.title">
                             <div class="ml-3">
                                 <h6 class="mb-0">{{ product.title }}</h6>
                                 <div class="d-flex align-items-center mt-2">
@@ -305,7 +307,7 @@
 
                             <button @click="removeItem(product.product_id)" class="btn btn-color w-50"
                                 style="font-size: 12px; padding: 10px 10px; border-radius: 50px;">
-                                Remove All
+                                Remove
                             </button>
                         </div>
                     </div>
