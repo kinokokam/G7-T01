@@ -115,7 +115,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p><strong>You are already logined in!</strong></p>
+                        <p><strong>Welcome back {{ currentUserName }}!</strong></p>
                         <ul>
 
                         </ul>
@@ -185,8 +185,7 @@
                 onAuthStateChanged(auth, (user) => {
                     if (user) {
                         this.user = user;
-
-                        this.$router.push("/index.html");
+                        // this.$router.push("/booking");
                     }
                 });
             },
