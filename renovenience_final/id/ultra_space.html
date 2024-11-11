@@ -709,19 +709,17 @@
     });
   </script>
 
-<script type="module" src="ultra_space.js"></script>
- 
-<script type="module">
-  import {
-      auth, firestore, provider, createUserWithEmailAndPassword, signInWithEmailAndPassword,
-      onAuthStateChanged, signOut, signInWithPopup, collection,
-      addDoc, getDocs, query, where, setDoc, doc
-  } from "../src/firebase.js";
-  </script>
-
   <script src="./ultra_space_files/attrchange.min.js"></script>
 
-  <script>
+  <script type="module" src="ultra_space.js"></script>
+ 
+  <script type="module">
+    import {
+        auth, firestore, provider, createUserWithEmailAndPassword, signInWithEmailAndPassword,
+        onAuthStateChanged, signOut, signInWithPopup, collection,
+        addDoc, getDocs, query, where, setDoc, doc
+    } from "../src/firebase.js";
+    
     $(document).ready(function () {
       $('#sliderone').find('.w-slider-dot').attrchange({
         trackValues: true,
