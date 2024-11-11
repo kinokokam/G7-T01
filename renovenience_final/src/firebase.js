@@ -1,7 +1,12 @@
 // Import Firebase services from the CDN
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, query, where, setDoc, doc } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js";
-import { getAuth, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, signInWithPopup } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
+import { getFirestore, collection, addDoc, getDocs, query, where, setDoc, 
+  doc, updateDoc } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js";
+import { getAuth, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, 
+  onAuthStateChanged, signOut, signInWithPopup } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
+
+  import { getStorage } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-storage.js";
+
 
 // Firebase configuration
 const firebaseConfig = {
@@ -19,6 +24,9 @@ const app = initializeApp(firebaseConfig);
 const firestore = getFirestore(app);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
+const storage = getStorage(app);
 
 // Export the Firebase modules
-export { firestore, auth, provider, collection, addDoc, getDocs, query, where, setDoc, doc, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, signInWithPopup };
+export { firestore, auth, provider, collection, 
+  addDoc, getDocs, query, where, setDoc, doc, createUserWithEmailAndPassword, 
+  signInWithEmailAndPassword, onAuthStateChanged, signOut, signInWithPopup,updateDoc,storage };
