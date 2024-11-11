@@ -442,7 +442,7 @@ crossorigin="anonymous"></script>
       </div>
       <div class="w-dyn-list">
         <div role="list" class="w-dyn-items" id="projectsId">
-        
+
         </div>
       </div>
     </div>
@@ -643,16 +643,18 @@ crossorigin="anonymous"></script>
     });
   </script>
 
-<script type="module" src="supreme_houzz.js"></script>
+<script type="module" src="21_interior.js"></script>
+ 
 
-<script type="module">
 
-  import {
-      auth, firestore, provider, createUserWithEmailAndPassword, signInWithEmailAndPassword,
-      onAuthStateChanged, signOut, signInWithPopup, collection,
-      addDoc, getDocs, query, where, setDoc, doc
-  } from "../src/firebase.js";
 
+  <script type="module">
+
+    import {
+        auth, firestore, provider, createUserWithEmailAndPassword, signInWithEmailAndPassword,
+        onAuthStateChanged, signOut, signInWithPopup, collection,
+        addDoc, getDocs, query, where, setDoc, doc
+    } from "../src/firebase.js";
 </script>
 
   <script src="./supreme_houzz_files/attrchange.min.js"></script>
@@ -665,7 +667,6 @@ crossorigin="anonymous"></script>
           $('#slideCounter').text($(".w-slider-dot.w-active").index() + 1);
         }
       })
-
 
       $('#slideTotal').text($('.w-slider-dot').length)
     });
