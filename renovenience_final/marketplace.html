@@ -331,12 +331,12 @@
         <div class="floating-cart" v-if="true">
             <div class="cart-header" @click="toggleCart">
                 <div class="d-flex align-items-center">
-                    <lucide-icon name="shopping-cart"></lucide-icon>
+                    <div name="shopping-cart"></div>
                     <span class="ml-2">Cart ({{ cart.length }} items)</span>
                 </div>
                 <div class="d-flex align-items-center">
                     <span class="mr-2">${{ getTotalPrice() }}</span>
-                    <lucide-icon :name="isCartExpanded ? 'chevron-down' : 'chevron-up'"></lucide-icon>
+                    <div :name="isCartExpanded ? 'chevron-down' : 'chevron-up'"></div>
                 </div>
             </div>
 
@@ -420,7 +420,18 @@
                     }
                 });
 
-                window.open('https://cors-anywhere.herokuapp.com/', '_blank');
+                const lastOpened = localStorage.getItem('corsProxyLastOpened');
+                const oneHour = 60 * 60 * 1000; // One hour in milliseconds
+                const now = new Date().getTime();
+
+                if (!lastOpened || now - lastOpened > oneHour) {
+                    const proxyActivated = localStorage.getItem('corsProxyActivated');
+                    if (!proxyActivated) {
+                        window.open('https://cors-anywhere.herokuapp.com/', '_blank');
+                        localStorage.setItem('corsProxyLastOpened', now);
+                        localStorage.setItem('corsProxyActivated', true);
+                    }
+                }
             },
 
             methods: {
