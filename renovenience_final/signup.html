@@ -38,32 +38,97 @@
     #register {
         background-color: #f5f1e5bb;
         height: 700px;
-
-
     }
-
-
 
     .form-control::placeholder {
         color: rgba(80, 55, 24, 0.8);
         font-family: 'Aboreto', cursive;
     }
 
-    .btn3{
+    .btn3 {
         background-color: rgba(80, 55, 24, 0.921);
-        color:#f5f1e5; 
+        color: #f5f1e5;
         font-family: 'Aboreto', cursive;
         padding: 10px;
         border: 0px;
     }
-    .btn3:hover{
-        background-color:#f5f1e5 ;
+
+    .btn3:hover {
+        background-color: #f5f1e5;
         color: rgba(80, 55, 24, 0.921);
+    }
+
+    /* Overlay background */
+    .booking-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.5);
+        /* Dark translucent background */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        /* Ensure it appears on top */
+    }
+
+    /* Modal box styling */
+    .alert-modal {
+        background-color: white;
+        padding: 20px;
+        width: 90%;
+        max-width: 400px;
+        /* Set a max width for the modal */
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Header section */
+    .alert-header {
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+    }
+
+    .alert-title {
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: #333;
+        margin: 0;
+    }
+
+    /* Body section */
+    .alert-body p {
+        font-size: 1rem;
+        color: #555;
+        margin: 0;
+    }
+
+    /* Footer section */
+    .alert-footer {
+        margin-top: 20px;
+        text-align: right;
+    }
+
+    .alert-footer .btn {
+        padding: 8px 16px;
+        font-size: 1rem;
+        border: none;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .alert-footer .btn:hover {
+        background-color: #0056b3;
     }
 </style>
 
 <body>
-
 
     <div id="app" class="container d-flex align-items-center justify-content-center vh-100">
         <div class="row w-100">
@@ -74,8 +139,8 @@
                     <h2 class="text-center">Sign Up</h2>
                     <form @submit.prevent="registerAcc" class="mt-4">
                         <div class="mb-5">
-                            <input type="text" v-model="username" class="form-control" placeholder="Username"
-                                required / style="border: 1px solid rgb(80, 55, 24) ; 
+                            <input type="text" v-model="username" class="form-control" placeholder="Username" required /
+                                style="border: 1px solid rgb(80, 55, 24) ; 
                                 border-radius: 5px;">
                         </div>
                         <div class="mb-5">
@@ -98,73 +163,41 @@
                                 placeholder="Confirm Password" required / style="border: 1px solid rgb(80, 55, 24) ; 
                                 border-radius: 5px;">
                         </div>
+                        <div v-if="errorMessage" class="alert alert-danger mt-3" role="alert">
+                            {{ errorMessage }}
+                        </div>
                         <button type="submit" class="btn3  w-100" style="margin-top: 20px;">Sign Up</button>
-                        <p v-if="errorMessage" style="color: red;">{{ errorMessage }}</p>
                     </form>
                 </div>
             </div>
         </div>
 
-        <!-- Login Bootstrap Modal -->
-        <div class="modal fade" id="loginSuccessModal" tabindex="-1" aria-labelledby="loginSuccessModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="loginSuccessModalLabel">Login Successful</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p><strong>You are already logined in!</strong></p>
-                        <ul>
-
-                        </ul>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                            @click="refreshPage">Ok</button>
-                    </div>
+        <!-- Register Success Modal -->
+        <div v-if="showRegisterSuccessModal" class="booking-overlay">
+            <div class="alert-modal">
+                <div class="alert-header">
+                    <h5 class="alert-title">Register Successful</h5>
+                </div>
+                <div class="alert-body">
+                    <p><strong>Welcome, {{ username }}!</strong></p>
+                    <p>Your registration was successful. Thank you for joining us!</p>
+                </div>
+                <div class="alert-footer">
+                    <button type="button" class="btn btn-primary" @click="closeModal">Ok</button>
                 </div>
             </div>
         </div>
-        <!-- End of Login Modal -->
-
-        <!-- Register Bootstrap Modal -->
-        <div class="modal fade" id="registerSuccessModal" tabindex="-1" aria-labelledby="registerSuccessModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="registerSuccessModalLabel">Register Successful</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p><strong>Welcome {{ username }}!</strong></p>
-                        <ul>
-
-                        </ul>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                            @click="refreshPage">Ok</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End of Register Modal -->
     </div>
 
 
 
     <script type="module">
 
-
         import {
             auth, firestore, provider, createUserWithEmailAndPassword, signInWithEmailAndPassword,
             onAuthStateChanged, signOut, signInWithPopup, collection,
             addDoc, getDocs, query, where, setDoc, doc
         } from "./src/firebase.js";
-
 
         const app = Vue.createApp({
             data() {
@@ -179,6 +212,7 @@
                     errorMessage: '',
                     currentUserName: '',
                     user: null,
+                    showRegisterSuccessModal: false,
                 };
             },
             async created() {
@@ -252,31 +286,16 @@
                         });
 
                         console.log("Registration successful!");
-                        const modalElement = new bootstrap.Modal(document.getElementById('registerSuccessModal'));
-                        modalElement.show();
+                        this.showRegisterSuccessModal = true;
+
                     } catch (error) {
                         this.errorMessage = error.message;
                         console.error("Registration Error:", error);
                     }
                 },
-
-                async googleLogin() {
-                    try {
-                        const result = await signInWithPopup(auth, provider);
-                        const user = result.user;
-                        console.log("Google Login Success:", user);
-
-                        const userRef = doc(firestore, "users", user.uid);
-                        await setDoc(userRef, {
-                            username: user.displayName,
-                            email: user.email,
-
-                        })
-                    } catch (error) {
-                        console.error('Error during Google sign-in:', error.message);
-                    }
-
-                },
+                closeModal() {
+                    this.showRegisterSuccessModal = false;
+                }
             }
         });
         app.mount('#app');
