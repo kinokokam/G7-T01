@@ -163,6 +163,87 @@
 
         /* Article Card Styles */
         .articles-list {
+    display: grid;
+    grid-template-columns: 1fr; /* Single column on small screens */
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+@media (min-width: 768px) {
+    .articles-list {
+        grid-template-columns: repeat(2, 1fr); /* Two columns on larger screens */
+    }
+}
+
+.article-card {
+    border-radius: 8px;
+    overflow: hidden;
+    height: 300px;  /* Fixed height */
+    position: relative;
+    cursor: pointer;
+}
+
+.article-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.article-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Space between title and bottom content */
+    background: linear-gradient(to bottom,
+            rgba(0, 0, 0, 0.1) 0%,
+            rgba(0, 0, 0, 0.7) 70%,
+            rgba(0, 0, 0, 0.9) 100%);
+    color: white;
+    transition: all 0.3s ease-in-out;
+}
+
+.article-title {
+    font-size: 1.5rem;
+    margin-top: 3px;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    position: relative;
+    z-index: 2;
+}
+
+.article-excerpt {
+    color: #f0f0f0;
+    margin: 0;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    opacity: 0;
+    max-height: 150px;
+    overflow-y: auto;
+    transition: opacity 0.3s ease-in-out;
+    position: relative;
+    z-index: 2;
+}
+
+.read-more {
+    color: white;
+    text-decoration: none;
+    padding: 8px 16px;
+    background-color: rgba(195, 144, 97, 0.95);
+    border-radius: 4px;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    z-index: 3;
+    transition: background-color 0.2s;
+}
+        /* .articles-list {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 20px;
@@ -226,7 +307,7 @@
             border-radius: 4px;
             align-self: flex-start;
             transition: background-color 0.2s;
-        }
+        } */
 
         /* Filter Section Styles */
         .filter-selections {
@@ -621,10 +702,11 @@
         <div class="container-fluid py-5" id="projectsSection">
 
             <!-- Filter Section -->
-            <div class="container-fluid py-5 selection" style="margin-bottom: 0px;">
+            <div class="container-fluid py-5 selection" style="padding-bottom:0px !important;">
                 <div class="row">
                     <div class="col-12 d-flex justify-content-center mb-4">
                         <div class="filter-selections" style="width: 95%;">
+                            <h2 style="text-align: center; color:#f5f1e5; margin-top:0px; margin-bottom:10px;">Explore projects here to get inspiration for your own home:</h2>
                             <!-- Property Type Filter -->
                             <div class="filter-item">
                                 <label for="property-type" class="filter-label">Property Type:</label>
@@ -736,7 +818,7 @@
 
             <!-- Projects Display -->
             <div class="container py-5">
-                <h1 style="text-align: center; margin-bottom: 50px;">Completed Projects</h1>
+                <!-- <h1 style="text-align: center; margin-bottom: 50px;">Completed Projects</h1> -->
                 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="projectsContainer">
                     <!-- Project cards will be dynamically inserted here -->
                 </div>
@@ -963,36 +1045,8 @@
                     image: './assets/article15/Article15.png',
                     link: './assets/article15/Article15.htm',
                 },
-            {
+                {
                 id: 16,
-                title: 'Common Styles of Interior Design to Inspire Your Next Project',
-                excerpt: 'Feeling inspired to change things up in your house? Here are some different interior design styles to help you out on your next project!',
-                image: './assets/article16/Article16.jpg',
-                link: './assets/article16/Article16.htm',
-                },
-            {
-                id: 17,
-                title: 'Home Office Design Ideas to Boost Productivity',
-                excerpt: '', // No excerpt provided in the HTML snippet.
-                image: './assets/article17/Article17.png',
-                link: './assets/article17/Article17.htm',
-                },
-            {
-                id: 18,
-                title: 'Essential Elements of Luxury Design for Home Interiors',
-                excerpt: '', // No excerpt provided in the HTML snippet.
-                image: './assets/article18/Article18.jpg',
-                link: './assets/article18/Article18.htm',
-                },
-            {
-                id: 19,
-                title: '5 Tips On How to Choose Interior Designer Singapore',
-                excerpt: '', // No excerpt provided in the HTML snippet.
-                image: './assets/article19/Article19.jpg',
-                link: './assets/article19/Article19.htm',
-                },
-            {
-                id: 20,
                 title: 'Renovation Red Flags: What to Watch Out for When Hiring a Contractor',
                 excerpt: 'Renovating your home can be an exciting and rewarding experience. However, it can quickly turn into a nightmare if you don\'t hire the right contractor or interior designer. That\'s why in this article, we\'ll take a closer look at the renovation red flags you should be aware of.',
                 image: './assets/article20/Article20.jpg',
@@ -1023,7 +1077,7 @@
             firebase.initializeApp(firebaseConfig);
             db = firebase.firestore();
         }
-       
+    
 
         async function fetchProjects() {
             try {
