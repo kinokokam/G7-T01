@@ -1,6 +1,6 @@
 // Import Firebase services from the CDN
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, query, where, setDoc, 
+import { getFirestore, collection, addDoc, getDocs, query, where, setDoc, deleteDoc,
   doc, updateDoc } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js";
 import { getAuth, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, 
   onAuthStateChanged, signOut, signInWithPopup } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
@@ -28,5 +28,5 @@ const storage = getStorage(app);
 
 // Export the Firebase modules
 export { firestore, auth, provider, collection, 
-  addDoc, getDocs, query, where, setDoc, doc, createUserWithEmailAndPassword, 
+  addDoc, getDocs, deleteDoc, query, where, setDoc, doc, createUserWithEmailAndPassword, 
   signInWithEmailAndPassword, onAuthStateChanged, signOut, signInWithPopup,updateDoc,storage };

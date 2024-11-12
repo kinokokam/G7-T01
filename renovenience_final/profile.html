@@ -212,21 +212,15 @@
         </div>
     </div>
 
-
-
     <nav class="navbar fixed-top navbar-expand-lg">
         <div class="container-fluid">
             <div class="row">
-
                 <div class="col-lg-1"></div>
-
                 <div class="col-lg-2">
                     <a class="navbar-brand" href="homepage.html"><img src="assets/images/logo.png" class="navbar-logo"
                             style="margin-right: -100px; margin-top: 0px;"></a>
                 </div>
-
                 <div class="col-lg-2"></div>
-
                 <div class="col-lg-7" style="margin-top: 30px;">
                     <div class="collapse navbar-collapse">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -263,7 +257,6 @@
         </div>
     </nav>
 
-
     <!--
     - #MAIN
   -->
@@ -288,7 +281,6 @@
                     </div>
                     <input type="file" id="profileImageUpload" style="display: none;" accept="image/*">
 
-
                 </figure>
 
                 <div class="info-content" style="display: flex; align-items: center;">
@@ -297,13 +289,10 @@
                     <span id="editIconUsername" style="cursor: pointer;" title="Edit name">✏️</span>
                 </div>
 
-
                 <div class="info-content">
 
                     <button class="btn-logout" id="logoutButton">Logout</button>
                 </div>
-
-
 
                 <button class="info_more-btn" data-sidebar-btn>
                     <span>Show Contacts</span>
@@ -372,9 +361,6 @@
                 <script>
 
                     const nameElement = document.getElementById('userName');
-                    // const editIcon = document.getElementById('editIcon');
-
-                    // Make the name editable when the edit icon is clicked
                     editIconUsername.addEventListener('click', function () {
                         nameElement.setAttribute('contenteditable', 'true');
                         nameElement.focus();
@@ -409,32 +395,9 @@
                         addressElement.setAttribute('contenteditable', 'false');
                     });
 
-
                 </script>
 
                 <div class="separator"></div>
-
-                <ul class="social-list">
-
-                    <li class="social-item">
-                        <a href="#" class="social-link">
-                            <ion-icon name="logo-facebook"></ion-icon>
-                        </a>
-                    </li>
-
-                    <li class="social-item">
-                        <a href="#" class="social-link">
-                            <ion-icon name="logo-twitter"></ion-icon>
-                        </a>
-                    </li>
-
-                    <li class="social-item">
-                        <a href="#" class="social-link">
-                            <ion-icon name="logo-instagram"></ion-icon>
-                        </a>
-                    </li>
-
-                </ul>
 
             </div>
 
@@ -465,14 +428,12 @@
 
                             </section>
 
-
                             <div class="modal-container" data-modal-container>
                                 <div class="overlay" data-overlay></div>
                                 <button class="modal-close-btn" data-modal-close-btn></button>
                             </div>
                         </article>
                     </div>
-
 
                     <div class="col-md-6 col-sm-12" style="height: 806px">
                         <article class="portfolio active" data-page="favourites">
@@ -515,6 +476,7 @@
             addDoc, getDocs, query, where, setDoc, doc, updateDoc
         } from "./src/firebase.js";
         import { ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-storage.js";
+        import { deleteDoc } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js";
 
         var currentUser;
         var userId;
@@ -607,12 +569,25 @@
         }
 
         async function getAllOrdersbyUserID(userId) {
+            // Reference to Firestore's 'orders' collection
+            const orderCollection = collection(firestore, 'orders');
+
+            // Query orders where the 'userId' field matches the passed 'userId'
+            const failedPayment = query(orderCollection, where("userId", "==", userId), where("paymentMade", "==", false));
+
+            // Get documents that match the query
+            const failedPaymentList = await getDocs(failedPayment);
+            failedPaymentList.docs.forEach(async (document) => {
+                // Get a reference to the document in the "orders" collection
+                const deleteOrderRef = doc(firestore, "orders", document.id);
+
+                // Delete the document
+                await deleteDoc(deleteOrderRef);
+            });
             try {
-                // Reference to Firestore's 'orders' collection
-                const orderCollection = collection(firestore, 'orders');
 
                 // Query orders where the 'userId' field matches the passed 'userId'
-                const q = query(orderCollection, where("userId", "==", userId));
+                const q = query(orderCollection, where("userId", "==", userId), where("paymentMade", "==", true));
 
                 // Get documents that match the query
                 const querySnapshot = await getDocs(q);
@@ -621,7 +596,8 @@
                 const orders = querySnapshot.docs.map(doc => ({
                     id: doc.id,
                     data: doc.data()
-                }));
+                }))
+                orders.sort((a, b) => new Date(b.data.orderDate) - new Date(a.data.orderDate));
 
                 // Get the container where you want to append the order list
                 const orderListContainer = document.getElementById('orderList');
@@ -644,13 +620,15 @@
                     const orderTitle = document.createElement('h4');
                     orderTitle.classList.add('h4', 'service-item-title');
                     orderTitle.style.color = 'rgb(66, 44, 18)';
-                    orderTitle.textContent = `Order #${order.id}`;
+                    orderTitle.textContent = `Order ${order.id}`;
+
+                    // 
 
                     // Create the <p> for the order details (if available)
                     const orderText = document.createElement('p');
                     orderText.classList.add('service-item-text');
                     orderText.style.color = 'rgb(66, 44, 18)';
-                    orderText.textContent = order.data.details ? order.data.details : 'No details available';
+                    orderText.textContent = "Order Date: " + order.data.orderDate;
 
                     // Append the title and text to the content box
                     serviceContentBox.appendChild(orderTitle);
@@ -680,7 +658,7 @@
                     // Loop through the items in `listOfItem` (which is an object now)
                     for (let key in listOfItem) {
                         if (listOfItem.hasOwnProperty(key)) {
-                            const itemDetails = listOfItem[key];  // Contains { Quantity, Price }
+                            const itemDetails = listOfItem[key];
 
                             // Create a table row for each item
                             const itemRow = document.createElement('tr');
@@ -734,6 +712,7 @@
 
                     // Finally, append the <li> to the list container
                     orderListContainer.appendChild(orderItem);
+
                 }
 
                 // Define the path to the image in Firebase Storage
@@ -747,7 +726,6 @@
                 // Set the image URL as the src of the img element
                 // document.getElementById("").src = downloadURL;
                 document.getElementById("profileImage").setAttribute("src", downloadURL);
-                console.log(document.getElementById('profileImage').src)
                 if (downloadURL != '') {
                     document.getElementById('uploadText').style.display = "none";
                 }
