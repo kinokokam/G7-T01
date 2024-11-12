@@ -28,6 +28,8 @@
 		text-align: center;
 	}
 
+
+
 	#ff {
 		font-size: 0.8rem;
 		letter-spacing: 0.2rem;
@@ -35,6 +37,8 @@
 		font-weight: lighter;
 		text-decoration: none;
 	}
+
+
 
 	.upload-box {
 		position: relative;
@@ -415,44 +419,110 @@
 
 
 	}
+
+
+	.container-nav {
+		display: flex;
+		margin-left: auto;
+		margin-left: auto;
+		justify-content: space-between;
+		align-items: flex-start;
+	}
+
+
+	.navigation-menu {
+
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		height: auto;
+		padding: 0;
+		margin: 0;
+		margin-left: 20px;
+	}
+
+	.navigation-menu img {
+		width: 150px;
+		height: auto;
+		flex-shrink: 0;
+
+	}
+
+	.navigation-list {
+
+		align-items: center;
+		display: flex;
+		margin-top: auto; 
+		margin-bottom: auto;
+		
+
+
+	}
+
+	.navbar-nav .nav-item {
+		white-space: nowrap;
+	}
+
+	@media (max-width: 986px) {
+	.navbar-collapse ul {
+		text-align: right;
+		margin-right: 0px;
+	}
+}
 </style>
 
 <body>
 	<!-- Fixed navbar -->
-	<div class="navbar navbar-inverse">
-		<div class="container">
-			<div class="navbar-header">
-				<!-- Button for smallest screens -->
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span
-						class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+	<div class="navbar navbar-inverse" style="padding: 0;">
 
-				<a class="navbar-brand" href="homepage.html">
-					<img src="assets/images/logo.png"
-						style="width: 300px; height: auto; display:block; margin-top: -50px; margin-left: -120px;">
+		<div class="container-nav">
+			<!-- Logo -->
+			<div class="navigation-menu">
+				<a href="index.html">
+					<img src="assets/images/logo.png" alt="Logo">
 				</a>
 			</div>
-			<div class="navbar-collapse collapse">
-				<ul class="nav navbar-nav pull-right mainNav">
 
-					<li><a href="./Final-2/inspiration.html" style="font-size: 13px;">Inspiration</a></li>
-					<li class="active"><a href="floorplan.html" style="font-size: 13px;">Floorplan</a></li>
-					<li><a href="interior.html" style="font-size: 13px;">Interior Design</a></li>
-					<li><a href="marketplace.html" style="font-size: 13px;">Marketplace</a></li>
-					<li><a href="booking.html" style="font-size: 13px;">Booking</a></li>
-					<li>
-						<a href="profile.html" style="font-size: 13px;">
-							<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-								xmlns="http://www.w3.org/2000/svg">
-								<circle cx="12" cy="8" r="4" stroke="#50371851" stroke-width="1" fill="none" />
-								<path d="M4 20c0-4 4-7 8-7s8 3 8 7" stroke="#50371851" stroke-width="1" fill="none" />
-							</svg>
-						</a>
-					</li>
 
-				</ul>
+
+			<!-- Navigation List -->
+			<div class="navigation-list">
+				<div class="navbar-collapse collapse" style="align-items: flex-start;">
+					<ul class="nav navbar-nav pull-right mainNav">
+						<li class="nav-item"><a href="booking.html"
+								style="font-size: 13px;">Booking</a></li>
+						<li class="nav-item active"><a href="floorplan.html" style="font-size: 13px;">Floorplan</a></li>
+						<li class="nav-item"><a href="marketplace.html" style="font-size: 13px;">Marketplace</a>
+						</li>
+						<li class="nav-item"><a href="inspiration.html" style="font-size: 13px;">Inspiration</a>
+						</li>
+						<li class="nav-item"><a href="interior.html" style="font-size: 13px;">Interior Design</a></li>
+						<li class="nav-item">
+							<a href="profile.html" style="font-size: 13px;">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+									xmlns="http://www.w3.org/2000/svg">
+									<circle cx="12" cy="8" r="4" stroke="#50371851" stroke-width="1" fill="none" />
+									<path d="M4 20c0-4 4-7 8-7s8 3 8 7" stroke="#50371851" stroke-width="1"
+										fill="none" />
+								</svg>
+							</a>
+						</li>
+					</ul>
+				</div>
 			</div>
+
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+
 		</div>
 	</div>
+
+
+
+
 	<!-- /.navbar -->
 
 	<section class="secpadding">
@@ -481,7 +551,7 @@
 
 		<div class="col-lg-1"></div>
 
-		<div class="col-lg-3 col-sm-12" style="height: 600px; overflow-y: auto; border: 1px solid #ddd; padding: 10px;">
+		<div class="col-lg-3 col-sm-3 col-xs-5" style="height: 600px; overflow-y: auto; border: 1px solid #ddd; padding: 10px;">
 			<div class="panel-header">
 				DRAG AND DROP OUR ICONS TO YOUR FLOORPLAN.
 			</div>
@@ -561,10 +631,10 @@
 		<!-- Left Upload Box -->
 
 
-		<div class="col-lg-1"></div>
+		<div class="col-lg-1 col-sm-1 col-xs-1"></div>
 
 		<!-- Right New Box for Drag-and-Drop -->
-		<div class="col-lg-6">
+		<div class="col-lg-6 col-sm-6 col-xs-6">
 			<!-- Upload Box to display the uploaded image -->
 			<div class="upload-box" id="leftBox">
 				<label for="uploadedImage" id="uploadLabel">UPLOAD A FILE OR IMAGE</label>
@@ -769,6 +839,7 @@
 	<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<script src="assets/js/custom.js"></script>
 </body>
 
 </html>

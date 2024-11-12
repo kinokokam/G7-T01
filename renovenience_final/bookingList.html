@@ -18,11 +18,11 @@
         margin: 0;
         /* Remove default margin */
 
-        height: 120vh;
+        height: fit-content;
         /* Full viewport height */
         width: 100vw;
         /* Full viewport width */
-        background: url('./id/luxcraft_files/66384a32d52ac61dfcccb73d_master.png') no-repeat center center/cover;
+        background: url('./assets/images/bg_1.jpg') no-repeat center center/cover;
 
     }
 
@@ -47,12 +47,45 @@
         color: #f5f1e5;
         background-color: rgba(71, 50, 24, 0.396);
     }
+
+    .cancelbtn{
+
+        background-color: #f5f1e5;
+        color: rgba(71, 50, 24, 0.396);
+        padding: 10px;
+        font-size: 12px;
+        border-radius: 5px;
+
+    }
+
+    .cancelDelete{
+        background-color: rgba(80, 55, 24, 0.921);
+        color:#f5f1e5; 
+        margin-right: 5px;
+        border: 5px;
+        font-family: 'Aboreto' cursive;
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .deleteBtn{
+        background-color: rgba(80, 55, 24, 0.921);
+        color:#f5f1e5; 
+        margin-right: 5px;
+        border: 5px;
+        padding: 8px;
+        font-family: 'Aboreto' cursive;
+        font-size: 14px;
+
+    }
+    
+    
 </style>
 
 <body>
 
     <div id="app" class="appointment-list"
-        style="background-color: rgba(80, 55, 24, 0.8); padding: 40px; height: 600px;">
+        style="background-color: rgba(80, 55, 24, 0.8); padding: 40px; height: fit-content;">
 
         <!-- Alert Box -->
         <div class="alert-overlay" id="alertOverlay" v-if="showAlertModal">
@@ -113,7 +146,7 @@
                     <td style="color: #f5f1e5;">{{ formatDate(booking.data.appointmentDate) }}</td>
                     <td style="color: #f5f1e5;">{{ booking.data.company }}</td>
                     <td style="color: #f5f1e5;">{{ formatDate(booking.data.currentDate) }}</td>
-                    <td><button @click="cancelBooking(booking.id)">Cancel Booking</button></td>
+                    <td><button @click="cancelBooking(booking.id)" class="cancelbtn">Cancel Booking</button></td>
                 </tr>
             </tbody>
         </table>

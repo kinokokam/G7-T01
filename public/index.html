@@ -1,89 +1,955 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+
+<head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Real Estate Builders Free Responsive Website Templates - icon">
+    <meta name="author" content="webThemez.com">
+    <title>Renovenience</title>
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/11.0.1/firebase-app-compat.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/11.0.1/firebase-auth-compat.js"></script>
-    <script defer src="/__/firebase/11.0.1/firebase-database-compat.js"></script>
-    <script defer src="/__/firebase/11.0.1/firebase-firestore-compat.js"></script>
-    <script defer src="/__/firebase/11.0.1/firebase-functions-compat.js"></script>
-    <script defer src="/__/firebase/11.0.1/firebase-messaging-compat.js"></script>
-    <script defer src="/__/firebase/11.0.1/firebase-storage-compat.js"></script>
-    <script defer src="/__/firebase/11.0.1/firebase-analytics-compat.js"></script>
-    <script defer src="/__/firebase/11.0.1/firebase-remote-config-compat.js"></script>
-    <script defer src="/__/firebase/11.0.1/firebase-performance-compat.js"></script>
-    <!-- 
-      initialize the SDK after all desired features are loaded, set useEmulator to false
-      to avoid connecting the SDK to running emulators.
-    -->
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+    <link rel="favicon" href="assets/images/favicon.png">
+    <link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap-theme.css" media="screen">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel='stylesheet' id='camera-css' href='assets/css/camera.css' type='text/css' media='all'>
 
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
-      }
-    </style>
-  </head>
-  <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
+
+    <link href="assets/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+    <link href="assets/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="assets/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+    <script src="assets/js2/main.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="icon" href="assets/images/logo.png">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+	<script src="assets/js/html5shiv.js"></script>
+	<script src="assets/js/respond.min.js"></script>
+	<![endif]-->
+</head>
+
+
+<style>
+.booking-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        /* Semi-transparent black */
+        z-index: 1050;
+        /* Ensures it appears above other content */
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Custom alert box styling */
+    .alert-modal {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        width: 400px;
+        max-width: 90%;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin: auto;
+        margin-top: 20%;
+        margin-bottom: auto;
+    }
+
+    /* Alert Header */
+    .alert-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .alert-title {
+        margin: 0;
+        font-size: 1.25rem;
+        font-weight: bold;
+    }
+
+    .btn-close {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+
+    /* Alert Body */
+    .alert-body {
+        margin-top: 15px;
+    }
+
+    /* Alert Footer */
+    .alert-footer {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+
+    .alert-footer button {
+        padding: 8px 15px;
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+        border-radius: 4px;
+        background-color: #007bff;
+        color: white;
+    }
+
+    .alert-footer button:hover {
+        background-color: #0056b3;
+    }
+
+</style>
+
+<body>
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+                <!-- Button for smallest screens -->
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span
+                        class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+
+                <a class="navbar-brand" href="homepage.html">
+                    <img src="assets/images/logo.png"
+                        style="width: 100%; max-width: 300px; height: auto; display: block; margin-top: -50px; margin-left: -120px;">
+                </a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav pull-right mainNav">
+                    <!-- <li class="active"><a href="homepage.html" style="font-size: 13px;">Home</a></li> -->
+                    <!-- <li class="active"><a href="about.html" style="font-size: 13px;">About</a></li> -->
+                    <li><a href="./Final-2/inspiration.html" style="font-size: 13px;">Inspiration</a></li>
+                    <li><a href="floorplan.html" style="font-size: 13px;">Floorplan</a></li>
+                    <li><a href="interior.html" style="font-size: 13px;">Interior Design</a></li>
+                    <li><a href="marketplace.html" style="font-size: 13px;">Marketplace</a></li>
+                    <li><a href="booking.html" style="font-size: 13px;">Booking</a></li>
+                    <li>
+                        <a href="profile.html" style="font-size: 13px;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="8" r="4" stroke="#50371851" stroke-width="1" fill="none" />
+                                <path d="M4 20c0-4 4-7 8-7s8 3 8 7" stroke="#50371851" stroke-width="1" fill="none" />
+                            </svg>
+                        </a>
+                    </li>
+
+
+                </ul>
+            </div>
+        </div>
     </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
+    <!-- /.navbar -->
+
+    <!-- Header -->
+    <header id="head">
+        <div class="container">
+            <div class="fluid_container">
+                <div class="camera_wrap camera_emboss pattern_1" id="camera_wrap_4">
+                    <div data-thumb="assets/images/slides/thumbs/slide1.jpg" data-src="assets/images/slides/slide1.jpg">
+                    </div>
+                    <div data-thumb="assets/images/slides/thumbs/slide2.jpg" data-src="assets/images/slides/slide2.jpg">
+                    </div>
+                    <div data-thumb="assets/images/slides/thumbs/slide3.jpg" data-src="assets/images/slides/slide3.jpg">
+                    </div>
+                </div><!-- #camera_wrap_3 -->
+            </div><!-- .fluid_container -->
+        </div>
+    </header>
+
+
+
+    <section class="secpadding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="title-box clearfix">
+                        <h2 class="title-box_primary" style="text-align: center; padding: 20px;">Welcome</h2>
+                    </div>
+
+                    <p>With 4 years of global experience in residential, hospitality, industrial design, and creative
+                        direction, Renovenience focuses on re-sensualizing the built environment. Founded in 2020 in
+                        Singapore,
+                        Renovenience is a multidisciplinary design practice dedicated to enhancing well-being through
+                        minimalist yet haptic designs that engage both mind and body.
+                    </p>
+                    <p>Our work—spanning architecture, interiors, and products—seeks to uncover the essence of design,
+                        creating spaces that fulfill the human desire for belonging, autonomy, and identity.
+                        We strive for simplicity, finding beauty in function and ensuring each creation feels as good as
+                        it looks.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="pt-5 pb-5" style="background-color:#f5f1e5; padding-top: 60px;">
+        <div class="container">
+            <div class="row">
+                <div class="section-head col-sm-12" id="service">
+                    <h1>Our Services</h1>
+                    <p style="font-family: 'Inter', sans-serif; font-size: 14px; color: #503718; text-align: center;">
+
+                        Renovenience exists to simplify and elevate your interior design journey, bringing everything
+                        you need into one cohesive platform for a seamless experience.
+
+                    </p>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="item"> <span class="icon feature_box_col_one"
+                            style="color:  rgb(80, 55, 24); background-color: #f5f1e5;"><i class="fa fa-eye"></i></span>
+                        <a href="inspiration.html" style="color: #503718;">
+                            <h3 style="cursor: pointer; color: #503718; text-decoration: none;">Inspiration</h3>
+                        </a>
+
+                        <p
+                            style="font-family: 'Inter', sans-serif; font-size: 14px; color: #503718; text-align:center;">
+
+                            Renovenience offers an Inspiration Board with articles to help you find your ideal interior
+                            design style and understand the process of working with an ID company.</p>
+
+
+                        <p
+                            style="font-family: 'Inter', sans-serif; font-size: 14px; color: #503718; text-align: center;">
+
+                            Explore our photo gallery of different design styles, and save your favorites to your
+                            profile to refine your vision.
+
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-6">
+                    <div class="item"> <span class="icon feature_box_col_one"
+                            style="color:  rgb(80, 55, 24); background-color: #f5f1e5;"><i
+                                class="fa fa-database"></i></span>
+                        <a href="floorplan.html" style="color: #503718;">
+                            <h3 style="cursor: pointer; color: #503718; text-decoration: none;">Floorplan</h3>
+                        </a>
+                        <p
+                            style="font-family: 'Inter', sans-serif; font-size: 14px; color: #503718; text-align:center;">
+
+                            Our floorplan service allows you to upload your property’s floorplan, customize it with
+                            drag-and-drop icons, and save the decorated image for easy reference.</p>
+
+
+                        <p
+                            style="font-family: 'Inter', sans-serif; font-size: 14px; color: #503718; text-align: center;">
+
+                            Easily visualize your space and experiment with design ideas to create a personalized layout
+                            that fits your style.
+
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-6">
+                    <div class="item"> <span class="icon feature_box_col_one"
+                            style="color:  rgb(80, 55, 24); background-color: #f5f1e5;"><i
+                                class="fa fa-magic"></i></span>
+                        <a href="interior.html" style="color: #503718;">
+                            <h3 style="cursor: pointer; color: #503718; text-decoration: none;">Interior Design</h3>
+                        </a>
+                        <p
+                            style="font-family: 'Inter', sans-serif; font-size: 14px; color: #503718; text-align:center;">
+
+                            We recommend trusted interior designers who partner with Renovenience to deliver exceptional
+                            design quality. </p>
+
+
+                        <p
+                            style="font-family: 'Inter', sans-serif; font-size: 14px; color: #503718; text-align: center;">
+
+                            Explore reviews, photos of completed projects, and essential details to help you find the
+                            perfect designer for your apartment and style.
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-3 col-sm-6">
+                    <div class="item"> <span class="icon feature_box_col_one"
+                            style="color:  rgb(80, 55, 24); background-color: #f5f1e5;"><i
+                                class="fa fa-laptop"></i></span>
+                        <a href="marketplace.html" style="color: #503718;">
+                            <h3 style="cursor: pointer; color: #503718; text-decoration: none;">Marketplace</h3>
+                        </a>
+                        <p
+                            style="font-family: 'Inter', sans-serif; font-size: 14px; color: #503718; text-align:center;">
+
+                            Our furniture marketplace lets you shop for pieces that perfectly match your apartment,
+                            guided by your inspiration board and insights from interior designers on Renovenience’s
+                            platform.</p>
+
+
+                        <p
+                            style="font-family: 'Inter', sans-serif; font-size: 14px; color: #503718; text-align: center;">
+
+                            Create a cohesive, personalized space with ease and confidence.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous"></script>
+
+
+    <section class="counters" style="height: 300px;">
+        <div class="container" style="display: flex; justify-content: space-around; text-align: center;">
+            <div>
+                <i class="far fa-clock fa-4x"></i>
+                <div class="counter" data-target="13500"
+                    style="font-size: 2em; color: #f5f1e5; font-family: 'Inter', sans-serif; font-weight: 900;">0</div>
+                <h3 style="color: #f5f1e5; font-weight: bold;">Working Hours</h3>
+            </div>
+            <div>
+                <i class="fas fa-gift fa-4x"></i>
+                <div class="counter" data-target="720"
+                    style="font-size: 2em; color: #f5f1e5; font-family: 'Inter', sans-serif; font-weight: 900;">0</div>
+                <h3 style="color: #f5f1e5;">Completed Projects</h3>
+            </div>
+            <div>
+                <i class="fas fa-users fa-4x"></i>
+                <div class="counter" data-target="480"
+                    style="font-size: 2em; color: #f5f1e5; font-family: 'Inter', sans-serif; font-weight: 900;">0</div>
+                <h3 style="color: #f5f1e5;">Happy Clients</h3>
+            </div>
+            <div>
+                <i class="fas fa-award fa-4x"></i>
+                <div class="counter" data-target="120"
+                    style="font-size: 2em; color: #f5f1e5; font-family: 'Inter', sans-serif; font-weight: 900;">0</div>
+                <h3 style="color: #f5f1e5;">Awards Received</h3>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        // Counter function
+        function animateCounters() {
+            $('.counter').each(function () {
+                const $this = $(this);
+                const target = +$this.attr('data-target');
+                const duration = 2000; // Duration of the count in milliseconds
+                const increment = target / (duration / 20); // Adjust 20 to change speed
+
+                let count = 0;
+                const updateCounter = () => {
+                    count += increment;
+                    if (count < target) {
+                        $this.text(Math.ceil(count));
+                        setTimeout(updateCounter, 20);
+                    } else {
+                        $this.text(target);
+                    }
+                };
+                updateCounter();
+            });
+        }
+
+        // Trigger the counter when the section is in view
+        $(document).ready(function () {
+            $(window).on('scroll', function () {
+                const countersTop = $('.counters').offset().top - window.innerHeight;
+                if ($(window).scrollTop() > countersTop) {
+                    animateCounters();
+                    $(window).off('scroll'); // Remove scroll listener once counters animate
+                }
+            });
+        });
+    </script>
+
+    <section class="news-box">
+        <div class="container">
+            <h2 style="padding: 20px; text-align: center;"><span>Featured Projects</span></h2>
+            <div class="row">
+
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="thumbnail thumbnail4">
+                        <img src="assets/images/news1.jpg" alt="" style="width: 360px; height: 511px;">
+
+                        <div class="caption" style="width: 360px; height: 212px;">
+                            <h4>
+                                <a href="#">
+                                    Timber Cabin Redesign
+                                </a>
+                            </h4>
+
+                            <p style="color: rgba(80, 55, 24, 0.842); padding-bottom: 30px;">
+                                Renovenience has transformed a traditional timber cabin, nestled among Sweden's pine
+                                forests, into a minimalist family retreat.
+
+                            </p>
+                            <p style="color: rgba(80, 55, 24, 0.842);">
+                                Taking a "back-to-basics" approach, the Copenhagen-based studio remodeled the two-floor
+                                cabin perched on a ridge, emphasizing simplicity and authenticity.
+
+                            </p>
+                            <!-- <a href="#" data-title="Read More" class="btn-link"><span>Read More</span></a> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="thumbnail thumbnail4">
+                        <img src="assets/images/news2.jpg" alt="" style="width: 360px; height: 511px;">
+
+                        <div class="caption" style="width: 360px; height: 212px;">
+                            <h4>
+                                <a href="#">
+                                    Seaside Sanctuary Home
+                                </a>
+                            </h4>
+
+                            <p style="color: rgba(80, 55, 24, 0.842); padding-bottom: 15px;">
+                                Inspired by Laguna Beach’s bohemian spirit, this Seaside Sanctuary design by
+                                Renovenience blends calming neutral tones with original terracotta flooring
+                                and a captivating plaster mural of a "sun-worshipping goddess."
+                            </p>
+                            <p style="color: rgba(80, 55, 24, 0.842);">
+                                Drawing from Majorcan influences, the redesign creates an organic, serene space that
+                                embodies the essence of a tranquil seaside retreat.
+                            </p>
+                            <!-- <a href="#" data-title="Read More" class="btn-link"><span>Read More</span></a> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="thumbnail thumbnail4">
+                        <img src="assets/images/news3.jpg" alt="" style="width: 360px; height: 511px;">
+
+                        <div class="caption" style="width: 360px; height: 212px;">
+                            <h4>
+                                <a href="#">
+                                    Minimalist Cabin Retreat
+                                </a>
+                            </h4>
+
+                            <p style="color: rgba(80, 55, 24, 0.842); padding-bottom: 17px;">
+                                Renovenience transforms a traditional cabin into a serene, minimalist retreat. The
+                                project embodies an exercise in restraint, resulting in a simple, authentic, and
+                                welcoming space that balances aesthetics with comfort. </p>
+
+                            <p style="color: rgba(80, 55, 24, 0.842);"> Featuring greige sofas, a sheepskin lounge
+                                chair, and a wood burner set against dolomite-plastered walls,
+                                the design emphasizes simplicity, comfort, and authenticity.
+                            </p>
+                            <!-- <a href="#" data-title="Read More" class="btn-link"><span>Read More</span></a> -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="packages" class="secpadding">
+        <div class="container">
+            <h2 style="text-align: center;"><span>Our Achievements</span></h2>
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="cuadro_intro_hover " style="background-color:#cccccc;">
+                        <p style="text-align:center;">
+                            <img src="assets/images/pic/pic-5.jpg" class="img-responsive" alt="">
+                        </p>
+                        <div class="caption">
+                            <div class="blur"></div>
+                            <div class="caption-text">
+                                <h3>2020</h3>
+                                <p style="background-color: #f5f1e5; color:rgba(80, 55, 24, 0.799); font-size: 10px;">
+                                    Shortlisted: Large Workspace Interior, The Audo, Dezeen Awards, UK
+                                </p>
+                                <p style="background-color: #f5f1e5; color:rgba(80, 55, 24, 0.799); font-size: 10px;">
+                                    Furniture Systems and Collections, AZ Awards, US
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-3  col-sm-6">
+                    <div class="cuadro_intro_hover " style="background-color:#cccccc;">
+                        <p style="text-align:center;">
+                            <img src="assets/images/pic/pic-6.jpg" class="img-responsive" alt="">
+                        </p>
+                        <div class="caption">
+                            <div class="blur"></div>
+                            <div class="caption-text">
+                                <h3>2021</h3>
+                                <p style="background-color: #f5f1e5; color:rgba(80, 55, 24, 0.799); font-size: 10px;">
+                                    Designer of the year (nomination), Danish Design Awards, DK
+                                </p>
+                                <p style="background-color: #f5f1e5; color:rgba(80, 55, 24, 0.799); font-size: 10px;">
+                                    Interior Design Firm of the Year, Architecture Masterprize, US
+                                </p>
+                                <p style="background-color: #f5f1e5; color:rgba(80, 55, 24, 0.799); font-size: 10px;">
+                                    Furniture Category (nomination), Koku Tables, Dwell Design Awards, US
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-3  col-sm-6">
+                    <div class="cuadro_intro_hover " style="background-color:#cccccc;">
+                        <p style="text-align:center;">
+                            <img src="assets/images/pic/pic-7.jpg" class="img-responsive" alt="">
+                        </p>
+                        <div class="caption">
+                            <div class="blur"></div>
+                            <div class="caption-text">
+                                <h3>2022</h3>
+                                <p style="background-color: #f5f1e5; color:rgba(80, 55, 24, 0.799); font-size: 10px;">
+                                    Visual Identity (finalist), TRUNK(HOTEL) Yoyogi Park, Hospitality Design Awards
+                                </p>
+                                <p style="background-color: #f5f1e5; color:rgba(80, 55, 24, 0.799); font-size: 10px;">
+                                    Scandinavian Design Award nomination, Scandinavian Design Award
+                                </p>
+                                <p style="background-color: #f5f1e5; color:rgba(80, 55, 24, 0.799); font-size: 10px;">
+                                    Best 100, Kyoto Global Design Awards, JP
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-3  col-sm-6">
+                    <div class="cuadro_intro_hover " style="background-color:#cccccc;">
+                        <p style="text-align:center;">
+                            <img src="assets/images/pic/pic-8.jpg" class="img-responsive" alt="">
+                        </p>
+                        <div class="caption">
+                            <div class="blur"></div>
+                            <div class="caption-text">
+                                <h3>2023</h3>
+                                <p style="background-color: #f5f1e5; color:rgba(80, 55, 24, 0.799); font-size: 10px;">
+                                    Top 25 Best Architecture Firms in Singapore
+                                </p>
+                                <p style="background-color: #f5f1e5; color:rgba(80, 55, 24, 0.799); font-size: 10px;">
+                                    Top Architect: Retail & Hospitality, Audo Showroom Tokyo, Monocle Design Awards, US
+                                </p>
+                                <p style="background-color: #f5f1e5; color:rgba(80, 55, 24, 0.799); font-size: 10px;">
+                                    Best Multidisciplinary Architecture Practice, BUILD Architecture Awards
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="team" style="margin-top: 7rem;">
+        <h1 class="heading" style="margin-top: -1.5rem;" id="team">our team</h1>
+        <p></p>
+        <div class="row">
+            <div class="card">
+                <div class="image">
+                    <img src="about/images/qiaoye.jpg" alt="Team member 1">
+                </div>
+                <div class="info">
+                    <h3>Qiaoye</h3>
+                    <span>Web Developer</span>
+                    <div class="icons">
+                        <a href="https://www.facebook.com/" class="fab fa-facebook-f"></a>
+                        <a href="https://twitter.com/login" class="fab fa-twitter"></a>
+                        <a href="https://www.instagram.com/" class="fab fa-instagram"></a>
+                        <a href="https://www.linkedin.com/" class="fab fa-linkedin"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="card">
+                <div class="image">
+                    <img src="about/images/breann.jpg" alt="Team member 1">
+                </div>
+                <div class="info">
+                    <h3>Breann</h3>
+                    <span>Graphic Designer</span>
+                    <div class="icons">
+                        <a href="https://www.facebook.com/" class="fab fa-facebook-f"></a>
+                        <a href="https://twitter.com/login" class="fab fa-twitter"></a>
+                        <a href="https://www.instagram.com/" class="fab fa-instagram"></a>
+                        <a href="https://www.linkedin.com/" class="fab fa-linkedin"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="card">
+                <div class="image">
+                    <img src="about/images/rebecca.jpg" alt="Team member 1">
+                </div>
+                <div class="info">
+                    <h3>Rebecca</h3>
+                    <span>Web Designer</span>
+                    <div class="icons">
+                        <a href="https://www.facebook.com/" class="fab fa-facebook-f"></a>
+                        <a href="https://twitter.com/login" class="fab fa-twitter"></a>
+                        <a href="https://www.instagram.com/" class="fab fa-instagram"></a>
+                        <a href="https://www.linkedin.com/in/rebeccangohit/" class="fab fa-linkedin"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section>
+            <div class="row">
+                <div class="card">
+                    <div class="image">
+                        <img src="about/images/shaun.jpg" alt="Team member 1">
+                    </div>
+                    <div class="info">
+                        <h3>Shaun</h3>
+                        <span>Web Developer</span>
+                        <div class="icons">
+                            <a href="https://www.facebook.com/" class="fab fa-facebook-f"></a>
+                            <a href="https://twitter.com/login" class="fab fa-twitter"></a>
+                            <a href="https://www.instagram.com/" class="fab fa-instagram"></a>
+                            <a href="https://www.linkedin.com/" class="fab fa-linkedin"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="card">
+                    <div class="image">
+                        <img src="about/images/joelle.jpg" alt="Team member 1">
+                    </div>
+                    <div class="info">
+                        <h3>Joelle</h3>
+                        <span>Graphic Designer</span>
+                        <div class="icons">
+                            <a href="https://www.facebook.com/" class="fab fa-facebook-f"></a>
+                            <a href="https://twitter.com/login" class="fab fa-twitter"></a>
+                            <a href="https://www.instagram.com/" class="fab fa-instagram"></a>
+                            <a href="https://www.linkedin.com/" class="fab fa-linkedin"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <!-- <section id="contact" class="contact" style="text-align: center ;">
+            <h1 class="heading">get in touch</h1>
+        </section> -->
+
+    <div id="app" class="contact-in"
+        style="display: flex; justify-content: center; padding: 50px; background-color: #f5f1e5;">
+        <h1 style="padding-right: 120px;">Drop Us A Message</h1>
+        <div class="contact-form"
+            style="background-color: white; padding: 30px; width: 60%; max-width: 600px; box-shadow: 0px 4px 8px rgba(126, 108, 79, 0.958); border-radius: 10px;">
+            <form @submit.prevent="submitForm" style="display: flex; flex-direction: column; gap: 20px;">
+                <input type="text" v-model="form.username" placeholder="Name" class="contact-form-txt" required disabled
+                    style="padding: 15px; border: 1px solid #ddd; border-radius: 10px; font-size: 16px; width: 100%;" />
+                <input type="tel" v-model="form.contactNum" pattern="[0-9]{10}" required placeholder="Contact number"
+                    disabled maxlength="10" class="contact-form-phone"
+                    style="padding: 15px; border: 1px solid #ddd; border-radius: 10px; font-size: 16px; width: 100%;" />
+                <input type="email" v-model="form.email" placeholder="Email" class="contact-form-email" required
+                    disabled
+                    style="padding: 15px; border: 1px solid #ddd; border-radius: 10px; font-size: 16px; width: 100%;" />
+                <textarea v-model="form.message" placeholder="Your Message" class="contact-form-txtarea" required
+                    style="padding: 15px; border: 1px solid #ddd; border-radius: 10px; font-size: 16px; width: 100%; height: 120px;"></textarea>
+                <button type="submit" class="contact-form-btn"
+                    style="padding: 10px 20px; font-size: 18px; border: 1px solid #333; background-color: white; color: #333; border-radius: 25px; cursor: pointer; transition: 0.3s;">
+                    Submit
+                </button>
+            </form>
+        </div>
+        <!-- Booking Create modal Box -->
+        <div v-if="showModal" class="booking-overlay">
+            <div class="alert-modal">
+                <div class="alert-header">
+                    <h5 class="alert-title">Booking Successful</h5>
+                </div>
+                <div class="alert-body">
+                    <p>Your enquiries has been successfully sent. Thank you!</p>
+                </div>
+                <div class="alert-footer">
+                    <button type="button" class="btn btn-primary" @click="closeModal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <section class="faq" style="height: 100px;">
+        <h1 class="heading" style="margin-top: -2rem; color: #f5f1e5;" id="faq">FAQ</h1>
+        <div class="row">
+            <div class="accordion-container">
+                <div class="accordion">
+                    <div class="accordion-header">
+                        <span>+</span>
+                        <h3>How much will it cost?</h3>
+                    </div>
+                    <div class="accordion-body">
+                        <p>To help you estimate the cost of your project, visit our interior designs page.
+                            Choose a design based on square meter size and aesthetic preference, and explore ballpark
+                            figures provided for each featured project by our partnered ID firms.
+                        </p>
+                    </div>
+                </div>
+                <div class="accordion">
+                    <div class="accordion-header">
+                        <span>+</span>
+                        <h3>How long it takes to design?</h3>
+                    </div>
+                    <div class="accordion-body">
+                        <p>The timeline for any assignment is typically set by the ID. If you have a specific timeframe
+                            in mind, we will do our best to negotiate with the ID on your behalf.</p>
+                    </div>
+                </div>
+                <div class="accordion">
+                    <div class="accordion-header">
+                        <span>+</span>
+                        <h3>What services do you offer, and what is included in your packages?</h3>
+                    </div>
+                    <div class="accordion-body">
+                        <p>We offer comprehensive interior design services, including space planning, project
+                            management, and post-completion follow-ups. Our packages are tailored to meet various needs,
+                            from simple consultations to full-service design and project management.</p>
+                    </div>
+                </div>
+                <div class="accordion">
+                    <div class="accordion-header">
+                        <span>+</span>
+                        <h3>Can I see examples of your completed projects?</h3>
+                    </div>
+                    <div class="accordion-body">
+                        <p>Absolutely. We feature a gallery of our best projects from top boutique IDs in Singapore,
+                            showcasing various styles and sizes.
+                            You can explore these to get a sense of our work and quality standards.</p>
+                    </div>
+                </div>
+                <div class="accordion">
+                    <div class="accordion-header">
+                        <span>+</span>
+                        <h3>Are there any additional fees or hidden costs?</h3>
+                    </div>
+                    <div class="accordion-body">
+                        <p>We believe in transparent pricing. All fees will be discussed upfront, and any additional
+                            costs will be communicated in advance to avoid surprises.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const loadEl = document.querySelector('#load');
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.firestore().doc('/foo/bar').get().then(() => { });
-        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        // firebase.analytics(); // call to activate
-        // firebase.analytics().logEvent('tutorial_completed');
-        // firebase.performance(); // call to activate
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+        document.addEventListener("DOMContentLoaded", function () {
+            const accordions = document.querySelectorAll(".accordion");
 
-        try {
-          let app = firebase.app();
-          let features = [
-            'auth', 
-            'database', 
-            'firestore',
-            'functions',
-            'messaging', 
-            'storage', 
-            'analytics', 
-            'remoteConfig',
-            'performance',
-          ].filter(feature => typeof app[feature] === 'function');
-          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
-        }
-      });
+            accordions.forEach(accordion => {
+                const header = accordion.querySelector(".accordion-header");
+                header.addEventListener("click", () => {
+                    const body = accordion.querySelector(".accordion-body");
+
+                    // Toggle visibility of the accordion body
+                    body.style.display = body.style.display === "block" ? "none" : "block";
+
+                    // Optionally toggle the plus/minus sign
+                    const icon = header.querySelector("span");
+                    icon.textContent = icon.textContent === "+" ? "-" : "+";
+                });
+            });
+        });
     </script>
-  </body>
+
+
+    <footer id="footer">
+        <div class="footer2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 panel">
+                        <div class="panel-body">
+                            <p class="simplenav">
+                                <a href="homepage.html">Home</a> |
+                                <!-- <a href="about.html">About</a> | -->
+                                <a href="inspiration.html">Inspiration</a> |
+                                <a href="floorplan.html">Floorplan</a> |
+                                <a href="interior.html">Interior Design</a> |
+                                <a href="marketplace.html">Marketplace</a> |
+                                <a href="booking.html">Booking</a>|
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 panel">
+                        <div class="panel-body">
+                            <p class="text-right">
+                                Copyright &copy; 2024 renovenience
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /row of panels -->
+            </div>
+        </div>
+    </footer>
+
+    <a href="#" class="back-to-top"
+        style="position: fixed; bottom: 20px; right: 20px; display: none;  padding: 10px 15px; border-radius: 50%; text-align: center; cursor: pointer; font-size: 20px;">
+        <i class="ion-ios-arrow-up"></i>
+    </a>
+
+    <script>
+        // Show the back-to-top button when scrolling down
+        window.onscroll = function () {
+            const backToTopButton = document.querySelector('.back-to-top');
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                backToTopButton.style.display = 'block';
+            } else {
+                backToTopButton.style.display = 'none';
+            }
+        };
+
+        // Scroll to the top when clicking the button
+        document.querySelector('.back-to-top').onclick = function (e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+    </script>
+
+
+    <!-- JavaScript libs are placed at the end of the document so the pages load faster -->
+
+
+    <script src="assets/js/modernizr-latest.js"></script>
+    <script type='text/javascript' src='assets/js/jquery.min.js'></script>
+    <script type='text/javascript' src='assets/js/fancybox/jquery.fancybox.pack.js'></script>
+
+    <script type='text/javascript' src='assets/js/jquery.mobile.customized.min.js'></script>
+    <script type='text/javascript' src='assets/js/jquery.easing.1.3.js'></script>
+    <script type='text/javascript' src='assets/js/camera.min.js'></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/custom.js"></script>
+    <script>
+        jQuery(function () {
+
+            jQuery('#camera_wrap_4').camera({
+                height: '750',
+                loader: 'bar',
+                pagination: false,
+                thumbnails: false,
+                hover: false,
+                opacityOnGrid: false,
+                imagePath: 'assets/images/'
+            });
+
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.2.47"></script>
+
+    <script type="module">
+
+        import {
+            auth, firestore, provider,
+            onAuthStateChanged, signOut, collection,
+            addDoc, getDocs, query, where, setDoc, doc
+        } from "./src/firebase.js";
+        const app = Vue.createApp({
+            data() {
+                return {
+                    form: {
+                        username: "",
+                        email: "",
+                        contactNum: "",
+                        message: "",
+                    },
+                    user: "",
+                    showModal: false,
+                };
+            },
+            async created() {
+                onAuthStateChanged(auth, async (user) => {
+                    if (user) {
+                        this.user = user.uid;
+                        await this.fetchUserData();
+                    } else {
+                        window.location.href = "login.html";
+                        console.log("No user signed in.");
+                    }
+                });
+            },
+            methods: {
+                async fetchUserData() {
+                    // Get User by ID
+                    try {
+                        const usersCollection = collection(firestore, 'users');
+                        const q = query(usersCollection, where("__name__", "==", this.user)); // Use `__name__` to query by document ID
+                        const querySnapshot = await getDocs(q);
+
+                        if (!querySnapshot.empty) {
+                            const data = querySnapshot.docs[0].data(); // Get the data from the first document
+                            console.log(data)
+                            this.form = data;
+                            return data;
+                        } else {
+                            console.log("No such document!");
+                            return null;
+                        }
+                    } catch (error) {
+                        console.error("Error getting document:", error);
+                    }
+                },
+                submitForm() {
+                    const user = auth.currentUser;
+                    const selectedDateObj = new Date(this.currentYear, this.currentMonth, this.selectedDate);
+                    try {
+                        const enquryCollection = collection(firestore, 'enquiries');
+                        const enqury = {
+                            userId: this.user,
+                            date: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' }),
+                            email:this.form.email,
+                            contactNum: this.form.contactNum,
+                            username: this.form.username,
+                            message: this.form.message,                            
+                        };
+
+
+                        // add data in to database
+                        addDoc(enquryCollection, enqury);
+
+                        this.showModal = true;
+                        console.log("Enquiry successfully created!");
+
+                    } catch (err) {
+                        this.error = err.message; // Display error message
+                        console.error("Error creating Enquiry:", err);
+                    }
+                },
+                closeModal(){
+                    this.showModal = false;
+                }
+            },
+        });
+
+        app.mount('#app');
+
+    </script>
+
+
+</body>
+
 </html>

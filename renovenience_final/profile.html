@@ -77,10 +77,11 @@
 
     .about-text,
     .service {
+
         max-height: 800px;
         overflow-y: auto;
         scrollbar-width: thin;
-        max-width: 500px;
+        max-width: fit-content;
         scrollbar-color: rgba(80, 55, 24, 0.5) rgba(245, 241, 229);
 
     }
@@ -93,7 +94,8 @@
     }
 
     li.service-item::before {
-        width: 350px;
+        width: 380px;
+        padding: 10px;
     }
 
     .projects {
@@ -200,6 +202,84 @@
         font-family: 'Aboreto', cursive;
         border-radius: 10px;
     }
+    .navbar {
+            background-color: #f5f1e5;
+            /* Light beige background */
+        }
+
+
+        .nav-link,
+        .form-control {
+            color: #50371851;
+            padding-top: 30px;
+            padding-bottom: 12px;
+            font-family: 'Aboreto', cursive;
+            font-size: 13px;
+            font-weight: 300;
+            
+            letter-spacing: 0.3rem;
+        }
+
+        .active {
+            color: rgba(80, 55, 24, 0.7);
+        }
+
+
+        .navbar-toggler {
+            border-color: rgba(80, 55, 24, 0.7);
+        }
+
+        .navbar-logo {
+            width: 80%;
+
+            /* Adjust size as needed */
+            height: 70%;
+            border-radius: 50%;
+            /* Optional: makes the logo circular */
+            object-fit: cover;
+            /* Ensures the image fits properly */
+        }
+
+        .nav-link:hover {
+            color: rgba(80, 55, 24, 0.7);
+        }
+
+        .container-nav {
+
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+
+        }
+
+        .navigation-menu {
+            display: flex;
+            align-items: center;
+            height: auto;
+            margin-right: auto;
+
+
+        }
+
+        .navigation-menu img {
+            width: 150px;
+            /* Set logo width */
+            height: auto;
+            flex-shrink: 0;
+            /* Prevent logo shrinking */
+        }
+
+        .navigation-list {
+            display: flex;
+            align-items: center;
+            /* Align nav items vertically */
+            justify-content: flex-end;
+            /* Push items to the right */
+            gap: 20px;
+            /* Add horizontal spacing between nav items */
+            margin: 0;
+            padding: 10px 0;
+        }
 </style>
 
 <body style="background-color: #f5f1e5;">
@@ -212,49 +292,52 @@
         </div>
     </div>
 
-    <nav class="navbar fixed-top navbar-expand-lg">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-1"></div>
-                <div class="col-lg-2">
-                    <a class="navbar-brand" href="homepage.html"><img src="assets/images/logo.png" class="navbar-logo"
-                            style="margin-right: -100px; margin-top: 0px;"></a>
-                </div>
-                <div class="col-lg-2"></div>
-                <div class="col-lg-7" style="margin-top: 30px;">
-                    <div class="collapse navbar-collapse">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item active">
-                                <a class="nav-link active" aria-current="page" href="./Final-2/inspiration.html"
-                                    style="font-size: 13px;">Inspiration</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="floorplan.html" style="font-size: 13px;">Floorplan</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="interior.html" style="font-size: 13px;">Interior Design</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="marketplace.html" style="font-size: 13px;">Marketplace</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="booking.html" style="font-size: 13px;">Booking</a>
-                            </li>
-                            <li>
-                                <a href="profile.html" style="font-size: 13px;" class="nav-link">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <circle cx="12" cy="8" r="4" stroke="#50371851" stroke-width="1" fill="none" />
-                                        <path d="M4 20c0-4 4-7 8-7s8 3 8 7" stroke="#50371851" stroke-width="1"
-                                            fill="none" />
-                                    </svg>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+    <nav class="navbar fixed-top navbar-expand-lg" style="height: 100px;">
+
+        <div class="container-nav">
+            <!-- Logo Section -->
+            <div class="navigation-menu" style="margin-right: 550px;">
+                <a class="navbar-brand" href="index.html">
+                    <img src="assets/images/logo.png" alt="Logo" style="margin-left: 12px;">
+                </a>
+            </div>
+
+
+
+            <!-- Navigation List -->
+            <div class="navigation-list" style="justify-content: flex-end;">
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="booking.html">Booking</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="floorplan.html">Floorplan</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="marketplace.html">Marketplace</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="inspiration.html">Inspiration</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="interior.html">Interior Design</a>
+                        </li>
+                        <li>
+                            <a href="profile.html" class="nav-link">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="12" cy="8" r="4" stroke="#50371851" stroke-width="1" fill="none" />
+                                    <path d="M4 20c0-4 4-7 8-7s8 3 8 7" stroke="#50371851" stroke-width="1"
+                                        fill="none" />
+                                </svg>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
+
     </nav>
 
     <!--
@@ -411,7 +494,7 @@
             <div class="container-fluid">
 
                 <div class="row">
-                    <div class="col-md-6 col-sm-12" style="height: 806px;">
+                    <div class="col-md-12 col-sm-12" style="height: fit-content;">
                         <article class="about active" data-page="orders">
 
                             <header>
@@ -424,6 +507,7 @@
                             <!-- order List -->
                             <section class="service">
                                 <ul class="service-list" id="orderList">
+
                                 </ul>
 
                             </section>
@@ -435,22 +519,7 @@
                         </article>
                     </div>
 
-                    <div class="col-md-6 col-sm-12" style="height: 806px">
-                        <article class="portfolio active" data-page="favourites">
-
-                            <header>
-                                <h2 class="h2 article-title">My Favourites</h2>
-                            </header>
-
-                            <section class="projects">
-
-                                <ul class="project-list" id="projectList">
-                                </ul>
-
-                            </section>
-
-                        </article>
-                    </div>
+             
                 </div>
             </div>
 
@@ -473,10 +542,10 @@
         import {
             auth, firestore, storage,
             onAuthStateChanged, signOut, collection,
-            addDoc, getDocs, query, where, setDoc, doc, updateDoc
+            addDoc, getDocs, query, where, setDoc, updateDoc
         } from "./src/firebase.js";
         import { ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-storage.js";
-        import { deleteDoc } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js";
+        import { doc, deleteDoc } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js";
 
         var currentUser;
         var userId;
@@ -490,7 +559,6 @@
                     console.log("User signed in:", user);
                     currentUser = auth.currentUser;  // Get the current user immediately
                     userId = currentUser.uid;  // Get the user ID from the authenticated user
-
                     fetchUserData();  // Proceed to fetch user data after auth is initialized
                     getAllOrdersbyUserID(userId);
                 } else {
@@ -557,7 +625,6 @@
                     document.getElementById('phone').innerText = data.contactNum;
                     document.getElementById('phone').setAttribute('href', 'tel:+65' + data.contactNum);
                     document.getElementById('address').innerText = data.address;
-
                 } else {
                     console.log("No such document found!");
                     return null;
@@ -719,20 +786,22 @@
                 const filePath = `profilePictures/${userId}`;
                 const imageRef = ref(storage, filePath);
 
-                // Get the download URL
-                const downloadURL = await getDownloadURL(imageRef);
-                console.log("Image download URL:", downloadURL);
+                if (imageRef != '') {
+                    // Get the download URL
+                    const downloadURL = await getDownloadURL(imageRef);
+                    console.log("Image download URL:", downloadURL);
 
-                // Set the image URL as the src of the img element
-                // document.getElementById("").src = downloadURL;
-                document.getElementById("profileImage").setAttribute("src", downloadURL);
-                if (downloadURL != '') {
-                    document.getElementById('uploadText').style.display = "none";
+                    // Set the image URL as the src of the img element
+                    // document.getElementById("").src = downloadURL;
+                    document.getElementById("profileImage").setAttribute("src", downloadURL);
+                    if (downloadURL != '') {
+                        document.getElementById('uploadText').style.display = "none";
+                    }
                 }
+
 
             } catch (error) {
                 console.error("Error fetching profile image:", error);
-                alert("Failed to load profile image. Please try again.");
             }
         }
 
@@ -821,8 +890,6 @@
                 console.error("No valid image file selected.");
             }
         });
-
-
 
 
     </script>

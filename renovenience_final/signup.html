@@ -126,11 +126,22 @@
     .alert-footer .btn:hover {
         background-color: #0056b3;
     }
+
+    .btnSign{
+        
+        background-color: rgba(80, 55, 24, 0.921);
+        color: #f5f1e5;
+        font-family: 'Aboreto', cursive;
+        padding: 8px;
+        border-radius: 5px;
+
+
+    }
 </style>
 
 <body>
 
-    <div id="app" class="container d-flex align-items-center justify-content-center vh-100">
+    <div id="app" class="container d-flex align-items-center justify-content-center vh-100" style='height: fit-content;'>
         <div class="row w-100">
 
             <!-- Sign Up Section -->
@@ -141,27 +152,27 @@
                         <div class="mb-5">
                             <input type="text" v-model="username" class="form-control" placeholder="Username" required /
                                 style="border: 1px solid rgb(80, 55, 24) ; 
-                                border-radius: 5px;">
+                                border-radius: 5px; font-family: 'Aboreto', cursive;">
                         </div>
                         <div class="mb-5">
                             <input type="email" v-model="registerEmail" class="form-control" placeholder="Email"
                                 required / style="border: 1px solid rgb(80, 55, 24) ; 
-                                border-radius: 5px;">
+                                border-radius: 5px; font-family: 'Aboreto', cursive;">
                         </div>
                         <div class="mb-5">
                             <input type="number" v-model="contactNum" class="form-control" placeholder="Contact Number"
                                 required / style="border: 1px solid rgb(80, 55, 24) ; 
-                                border-radius: 5px;">
+                                border-radius: 5px; font-family: 'Aboreto', cursive;">
                         </div>
                         <div class="mb-5">
                             <input type="password" v-model="registerPassword" class="form-control"
                                 placeholder="Password" required / style="border: 1px solid rgb(80, 55, 24) ; 
-                                border-radius: 5px;">
+                                border-radius: 5px; font-family: 'Aboreto', cursive;">
                         </div>
                         <div class="mb-5">
                             <input type="password" v-model="confirmPassword" class="form-control"
                                 placeholder="Confirm Password" required / style="border: 1px solid rgb(80, 55, 24) ; 
-                                border-radius: 5px;">
+                                border-radius: 5px;font-family: 'Aboreto', cursive;">
                         </div>
                         <div v-if="errorMessage" class="alert alert-danger mt-3" role="alert">
                             {{ errorMessage }}
@@ -173,17 +184,17 @@
         </div>
 
         <!-- Register Success Modal -->
-        <div v-if="showRegisterSuccessModal" class="booking-overlay">
-            <div class="alert-modal">
-                <div class="alert-header">
-                    <h5 class="alert-title">Register Successful</h5>
+        <div v-if="showRegisterSuccessModal" class="booking-overlay" style="background-color: #f5f1e5;">
+            <div class="alert-modal" style="background-color: #f5f1e5;">
+                <div class="alert-header" style="color: rgba(80, 55, 24, 0.921);">
+                    <h5 class="alert-title" style="color: rgba(80, 55, 24, 0.921);">Register Successful</h5>
                 </div>
-                <div class="alert-body">
+                <div class="alert-body" style="color: rgba(80, 55, 24, 0.921); font-family: 'Aboreto', cursive;">
                     <p><strong>Welcome, {{ username }}!</strong></p>
                     <p>Your registration was successful. Thank you for joining us!</p>
                 </div>
                 <div class="alert-footer">
-                    <button type="button" class="btn btn-primary" @click="closeModal">Ok</button>
+                    <button type="button" class="btnSign" @click="closeModal">Login with us</button>
                 </div>
             </div>
         </div>
@@ -287,6 +298,7 @@
 
                         console.log("Registration successful!");
                         this.showRegisterSuccessModal = true;
+                        
 
                     } catch (error) {
                         this.errorMessage = error.message;
@@ -294,8 +306,13 @@
                     }
                 },
                 closeModal() {
+
                     this.showRegisterSuccessModal = false;
-                }
+                    window.location.href = "login.html";      
+
+                }, 
+              
+                
             }
         });
         app.mount('#app');

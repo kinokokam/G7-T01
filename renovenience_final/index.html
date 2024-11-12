@@ -109,47 +109,106 @@
     .alert-footer button:hover {
         background-color: #0056b3;
     }
+    .container-nav {
+		display: flex;
+		margin-left: auto;
+		margin-left: auto;
+		justify-content: space-between;
+		align-items: flex-start;
+	}
+
+
+	.navigation-menu {
+
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		height: auto;
+		padding: 0;
+		margin: 0;
+		margin-left: 20px;
+	}
+
+	.navigation-menu img {
+		width: 150px;
+		height: auto;
+		flex-shrink: 0;
+
+	}
+
+	.navigation-list {
+
+		align-items: center;
+		display: flex;
+		margin-top: auto; 
+		margin-bottom: auto;
+		
+
+
+	}
+
+	.navbar-nav .nav-item {
+		white-space: nowrap;
+	}
+
+	@media (max-width: 986px) {
+	.navbar-collapse ul {
+		text-align: right;
+		margin-right: 0px;
+	}
+}
 
 </style>
 
 <body>
     <!-- Fixed navbar -->
-    <div class="navbar navbar-inverse">
-        <div class="container">
-            <div class="navbar-header">
-                <!-- Button for smallest screens -->
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span
-                        class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+    <div class="navbar navbar-inverse" style="padding: 0;">
 
-                <a class="navbar-brand" href="homepage.html">
-                    <img src="assets/images/logo.png"
-                        style="width: 100%; max-width: 300px; height: auto; display: block; margin-top: -50px; margin-left: -120px;">
-                </a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav pull-right mainNav">
-                    <!-- <li class="active"><a href="homepage.html" style="font-size: 13px;">Home</a></li> -->
-                    <!-- <li class="active"><a href="about.html" style="font-size: 13px;">About</a></li> -->
-                    <li><a href="./Final-2/inspiration.html" style="font-size: 13px;">Inspiration</a></li>
-                    <li><a href="floorplan.html" style="font-size: 13px;">Floorplan</a></li>
-                    <li><a href="interior.html" style="font-size: 13px;">Interior Design</a></li>
-                    <li><a href="marketplace.html" style="font-size: 13px;">Marketplace</a></li>
-                    <li><a href="booking.html" style="font-size: 13px;">Booking</a></li>
-                    <li>
-                        <a href="profile.html" style="font-size: 13px;">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="12" cy="8" r="4" stroke="#50371851" stroke-width="1" fill="none" />
-                                <path d="M4 20c0-4 4-7 8-7s8 3 8 7" stroke="#50371851" stroke-width="1" fill="none" />
-                            </svg>
-                        </a>
-                    </li>
+		<div class="container-nav">
+			<!-- Logo -->
+			<div class="navigation-menu">
+				<a href="index.html">
+					<img src="assets/images/logo.png" alt="Logo">
+				</a>
+			</div>
 
 
-                </ul>
-            </div>
-        </div>
-    </div>
+
+			<!-- Navigation List -->
+			<div class="navigation-list">
+				<div class="navbar-collapse collapse" style="align-items: flex-start;">
+					<ul class="nav navbar-nav pull-right mainNav">
+						<li class="nav-item"><a href="booking.html"
+								style="font-size: 13px;">Booking</a></li>
+						<li class="nav-item"><a href="floorplan.html" style="font-size: 13px;">Floorplan</a></li>
+						<li class="nav-item"><a href="marketplace.html" style="font-size: 13px;">Marketplace</a>
+						</li>
+						<li class="nav-item"><a href="inspiration.html" style="font-size: 13px;">Inspiration</a>
+						</li>
+						<li class="nav-item"><a href="interior.html" style="font-size: 13px;">Interior Design</a></li>
+						<li class="nav-item">
+							<a href="profile.html" style="font-size: 13px;">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+									xmlns="http://www.w3.org/2000/svg">
+									<circle cx="12" cy="8" r="4" stroke="#50371851" stroke-width="1" fill="none" />
+									<path d="M4 20c0-4 4-7 8-7s8 3 8 7" stroke="#50371851" stroke-width="1"
+										fill="none" />
+								</svg>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+
+		</div>
+	</div>
+
     <!-- /.navbar -->
 
     <!-- Header -->
@@ -385,7 +444,7 @@
                     <div class="thumbnail thumbnail4">
                         <img src="assets/images/news1.jpg" alt="" style="width: 360px; height: 511px;">
 
-                        <div class="caption" style="width: 360px; height: 212px;">
+                        <div class="caption" style="width: fit-content; height: fit-content;">
                             <h4>
                                 <a href="#">
                                     Timber Cabin Redesign
@@ -410,7 +469,7 @@
                     <div class="thumbnail thumbnail4">
                         <img src="assets/images/news2.jpg" alt="" style="width: 360px; height: 511px;">
 
-                        <div class="caption" style="width: 360px; height: 212px;">
+                        <div class="caption" style="width: fit-content; height: fit-content;">
                             <h4>
                                 <a href="#">
                                     Seaside Sanctuary Home
@@ -434,7 +493,7 @@
                     <div class="thumbnail thumbnail4">
                         <img src="assets/images/news3.jpg" alt="" style="width: 360px; height: 511px;">
 
-                        <div class="caption" style="width: 360px; height: 212px;">
+                        <div class="caption" style="width: fit-content; height: fit-content;">
                             <h4>
                                 <a href="#">
                                     Minimalist Cabin Retreat
@@ -567,7 +626,7 @@
                 </div>
                 <div class="info">
                     <h3>Qiaoye</h3>
-                    <span>Web Developer</span>
+                    <span>Founder</span>
                     <div class="icons">
                         <a href="https://www.facebook.com/" class="fab fa-facebook-f"></a>
                         <a href="https://twitter.com/login" class="fab fa-twitter"></a>
@@ -601,7 +660,7 @@
                 </div>
                 <div class="info">
                     <h3>Rebecca</h3>
-                    <span>Web Designer</span>
+                    <span>Co-founder</span>
                     <div class="icons">
                         <a href="https://www.facebook.com/" class="fab fa-facebook-f"></a>
                         <a href="https://twitter.com/login" class="fab fa-twitter"></a>
@@ -620,7 +679,7 @@
                     </div>
                     <div class="info">
                         <h3>Shaun</h3>
-                        <span>Web Developer</span>
+                        <span>Client Relations Intern</span>
                         <div class="icons">
                             <a href="https://www.facebook.com/" class="fab fa-facebook-f"></a>
                             <a href="https://twitter.com/login" class="fab fa-twitter"></a>
@@ -637,7 +696,7 @@
                     </div>
                     <div class="info">
                         <h3>Joelle</h3>
-                        <span>Graphic Designer</span>
+                        <span>Web developer</span>
                         <div class="icons">
                             <a href="https://www.facebook.com/" class="fab fa-facebook-f"></a>
                             <a href="https://twitter.com/login" class="fab fa-twitter"></a>
@@ -693,7 +752,7 @@
     </div>
 
 
-    <section class="faq" style="height: 100px;">
+    <section class="faq" style="height: fit-content;">
         <h1 class="heading" style="margin-top: -2rem; color: #f5f1e5;" id="faq">FAQ</h1>
         <div class="row">
             <div class="accordion-container">

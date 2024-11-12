@@ -30,36 +30,33 @@
         /* Full viewport width */
         background: url('./assets/images/loginbg.svg') no-repeat center center/cover;
         /* Background image */
-
+        
 
     }
-
-    #login {
+    #login{
         background-color: #f5f1e5bb;
         height: 600px;
-
+       
 
     }
 
-    input {
-        border: 1px solid rgb(80, 55, 24);
+    input{
+        border: 1px solid rgb(80, 55, 24) ; 
         border-radius: 5px;
     }
 
-    .btn3 {
+    .btn3{
         background-color: rgba(80, 55, 24, 0.921);
-        color: #f5f1e5;
+        color:#f5f1e5; 
         font-family: 'Aboreto', cursive;
         padding: 10px;
         border: 0px;
     }
-
-    .btn3:hover {
-        background-color: #f5f1e5;
+    .btn3:hover{
+        background-color:#f5f1e5 ;
         color: rgba(80, 55, 24, 0.921);
     }
-
-    .signup {
+    .signup{
         font-family: 'Aboreto', cursive;
         text-align: center;
         margin-top: 90px;
@@ -70,6 +67,18 @@
         color: rgba(80, 55, 24, 0.8);
         font-family: 'Aboreto', cursive;
     }
+    .btnLogin{
+        background-color: rgba(80, 55, 24, 0.921);
+        color: #f5f1e5;
+        font-family: 'Aboreto', cursive;
+    }
+    .btnLogin:hover{
+
+        background-color: rgba(125, 88, 42, 0.921);
+        color: #f5f1e5;
+
+
+    }
 </style>
 
 <body>
@@ -78,24 +87,20 @@
     <div id="app" class="container d-flex align-items-center justify-content-center vh-100">
         <div class="row w-100">
             <!-- Login Section -->
-            <div class="col-md-8 col-lg-8 mx-auto">
+            <div class="col-md-8 col-lg-8 mx-auto" >
                 <div id="login" class="p-4 border rounded shadow-sm" style="margin-top: 400px;">
                     <h2 class="text-center">Login</h2>
                     <form @submit.prevent="handleLogin" class="mt-4">
                         <div class="mb-3">
-                            <input type="email" v-model="email" @input="errorMessage = ''" class="form-control" placeholder="Email" required />
+                            <input type="email" v-model="email" class="form-control" placeholder="Email" required / style="border: 1px solid rgb(80, 55, 24) ; 
+                            border-radius: 5px; font-family:'Aboreto', cursive;">
                         </div>
                         <div class="mb-3">
-                            <input type="password" v-model="password" @input="errorMessage = ''" class="form-control" placeholder="Password" required />
+                            <input type="password" v-model="password" class="form-control" placeholder="Password"
+                                required / style="border: 1px solid rgb(80, 55, 24) ; 
+                                border-radius: 5px; font-family:'Aboreto', cursive;">
                         </div>
-                    
-                        <!-- Error message display -->
-                        <div v-if="errorMessage" class="alert alert-danger mt-3" role="alert">
-                            {{ errorMessage }}
-                        </div>
-                    
                         <button type="submit" class="btn3 w-100 mb-3">Login</button>
-                        <!-- Rest of your form content -->
                         <div class="text-center my-3" id="others">
                             <hr /><span style="font-family:'Aboreto', cursive;">or</span>
                             <hr />
@@ -105,13 +110,12 @@
                                 Login</button>
                         </div>
                         <p class="signup">
-                            Don't have an account?
-                            <a href="signup.html"
-                                style="text-decoration: underline; color: rgba(80, 55, 24, 0.8); font-weight: bold;">
+                            Don't have an account? 
+                            <a href="signup.html" style="text-decoration: underline; color: rgba(80, 55, 24, 0.8); font-weight: bold;">
                                 Sign up here
                             </a>
                         </p>
-
+                        
                     </form>
                 </div>
             </div>
@@ -123,7 +127,7 @@
 
         <!-- Login Bootstrap Modal -->
         <div class="modal fade" id="loginSuccessModal" tabindex="-1" aria-labelledby="loginSuccessModalLabel"
-            aria-hidden="true">
+            aria-hidden="true" style="background-color: #f5f1e5; color: rgba(80, 55, 24, 0.921); font-family: 'Aboreto', cursive;">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -137,7 +141,7 @@
                         </ul>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                        <button type="button" class="btn btnLogin" data-bs-dismiss="modal"
                             @click="redirect">Ok</button>
                     </div>
                 </div>
@@ -216,11 +220,40 @@
                     } catch (err) {
                         this.error = err.message; // Display error message
                         console.error("Error during login:", err);
-                        this.errorMessage = "Incorrect Email/Password."
+
                     }
                 },
 
-            
+                async registerAcc() {
+                    if (this.registerPassword !== this.confirmPassword) {
+                        this.errorMessage = "Passwords do not match.";
+                        return;
+                    }
+
+                    // Validate email format
+                    if (!this.registerEmail || !this.validateEmail(this.registerEmail)) {
+                        this.errorMessage = "Please enter a valid email address.";
+                        return;
+                    }
+
+                    try {
+                        await createUserWithEmailAndPassword(auth, this.registerEmail, this.registerPassword);
+                        const user = auth.currentUser;
+                        const userRef = doc(firestore, "users", user.uid);
+                        await setDoc(userRef, {
+                            username: this.username,
+                            email: this.registerEmail,
+                            contactNum: this.contactNum,
+                        });
+
+                        console.log("Registration successful!");
+                        const modalElement = new bootstrap.Modal(document.getElementById('registerSuccessModal'));
+                        modalElement.show();
+                    } catch (error) {
+                        this.errorMessage = error.message;
+                        console.error("Registration Error:", error);
+                    }
+                },
 
                 async googleLogin() {
                     try {
@@ -234,13 +267,14 @@
                             email: user.email,
 
                         })
+                        this.redirect()
                     } catch (error) {
                         console.error('Error during Google sign-in:', error.message);
                     }
 
                 },
-                redirect() {
-                    window.location.href = "index.html";
+                redirect(){
+                    window.location.href = "index.html";                
                 }
             }
         });

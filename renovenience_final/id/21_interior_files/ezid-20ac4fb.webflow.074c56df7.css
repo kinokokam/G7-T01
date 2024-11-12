@@ -9223,7 +9223,7 @@ body {
 }
 
 .idprojects {
-  width: auto;
+  /* width: auto; */
   height: auto;
   margin-top: 1vh;
   display: block;
