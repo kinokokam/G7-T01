@@ -237,7 +237,7 @@
             height: fit-content;
             background-color: rgba(80, 55, 24, 0.858);
             color: #f5f1e5;
-            padding: 70px 10px 70px 10px;
+            padding: 55px 10px;
             border: 2px solid #f5f1e5;
             border-radius: 30px;
         }
@@ -622,7 +622,7 @@
             <div class="container-fluid py-5 selection" style="margin-bottom: 0px;">
                 <div class="row">
                     <div class="col-12 d-flex justify-content-center mb-4">
-                        <div class="filter-selections" >
+                        <div class="filter-selections" style="width: 95%;">
                             <!-- Property Type Filter -->
                             <div class="filter-item">
                                 <label for="property-type" class="filter-label">Property Type:</label>
@@ -833,10 +833,10 @@
             articles: [
             {
                 id: 1,
-                title: 'DIY vs Interior Designer in Singapore: Which Is Best for Your Home Renovation?',
-                excerpt: 'When renovating your home, one of the first decisions you\'ll face is whether to take the DIY route or to hire a professional Interior Designer (ID).',
-                image: './assets/article1/Article1.png',
-                link: './assets/article1/Article1.htm',
+                title: 'Renovation Red Flags: What to Watch Out for When Hiring a Contractor',
+                excerpt: 'Renovating your home can be an exciting and rewarding experience. However, it can quickly turn into a nightmare if you don\'t hire the right contractor or interior designer. That\'s why in this article, we\'ll take a closer look at the renovation red flags you should be aware of.',
+                image: './assets/article20/Article20.jpg',
+                link: './assets/article20/Article20.htm',
                 },
             {
                 id: 2, 
@@ -938,38 +938,10 @@
                 },
             {
                 id: 16,
-                title: 'Common Styles of Interior Design to Inspire Your Next Project',
-                excerpt: 'Feeling inspired to change things up in your house? Here are some different interior design styles to help you out on your next project!',
-                image: './assets/article16/Article16.jpg',
-                link: './assets/article16/Article16.htm',
-                },
-            {
-                id: 17,
-                title: 'Home Office Design Ideas to Boost Productivity',
-                excerpt: '', // No excerpt provided in the HTML snippet.
-                image: './assets/article17/Article17.png',
-                link: './assets/article17/Article17.htm',
-                },
-            {
-                id: 18,
-                title: 'Essential Elements of Luxury Design for Home Interiors',
-                excerpt: '', // No excerpt provided in the HTML snippet.
-                image: './assets/article18/Article18.jpg',
-                link: './assets/article18/Article18.htm',
-                },
-            {
-                id: 19,
-                title: '5 Tips On How to Choose Interior Designer Singapore',
-                excerpt: '', // No excerpt provided in the HTML snippet.
-                image: './assets/article19/Article19.jpg',
-                link: './assets/article19/Article19.htm',
-                },
-            {
-                id: 20,
-                title: 'Renovation Red Flags: What to Watch Out for When Hiring a Contractor',
-                excerpt: 'Renovating your home can be an exciting and rewarding experience. However, it can quickly turn into a nightmare if you don\'t hire the right contractor or interior designer. That\'s why in this article, we\'ll take a closer look at the renovation red flags you should be aware of.',
-                image: './assets/article20/Article20.jpg',
-                link: './assets/article20/Article20.htm',
+                title: 'DIY vs Interior Designer in Singapore: Which Is Best for Your Home Renovation?',
+                excerpt: 'When renovating your home, one of the first decisions you\'ll face is whether to take the DIY route or to hire a professional Interior Designer (ID).',
+                image: './assets/article1/Article1.png',
+                link: './assets/article1/Article1.htm',
                 },
             ],
             projects: [],
@@ -1040,8 +1012,7 @@
                 <div class="col-12 text-center">
                     <p class="text-danger">Error loading projects. Please try again later.</p>
                     <p class="text-danger">Error details: ${error.message}</p>
-                </div>
-            `;
+                </div>`;
                 }
             }
         }
@@ -1148,12 +1119,12 @@
 
                 // Create project details string
                 const details = `
-            ${project.description},
-            ${project.size} sqm<br>
-            ${project.timeline} Month<br>
-            <strong>${project.priceStr}</strong><br>
-            Project by: <strong>${project.idCompany}</strong>
-        `;
+                    ${project.description},
+                    ${project.size} sqm<br>
+                    ${project.timeline} Month<br>
+                    <strong>${project.priceStr}</strong><br>
+                    Project by: <strong>${project.idCompany}</strong>
+                `;
                 clone.querySelector('.project-details').innerHTML = details;
 
                 // Setup carousel if project has images
