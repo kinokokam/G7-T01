@@ -1012,8 +1012,7 @@
                 <div class="col-12 text-center">
                     <p class="text-danger">Error loading projects. Please try again later.</p>
                     <p class="text-danger">Error details: ${error.message}</p>
-                </div>
-            `;
+                </div>`;
                 }
             }
         }
@@ -1120,12 +1119,12 @@
 
                 // Create project details string
                 const details = `
-            ${project.description},
-            ${project.size} sqm<br>
-            ${project.timeline} Month<br>
-            <strong>${project.priceStr}</strong><br>
-            Project by: <strong>${project.idCompany}</strong>
-        `;
+                    ${project.description},
+                    ${project.size} sqm<br>
+                    ${project.timeline} Month<br>
+                    <strong>${project.priceStr}</strong><br>
+                    Project by: <strong>${project.idCompany}</strong>
+                `;
                 clone.querySelector('.project-details').innerHTML = details;
 
                 // Setup carousel if project has images
