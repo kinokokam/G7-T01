@@ -20,7 +20,7 @@
     <link href="assets/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
     <link href="assets/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
     <link href="assets/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
-    
+    <script src="assets/js2/main.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
@@ -37,6 +37,78 @@
 
 
 <style>
+.booking-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        /* Semi-transparent black */
+        z-index: 1050;
+        /* Ensures it appears above other content */
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Custom alert box styling */
+    .alert-modal {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        width: 400px;
+        max-width: 90%;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin: auto;
+        margin-top: 20%;
+        margin-bottom: auto;
+    }
+
+    /* Alert Header */
+    .alert-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .alert-title {
+        margin: 0;
+        font-size: 1.25rem;
+        font-weight: bold;
+    }
+
+    .btn-close {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+
+    /* Alert Body */
+    .alert-body {
+        margin-top: 15px;
+    }
+
+    /* Alert Footer */
+    .alert-footer {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+
+    .alert-footer button {
+        padding: 8px 15px;
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+        border-radius: 4px;
+        background-color: #007bff;
+        color: white;
+    }
+
+    .alert-footer button:hover {
+        background-color: #0056b3;
+    }
 
 </style>
 
@@ -582,23 +654,41 @@
             <h1 class="heading">get in touch</h1>
         </section> -->
 
-    <div class="contact-in" style="display: flex; justify-content: center; padding: 50px; background-color: #f5f1e5;">
+    <div id="app" class="contact-in"
+        style="display: flex; justify-content: center; padding: 50px; background-color: #f5f1e5;">
         <h1 style="padding-right: 120px;">Drop Us A Message</h1>
         <div class="contact-form"
             style="background-color: white; padding: 30px; width: 60%; max-width: 600px; box-shadow: 0px 4px 8px rgba(126, 108, 79, 0.958); border-radius: 10px;">
-            <form action="contactme.php" method="POST" style="display: flex; flex-direction: column; gap: 20px;">
-                <input type="text" name="name" placeholder="Name" class="contact-form-txt" required
-                    style="padding: 15px; border: 1px solid #ddd; border-radius: 10px; font-size: 16px; width: 100%;">
-                <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required placeholder="Contact number"
-                    maxlength="10" class="contact-form-phone"
-                    style="padding: 15px; border: 1px solid #ddd; border-radius: 10px; font-size: 16px; width: 100%;">
-                <input type="email" name="email" placeholder="Email" class="contact-form-email" required
-                    style="padding: 15px; border: 1px solid #ddd; border-radius: 10px; font-size: 16px; width: 100%;">
-                <textarea placeholder="Your Message" name="message" class="contact-form-txtarea" required
+            <form @submit.prevent="submitForm" style="display: flex; flex-direction: column; gap: 20px;">
+                <input type="text" v-model="form.username" placeholder="Name" class="contact-form-txt" required disabled
+                    style="padding: 15px; border: 1px solid #ddd; border-radius: 10px; font-size: 16px; width: 100%;" />
+                <input type="tel" v-model="form.contactNum" pattern="[0-9]{10}" required placeholder="Contact number"
+                    disabled maxlength="10" class="contact-form-phone"
+                    style="padding: 15px; border: 1px solid #ddd; border-radius: 10px; font-size: 16px; width: 100%;" />
+                <input type="email" v-model="form.email" placeholder="Email" class="contact-form-email" required
+                    disabled
+                    style="padding: 15px; border: 1px solid #ddd; border-radius: 10px; font-size: 16px; width: 100%;" />
+                <textarea v-model="form.message" placeholder="Your Message" class="contact-form-txtarea" required
                     style="padding: 15px; border: 1px solid #ddd; border-radius: 10px; font-size: 16px; width: 100%; height: 120px;"></textarea>
-                <input type="submit" value="Submit" name="submit" class="contact-form-btn"
+                <button type="submit" class="contact-form-btn"
                     style="padding: 10px 20px; font-size: 18px; border: 1px solid #333; background-color: white; color: #333; border-radius: 25px; cursor: pointer; transition: 0.3s;">
+                    Submit
+                </button>
             </form>
+        </div>
+        <!-- Booking Create modal Box -->
+        <div v-if="showModal" class="booking-overlay">
+            <div class="alert-modal">
+                <div class="alert-header">
+                    <h5 class="alert-title">Booking Successful</h5>
+                </div>
+                <div class="alert-body">
+                    <p>Your enquiries has been successfully sent. Thank you!</p>
+                </div>
+                <div class="alert-footer">
+                    <button type="button" class="btn btn-primary" @click="closeModal">Close</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -769,28 +859,95 @@
 
         });
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.2.47"></script>
 
     <script type="module">
+
         import {
-            auth, firestore, storage,
-            onAuthStateChanged
+            auth, firestore, provider,
+            onAuthStateChanged, signOut, collection,
+            addDoc, getDocs, query, where, setDoc, doc
         } from "./src/firebase.js";
+        const app = Vue.createApp({
+            data() {
+                return {
+                    form: {
+                        username: "",
+                        email: "",
+                        contactNum: "",
+                        message: "",
+                    },
+                    user: "",
+                    showModal: false,
+                };
+            },
+            async created() {
+                onAuthStateChanged(auth, async (user) => {
+                    if (user) {
+                        this.user = user.uid;
+                        await this.fetchUserData();
+                    } else {
+                        window.location.href = "login.html";
+                        console.log("No user signed in.");
+                    }
+                });
+            },
+            methods: {
+                async fetchUserData() {
+                    // Get User by ID
+                    try {
+                        const usersCollection = collection(firestore, 'users');
+                        const q = query(usersCollection, where("__name__", "==", this.user)); // Use `__name__` to query by document ID
+                        const querySnapshot = await getDocs(q);
 
-        var currentUser;
-        window.onload = () => {
-            // Immediately check if the user is signed in when the page loads
-            currentUser = auth.currentUser;  // Get the current user immediately
+                        if (!querySnapshot.empty) {
+                            const data = querySnapshot.docs[0].data(); // Get the data from the first document
+                            console.log(data)
+                            this.form = data;
+                            return data;
+                        } else {
+                            console.log("No such document!");
+                            return null;
+                        }
+                    } catch (error) {
+                        console.error("Error getting document:", error);
+                    }
+                },
+                submitForm() {
+                    const user = auth.currentUser;
+                    const selectedDateObj = new Date(this.currentYear, this.currentMonth, this.selectedDate);
+                    try {
+                        const enquryCollection = collection(firestore, 'enquiries');
+                        const enqury = {
+                            userId: this.user,
+                            date: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' }),
+                            email:this.form.email,
+                            contactNum: this.form.contactNum,
+                            username: this.form.username,
+                            message: this.form.message,                            
+                        };
 
-            // Listen for changes in authentication state as well
-            auth.onAuthStateChanged((user) => {
-                if (user) {
-                    console.log("User signed in:", user);
-                } else {
-                    window.location.href = "login.html";                
-                    console.log("No user signed in.");
+
+                        // add data in to database
+                        addDoc(enquryCollection, enqury);
+
+                        this.showModal = true;
+                        console.log("Enquiry successfully created!");
+
+                    } catch (err) {
+                        this.error = err.message; // Display error message
+                        console.error("Error creating Enquiry:", err);
+                    }
+                },
+                closeModal(){
+                    this.showModal = false;
+
                 }
-            });
-        };
+            },
+        });
+
+        app.mount('#app');
+
     </script>
 
 
