@@ -53,6 +53,15 @@
 
     <div id="app" class="appointment-list"
         style="background-color: rgba(80, 55, 24, 0.8); padding: 40px; height: 600px;">
+
+        <!-- Alert Box -->
+        <div class="alert-overlay" id="alertOverlay" v-if="showAlertModal">
+            <div class="custom-alert" id="customAlert">
+                <div class="message">"You have to be logged in to access this page! \n Please login!"</div>
+                <button class="loginPage" id="goLogin" @click="goLogin">Go to Login</button>
+            </div>
+        </div>
+
         <div class="row mb-4">
             <div class="col-8">
                 <h1 style="font-family: 'Aboreto', cursive; color: #f5f1e5;">Your Appointments</h1>
@@ -103,11 +112,6 @@
 
 
 
-
-
-
-
-
     <script type="module">
 
         import {
@@ -124,15 +128,20 @@
                     sortOrder: "desc", // Default sort order (ascending)
                     sortApptOrder: "asc", // Default sort order (ascending)
                     filterCompany: "", // Text to filter by
+                    showAlertModal: false,
+
                 }
             },
             async created() {
                 // Set up an observer for the user's authentication state
                 onAuthStateChanged(auth, async (user) => {
-                    this.user = user.uid;
-                    await this.getBookings();
+                    if (user) {
+                        this.user = user.uid;
+                        await this.getBookings();
+                    } else {
+                        this.showAlertModal = true;
+                    }
                 });
-
             },
             methods: {
                 formatDate(dateString) {
@@ -213,6 +222,9 @@
                         return dateB - dateA;
                     });
                 },
+                goLogin() {
+                    window.location.href = "login.html";
+                }
             },
             mounted() {
                 this.getBookings()
