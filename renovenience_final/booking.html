@@ -286,16 +286,17 @@
                         <li class="nav-item"><a href="inspiration.html" style="font-size: 13px;">Inspiration</a>
                         </li>
                         <li class="nav-item"><a href="interior.html" style="font-size: 13px;">Interior Design</a></li>
-                        <li class="nav-item">
-                            <a href="profile.html" style="font-size: 13px;">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="12" cy="8" r="4" stroke="#50371851" stroke-width="1" fill="none" />
-                                    <path d="M4 20c0-4 4-7 8-7s8 3 8 7" stroke="#50371851" stroke-width="1"
-                                        fill="none" />
-                                </svg>
-                            </a>
-                        </li>
+                        <li class="nav-item" id="navLogin"><a href="login.html" style="font-size: 13px;">Login</a></li>
+						<li class="nav-item" id="navProfile">
+							<a href="profile.html" style="font-size: 13px;">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+									xmlns="http://www.w3.org/2000/svg">
+									<circle cx="12" cy="8" r="4" stroke="#50371851" stroke-width="1" fill="none" />
+									<path d="M4 20c0-4 4-7 8-7s8 3 8 7" stroke="#50371851" stroke-width="1"
+										fill="none" />
+								</svg>
+							</a>
+						</li>
                     </ul>
                 </div>
             </div>
@@ -315,7 +316,7 @@
         <!-- Alert Box -->
         <div class="alert-overlay" id="alertOverlay" v-if="showAlertModal">
             <div class="custom-alert" id="customAlert">
-                <div class="message" >"You have to be logged in to access this page! \n Please login!"</div>
+                <div class="message" >You have to be logged in to access this page! Please login!</div>
                 <button class="loginPage" id="goLogin" @click="goLogin">Go to Login</button>
             </div>
         </div>
@@ -532,10 +533,12 @@
                 onAuthStateChanged(auth, async (user) => {
                     if (user) {
                         this.user = user.uid;
+                        navLogin.style.display = "none";
                         await this.fetchUserData();
                         await this.getAllCompanies();
                     } else {
                         this.showAlertModal = true;
+                        navProfile.style.display = "none";
                         console.log("No user signed in.");
                         console.log(this.showAlertModal)
                     }

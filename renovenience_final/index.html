@@ -184,7 +184,8 @@
 						<li class="nav-item"><a href="inspiration.html" style="font-size: 13px;">Inspiration</a>
 						</li>
 						<li class="nav-item"><a href="interior.html" style="font-size: 13px;">Interior Design</a></li>
-						<li class="nav-item">
+                        <li class="nav-item" id="navLogin"><a href="login.html" style="font-size: 13px;">Login</a></li>
+						<li class="nav-item" id="navProfile">
 							<a href="profile.html" style="font-size: 13px;">
 								<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
 									xmlns="http://www.w3.org/2000/svg">
@@ -944,8 +945,10 @@
                     if (user) {
                         this.user = user.uid;
                         await this.fetchUserData();
+                        navLogin.style.display = "none";
                     } else {
-                        window.location.href = "login.html";
+                        // window.location.href = "login.html";
+                        navProfile.style.display = "none";
                         console.log("No user signed in.");
                     }
                 });

@@ -344,16 +344,17 @@
                         <li class="nav-item"><a href="inspiration.html" style="font-size: 13px;">Inspiration</a>
                         </li>
                         <li class="nav-item"><a href="interior.html" style="font-size: 13px;">Interior Design</a></li>
-                        <li class="nav-item">
-                            <a href="profile.html" style="font-size: 13px;">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="12" cy="8" r="4" stroke="#50371851" stroke-width="1" fill="none" />
-                                    <path d="M4 20c0-4 4-7 8-7s8 3 8 7" stroke="#50371851" stroke-width="1"
-                                        fill="none" />
-                                </svg>
-                            </a>
-                        </li>
+                        <li class="nav-item" id="navLogin"><a href="login.html" style="font-size: 13px;">Login</a></li>
+						<li class="nav-item" id="navProfile">
+							<a href="profile.html" style="font-size: 13px;">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+									xmlns="http://www.w3.org/2000/svg">
+									<circle cx="12" cy="8" r="4" stroke="#50371851" stroke-width="1" fill="none" />
+									<path d="M4 20c0-4 4-7 8-7s8 3 8 7" stroke="#50371851" stroke-width="1"
+										fill="none" />
+								</svg>
+							</a>
+						</li>
                     </ul>
                 </div>
             </div>
@@ -491,24 +492,15 @@
                     if (user) {
                         this.user = user.uid;
                         this.showAlertModal = false;
+                        navLogin.style.display = "none";
+                        window.open('https://cors-anywhere.herokuapp.com/', '_blank', 'width=400,height=200'); 
+
                     } else {
                         this.showAlertModal = true;
+                        navProfile.style.display = "none";
                         console.log("No user signed in.");
                     }
                 });
-
-                const lastOpened = localStorage.getItem('corsProxyLastOpened');
-                const oneHour = 60 * 60 * 1000; // One hour in milliseconds
-                const now = new Date().getTime();
-
-                if (!lastOpened || now - lastOpened > oneHour) {
-                    const proxyActivated = localStorage.getItem('corsProxyActivated');
-                    if (!proxyActivated) {
-                        window.open('https://cors-anywhere.herokuapp.com/', '_blank');
-                        localStorage.setItem('corsProxyLastOpened', now);
-                        localStorage.setItem('corsProxyActivated', true);
-                    }
-                }
             },
 
             methods: {

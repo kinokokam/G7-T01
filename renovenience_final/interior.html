@@ -134,7 +134,8 @@
             <li><a href="marketplace.html" style="font-size: 13px;">Marketplace</a></li>
             <li><a href="inspiration.html" style="font-size: 13px;">Inspiration</a></li>
             <li class="active"><a href="interior.html" style="font-size: 13px;">Interior Design</a></li>
-            <li>
+            <li id="navLogin"><a href="login.html" style="font-size: 13px;">Login</a></li>
+            <li id="navProfile">
               <a href="profile.html" style="font-size: 13px;">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="12" cy="8" r="4" stroke="#50371851" stroke-width="1" fill="none" />
@@ -243,6 +244,29 @@
       onAuthStateChanged, signOut, signInWithPopup, collection,
       addDoc, getDocs, query, where, setDoc, doc
     } from "./src/firebase.js";
+
+        var currentUser;
+        var userId;
+
+        // Immediately check if the user is signed in when the page loads
+        window.onload = () => {
+
+            // Listen for changes in authentication state as well
+            auth.onAuthStateChanged((user) => {
+                if (user) {
+					navLogin.style.display = "none";
+                    console.log("User signed in:", user);
+                    currentUser = auth.currentUser;  // Get the current user immediately
+                    userId = currentUser.uid;  // Get the user ID from the authenticated user
+                    fetchUserData();  // Proceed to fetch user data after auth is initialized
+                    getAllOrdersbyUserID(userId);
+                } else {
+					navProfile.style.display = "none";
+                    showAlert("You have to be logged in to access this page! \n Please login!")
+                    console.log("No user signed in.");
+                }
+            });
+        };
 
 
     // $(document).ready(function () {

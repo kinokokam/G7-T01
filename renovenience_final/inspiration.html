@@ -587,7 +587,7 @@
             font-family: 'Aboreto', cursive;
             font-size: 12.5px;
             font-weight: 300;
-            
+
             letter-spacing: 0.2rem;
         }
 
@@ -639,7 +639,7 @@
             flex-shrink: 0;
             /* Prevent logo shrinking */
             padding-left: 4px;
-           
+
         }
 
         .navigation-list {
@@ -691,7 +691,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="interior.html">Interior Design</a>
                         </li>
-                        <li>
+                        <li class="nav-item" id="navLogin"><a class="nav-link" href="login.html"
+                                style="font-size: 13px;">Login</a></li>
+                        <li id="navProfile">
                             <a href="profile.html" class="nav-link">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -930,26 +932,32 @@
             auth, firestore, storage,
             onAuthStateChanged, signOut, collection,
             addDoc, getDocs, query, where, setDoc, doc, updateDoc
-        } from "../src/firebase.js";
+        } from "./src/firebase.js";
 
         var currentUser;
         var userId;
+
         window.onload = () => {
+
             // Listen for changes in authentication state as well
             auth.onAuthStateChanged((user) => {
                 if (user) {
+                    navLogin.style.display = "none";
                     console.log("User signed in:", user);
                     currentUser = auth.currentUser;  // Get the current user immediately
-                    localStorage.setItem("uid", currentUser.uid);
+                    userId = currentUser.uid;  // Get the user ID from the authenticated user
+                    fetchUserData();  // Proceed to fetch user data after auth is initialized
+                    getAllOrdersbyUserID(userId);
                 } else {
+                    navProfile.style.display = "none";
                     showAlert("You have to be logged in to access this page! \n Please login!")
                     console.log("No user signed in.");
                 }
             });
         };
     </script>
-    <script>
 
+    <script>
         // Single state object to manage all application data
         const state = {
             currentVideoIndex: 0,
