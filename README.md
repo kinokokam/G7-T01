@@ -137,6 +137,8 @@ If you try to access these without logging in, you will be redirected to login.h
 For references check the last page of the slide deck. 
 ---
 
-Thank you for choosing Renovenience! We hope you enjoy a seamless experience designing your dream space. If you have any questions or need assistance, feel free to use the "Drop Me a Message" feature on our landing page.
+## GitHub Link
+https://github.com/kinokokam/G7-T01.git
 
+Thank you for choosing Renovenience! We hope you enjoy a seamless experience designing your dream space. If you have any questions or need assistance, feel free to use the "Drop Me a Message" feature on our landing page.
 
